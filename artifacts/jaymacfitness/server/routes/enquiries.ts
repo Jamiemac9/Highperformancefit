@@ -74,6 +74,30 @@ enquiriesRouter.post(
 );
 
 enquiriesRouter.get(
+  "/stats",
+  requireAuth,
+  requireTrainer,
+  async (_req, res, next) => {
+    try {
+      const grouped = await prisma.leadEnquiry.groupBy({
+        by: ["status"],
+        _count: { _all: true },
+      });
+      const counts: Record<string, number> = { NEW: 0, CONTACTED: 0, CONVERTED: 0, LOST: 0 };
+      let total = 0;
+      for (const g of grouped) {
+        counts[g.status] = g._count._all;
+        total += g._count._all;
+      }
+      const conversionRate = total > 0 ? Math.round((counts.CONVERTED / total) * 100) : 0;
+      res.json({ total, counts, conversionRate });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+enquiriesRouter.get(
   "/",
   requireAuth,
   requireTrainer,
@@ -204,7 +228,16 @@ enquiriesRouter.post(
         },
         emailSent: true,
       });
-    } catch (err) {
+    } catch (err: any) {
+      // Concurrent conversion racing on the same email — return deterministic 409
+      if (err?.code === "P2002") {
+        return res
+          .status(409)
+          .json({ error: "A user with this email already exists (concurrent conversion)" });
+      }
+      if (err?.code === "P2025") {
+        return res.status(404).json({ error: "Enquiry not found" });
+      }
       next(err);
     }
   }
