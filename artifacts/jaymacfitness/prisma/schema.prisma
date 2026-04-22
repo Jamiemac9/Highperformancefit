@@ -42,19 +42,21 @@ model User {
 }
 
 model ClientProfile {
-  id           String       @id @default(cuid())
-  userId       String       @unique
-  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  firstName    String
-  lastName     String
-  phone        String?
-  dob          DateTime?
-  goals        String?
-  medicalNotes String?
-  joinedAt     DateTime     @default(now())
-  status       ClientStatus @default(PROSPECT)
-  sessions     Session[]
-  bookings     Booking[]
+  id               String       @id @default(cuid())
+  userId           String       @unique
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName        String
+  lastName         String
+  phone            String?
+  dob              DateTime?
+  goals            String?
+  medicalNotes     String?
+  emergencyContact String?
+  progressNote     String?
+  joinedAt         DateTime     @default(now())
+  status           ClientStatus @default(PROSPECT)
+  sessions         Session[]
+  bookings         Booking[]
 }
 
 model Session {
@@ -67,7 +69,22 @@ model Session {
   duration  Int
   type      SessionType   @default(GYM)
   notes     String?
+  cancelled Boolean       @default(false)
   completed Boolean       @default(false)
+  slot      TrainerAvailability?
+}
+
+model TrainerAvailability {
+  id         String      @id @default(cuid())
+  date       DateTime
+  duration   Int         @default(60)
+  type       SessionType @default(GYM)
+  isBooked   Boolean     @default(false)
+  sessionId  String?     @unique
+  session    Session?    @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  createdAt  DateTime    @default(now())
+
+  @@index([date])
 }
 
 model Package {
