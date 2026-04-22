@@ -13,7 +13,14 @@ Full-stack web app for personal trainer Jay Mac: bold dark/lime marketing site a
 ### Public (marketing Layout)
 - `/` — landing (9 sections; submits to `/api/enquiries`)
 - `/login`, `/register`
-- `/portal` — client portal (CLIENT role)
+
+### Client portal (`PortalLayout`, sidebar desktop / bottom nav mobile, CLIENT role)
+- `/portal` → redirects to `/portal/dashboard`
+- `/portal/dashboard` — welcome, sessions-remaining hero, active packages, upcoming sessions, latest progress note from trainer
+- `/portal/sessions` — full sessions history; status filter tabs (All / Upcoming / Completed / Cancelled); table desktop + cards mobile
+- `/portal/book` — week-grid availability (prev/next week); confirm modal; blocks if 0 sessions remaining
+- `/portal/packages` — 3-card layout, middle card highlighted; Stripe placeholder banner; confirm modal
+- `/portal/profile` — edit personal details, training goal, emergency contact; email field locked
 
 ### Trainer dashboard (`DashboardLayout`, sidebar desktop / bottom nav mobile)
 - `/dashboard` — summary home (stats, upcoming sessions, recent leads, client breakdown)
@@ -32,8 +39,16 @@ Legacy `/clients`, `/clients/:id`, `/sessions`, `/packages`, `/bookings`, `/lead
 - `DELETE /api/enquiries/:id`
 - Legacy `/api/leads` — entire router is now trainer-only (public POST removed; use `/api/enquiries` instead)
 
+### Client portal API
+- `GET  /api/me/summary` — clients only; returns `{ profile, sessionsRemaining, activeBookings[], upcoming[] }`
+- `GET  /api/me/profile`, `PATCH /api/me/profile` — clients only; safe field allow-list
+- `GET  /api/slots?from=&to=` — auth required; clients are forced to the unbooked-only view (the `includeBooked=true` flag is honoured for trainers only)
+- `POST /api/slots`, `POST /api/slots/bulk`, `DELETE /api/slots/:id` — trainer only
+- `POST /api/bookings/purchase { packageId }` — clients only; Stripe placeholder. Without `STRIPE_SECRET_KEY` the route returns 503 in production and only succeeds (with a warning) in dev. Replace with a webhook-verified flow before handling real money.
+- `POST /api/bookings/session { slotId }` — clients only; runs entirely inside one Prisma transaction. Slot is locked via conditional `updateMany({ id, isBooked:false })` and credits are decremented FIFO by re-querying the oldest active booking inside the tx (loops up to 5 attempts so concurrent requests fall through to the next eligible booking instead of falsely 409-ing).
+
 ## Models (Prisma)
-`User`, `ClientProfile`, `Session`, `Package`, `Booking`, `LeadEnquiry` (note, convertedClientId, source default `"website"`, updatedAt).
+`User`, `ClientProfile` (+ `emergencyContact`, `progressNote`), `Session` (+ `cancelled`), `Package`, `Booking`, `LeadEnquiry` (note, convertedClientId, source default `"website"`, updatedAt), `TrainerAvailability` (date, duration, type, isBooked, sessionId unique).
 
 ## Required env
 `DATABASE_URL`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, `SESSION_SECRET`, `API_PORT` (default 5050). JWT secrets are required at startup — no defaults.

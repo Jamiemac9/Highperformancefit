@@ -9,6 +9,8 @@ import { bookingsRouter } from "./routes/bookings.js";
 import { leadsRouter } from "./routes/leads.js";
 import { enquiriesRouter } from "./routes/enquiries.js";
 import { dashboardRouter } from "./routes/dashboard.js";
+import { slotsRouter } from "./routes/slots.js";
+import { meRouter } from "./routes/me.js";
 
 const app = express();
 const PORT = Number(process.env.PORT || process.env.API_PORT || 5050);
@@ -28,6 +30,8 @@ app.use("/api/bookings", bookingsRouter);
 app.use("/api/leads", leadsRouter);
 app.use("/api/enquiries", enquiriesRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/slots", slotsRouter);
+app.use("/api/me", meRouter);
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);

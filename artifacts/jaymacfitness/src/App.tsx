@@ -6,6 +6,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Layout } from "./components/layout";
 import { DashboardLayout } from "./components/dashboard-layout";
+import { PortalLayout } from "./components/portal-layout";
 
 import Landing from "./pages/landing";
 import Login from "./pages/login";
@@ -17,7 +18,11 @@ import Sessions from "./pages/sessions";
 import Packages from "./pages/packages";
 import Bookings from "./pages/bookings";
 import DashboardLeads from "./pages/dashboard-leads";
-import Portal from "./pages/portal";
+import PortalDashboard from "./pages/portal-dashboard";
+import PortalSessions from "./pages/portal-sessions";
+import PortalBook from "./pages/portal-book";
+import PortalPackages from "./pages/portal-packages";
+import PortalProfile from "./pages/portal-profile";
 import NotFound from "./pages/not-found";
 
 function LegacyClientRedirect() {
@@ -56,8 +61,17 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
-                <Route element={<ProtectedRoute role="CLIENT" />}>
-                  <Route path="portal" element={<Portal />} />
+              </Route>
+
+              {/* Client portal */}
+              <Route element={<ProtectedRoute role="CLIENT" />}>
+                <Route path="/portal" element={<PortalLayout />}>
+                  <Route index element={<Navigate to="/portal/dashboard" replace />} />
+                  <Route path="dashboard" element={<PortalDashboard />} />
+                  <Route path="sessions" element={<PortalSessions />} />
+                  <Route path="book" element={<PortalBook />} />
+                  <Route path="packages" element={<PortalPackages />} />
+                  <Route path="profile" element={<PortalProfile />} />
                 </Route>
               </Route>
 
