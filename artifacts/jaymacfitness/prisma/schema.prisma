@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  TRAINER
+  CLIENT
+}
+
+enum ClientStatus {
+  ACTIVE
+  INACTIVE
+  PROSPECT
+}
+
+enum SessionType {
+  GYM
+  ONLINE
+  OUTDOOR
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CONVERTED
+  LOST
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(CLIENT)
+  createdAt     DateTime       @default(now())
+  clientProfile ClientProfile?
+  trainerSessions Session[]    @relation("TrainerSessions")
+}
+
+model ClientProfile {
+  id           String       @id @default(cuid())
+  userId       String       @unique
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName    String
+  lastName     String
+  phone        String?
+  dob          DateTime?
+  goals        String?
+  medicalNotes String?
+  joinedAt     DateTime     @default(now())
+  status       ClientStatus @default(PROSPECT)
+  sessions     Session[]
+  bookings     Booking[]
+}
+
+model Session {
+  id        String        @id @default(cuid())
+  clientId  String
+  client    ClientProfile @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  trainerId String
+  trainer   User          @relation("TrainerSessions", fields: [trainerId], references: [id])
+  date      DateTime
+  duration  Int
+  type      SessionType   @default(GYM)
+  notes     String?
+  completed Boolean       @default(false)
+}
+
+model Package {
+  id          String    @id @default(cuid())
+  name        String
+  sessions    Int
+  price       Decimal   @db.Decimal(10, 2)
+  description String?
+  bookings    Booking[]
+}
+
+model Booking {
+  id                String        @id @default(cuid())
+  clientId          String
+  client            ClientProfile @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  packageId         String
+  package           Package       @relation(fields: [packageId], references: [id])
+  purchasedAt       DateTime      @default(now())
+  sessionsRemaining Int
+}
+
+model LeadEnquiry {
+  id        String     @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  source    String?
+  createdAt DateTime   @default(now())
+  status    LeadStatus @default(NEW)
+}

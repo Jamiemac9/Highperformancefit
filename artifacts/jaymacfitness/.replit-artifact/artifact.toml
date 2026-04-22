@@ -1,0 +1,46 @@
+kind = "web"
+previewPath = "/"
+title = "JayMacFitness"
+version = "1.0.0"
+id = "artifacts/jaymacfitness"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20026
+
+[services.development]
+run = "pnpm --filter @workspace/jaymacfitness run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jaymacfitness", "run", "build" ]
+publicDir = "artifacts/jaymacfitness/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20026"
+BASE_PATH = "/"
+
+[[services]]
+name = "api"
+paths = [ "/api" ]
+localPort = 5050
+
+[services.development]
+run = "pnpm --filter @workspace/jaymacfitness run server:dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jaymacfitness", "run", "prisma:generate" ]
+run = "pnpm --filter @workspace/jaymacfitness run server:start"
+
+[services.env]
+PORT = "5050"
