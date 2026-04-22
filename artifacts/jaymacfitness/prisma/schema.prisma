@@ -90,12 +90,15 @@ model Booking {
 }
 
 model LeadEnquiry {
-  id        String     @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  message   String
-  source    String?
-  createdAt DateTime   @default(now())
-  status    LeadStatus @default(NEW)
+  id          String     @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  message     String
+  source      String?    @default("website")
+  note        String?
+  convertedClientId String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  status      LeadStatus @default(NEW)
 }
