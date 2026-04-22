@@ -24,6 +24,7 @@ app.use("/api/sessions", sessionsRouter);
 app.use("/api/packages", packagesRouter);
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/leads", leadsRouter);
+app.use("/api/enquiries", leadsRouter);
 app.use("/api/dashboard", dashboardRouter);
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
