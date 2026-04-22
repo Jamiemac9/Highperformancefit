@@ -1,0 +1,52 @@
+Prompt 2 
+
+Build the public-facing landing page at the / route in the React frontend. This is the primary marketing and conversion page for the personal training business.
+
+Design brief:
+- Bold, athletic aesthetic. Dark background (#0A0A0A), electric lime green accent (#C8FF00), white text.
+- Typography: Use Google Fonts — "Bebas Neue" for headings, "DM Sans" for body.
+- Fully responsive (mobile-first).
+- Smooth scroll behaviour throughout.
+- Subtle animated entrance effects using CSS keyframes (no heavy libraries).
+
+Sections to build (in order):
+
+1. **Hero Section**
+   - Full-viewport height
+   - Headline: "RESULTS. NOT EXCUSES." in huge Bebas Neue
+   - Sub-headline: "Personal training in Birmingham — online and in-person"
+   - Two CTA buttons: "Book a Free Consultation" (primary) + "View Packages" (secondary)
+   - Background: dark with a subtle noise/grain texture overlay via CSS
+
+2. **Social Proof Bar**
+   - Horizontal strip with 3 stats: "100+ Clients Trained", "4.9★ Average Rating", "13 Years Experience"
+   - Background: lime green, black text
+
+3. **Services Section**
+   - Three cards: 1-2-1 Personal Training, Online Coaching, Group Training
+   - Each card has an icon, title, short description, and a "Learn More" anchor
+
+4. **How It Works**
+   - Numbered step-by-step: Free Consultation → Personalised Plan → Train & Track → Get Results
+   - Alternating layout (icon left/right) on desktop
+
+5. **Packages Section**
+   - Pull packages from GET /api/packages
+   - Display as pricing cards with session count, price, and a "Get Started" CTA that opens the enquiry modal
+
+6. **Testimonials**
+   - Three static testimonials in quote card format
+   - Rotating carousel on mobile
+
+7. **FAQ Section**
+   - 6 FAQs as an accordion (expand/collapse)
+   - Questions: What areas do you cover? South and central Birmingham, Do you offer online training? How do I get started? What should I bring to a session? Are nutrition plans included? How do I pay?
+
+8. **Lead Capture / Contact Section**
+   - Form fields: Name, Email, Phone, Goal (dropdown: Lose Weight, Build Muscle, Improve Fitness, Sport Specific, Other), Message
+   - On submit: POST /api/enquiries, show success message, no page reload
+   - Include a Google Maps embed placeholder (Foundry Gym Kings Heath) 
+
+9. **Footer**
+   - Logo/name, nav links, social icons (Instagram @jaymacjm, Facebook @Jay PT,), © 2026 
+
