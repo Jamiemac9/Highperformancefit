@@ -1,0 +1,41 @@
+Continue building the Jay Mac Fitness landing page. Do not touch anything already built.
+
+SECTION: PROOF BAR (id="proof")
+Full-width strip. Background: linear-gradient(135deg, #112240, #0D1B2A). Border top and bottom: 1px solid rgba(30,144,255,0.2).
+Four stat blocks in a row (2x2 on mobile). Each: big number in Barlow Condensed 900 italic blue (68px), label in Barlow 600 white (13px uppercase tracking-wider).
+Stats:
+- "13+" / "Years Experience"
+- "200+" / "Clients Transformed"  
+- "100+" / "Five-Star Reviews"
+- "3" / "Training Formats"
+Between each stat on desktop: a 1px vertical divider in rgba(30,144,255,0.3)
+Animate numbers counting up from 0 when section enters viewport (IntersectionObserver + JS counter, duration 1.5s ease-out)
+
+SECTION: WHAT I DO (id="services")
+Background: #0A1628
+Section header — centred:
+  - Small blue label: "THE SERVICE"
+  - Headline (Barlow Condensed 900 italic, 64px white): "HOW WE TRAIN TOGETHER"
+  - Subline (Inter 16px, #C8D8E8): "In the gym. Outside. Online. No matter where you are — there's no excuse not to start."
+
+Four service cards in a 2x2 grid (single column on mobile). Each card:
+  Background: #112240, border: 1px solid #1A3A5C, border-radius: 4px, padding: 32px
+  On hover: border-color transitions to rgba(30,144,255,0.6), box-shadow 0 8px 32px rgba(30,144,255,0.12)
+  Top: a number in Barlow Condensed 900 italic, 48px, blue, opacity 0.4 — "01", "02", "03", "04"
+  Title (Barlow 700, 22px, white): 
+  Body (Inter 15px, #C8D8E8, line-height 1.65):
+  Bottom CTA link: "Find Out More →" in blue, Barlow 700, 14px
+
+Card 1: "1-2-1 Personal Training"
+  Body: "You get my full attention. Every session is built around you — your body, your pace, your goals. No programme pulled from a shelf. If it doesn't challenge you, it changes."
+
+Card 2: "Group Training"
+  Body: "Accountability multiplied. My small-group sessions bring the intensity of personal training with the energy of a team around you. Cheaper than 1-2-1. More powerful than a gym class."
+
+Card 3: "Outdoor Training"
+  Body: "Fresh air, no machines, zero excuses. Outdoor sessions use your environment as the gym. It's harder, it's different, and it works when the walls of a gym start feeling like a cage."
+
+Card 4: "Online Coaching"
+  Body: "Time zones don't matter. If you have a phone and 45 minutes, I can train you. Custom plans, video check-ins, and a WhatsApp line to me directly. I've transformed clients in five countries."
+
+All four cards get class="reveal" for scroll-in animation with staggered delay.

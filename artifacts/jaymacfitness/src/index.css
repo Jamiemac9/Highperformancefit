@@ -516,3 +516,38 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Nav link hover — colour shift + sliding blue underline */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--brand-blue);
+  transition: right 0.25s ease;
+}
+.nav-link:hover {
+  color: #FFFFFF !important;
+}
+.nav-link:hover::after {
+  right: 0;
+}
+
+/* Hero scroll-cue chevron — gentle infinite bounce */
+@keyframes heroBounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.85; }
+  50%      { transform: translate(-50%, 10px); opacity: 1; }
+}
+.hero-chevron {
+  animation: heroBounce 1.8s ease-in-out infinite;
+  display: inline-flex;
+}
+.hero-chevron:hover {
+  color: #4DAAFF !important;
+}

@@ -93,8 +93,12 @@ export default function Landing() {
     <div className="font-body bg-[#0A0A0A] text-white min-h-screen overflow-x-hidden">
       <Nav />
       <Hero />
+      {/* Anchor target for the hero "See Real Results ↓" ghost button */}
+      <div id="results" aria-hidden="true" />
       <SocialProof />
       <Services />
+      {/* Anchor target for the nav "About" link — points at the process section */}
+      <div id="about" aria-hidden="true" />
       <HowItWorks />
       <Packages packages={packages} />
       <Testimonials />
@@ -108,125 +112,345 @@ export default function Landing() {
 function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when mobile drawer is open — preserve and restore prior value
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
   const links = [
+    { href: "#about", label: "About" },
     { href: "#services", label: "Services" },
-    { href: "#how", label: "How It Works" },
+    { href: "#results", label: "Results" },
     { href: "#packages", label: "Packages" },
     { href: "#faq", label: "FAQ" },
-    { href: "#contact", label: "Contact" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#0A0A0A]/95 backdrop-blur border-b border-white/5" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={
+        scrolled
+          ? {
+              backgroundColor: "rgba(10,22,40,0.92)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              borderBottom: "1px solid rgba(30,144,255,0.2)",
+            }
+          : { backgroundColor: "transparent" }
+      }
     >
-      <div className="container mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
-        <a href="#top" className="font-display text-2xl md:text-3xl tracking-wider text-white">
-          JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+      <div className="container mx-auto px-4 md:px-6 h-16 lg:h-20 flex items-center justify-between">
+        {/* Logo */}
+        <a href="#top" className="flex items-center gap-2 shrink-0" aria-label="Jay Mac Fitness — Home">
+          {!logoFailed ? (
+            <img
+              src="/images/logo.png"
+              alt="Jay Mac Fitness"
+              style={{ height: "36px", width: "auto" }}
+              onError={() => setLogoFailed(true)}
+            />
+          ) : (
+            <span
+              className="text-xl md:text-2xl tracking-wider text-white font-bold italic"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900 }}
+            >
+              JAYMAC<span style={{ color: "var(--brand-blue, #1E90FF)" }}>FITNESS</span>
+            </span>
+          )}
         </a>
-        <nav className="hidden md:flex items-center gap-8">
+
+        {/* Desktop nav links */}
+        <nav className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-white/70 hover:text-[#C8FF00] transition-colors">
+            <a
+              key={l.href}
+              href={l.href}
+              className="nav-link relative text-[13px] uppercase tracking-widest transition-colors"
+              style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, color: "#C8D8E8" }}
+            >
               {l.label}
             </a>
           ))}
-          <Link to="/login" className="text-sm font-medium text-white/70 hover:text-[#C8FF00] transition-colors">
+        </nav>
+
+        {/* Right cluster */}
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <Link
+            to="/login"
+            className="text-[13px] uppercase tracking-widest transition-colors hover:text-white"
+            style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 600, color: "#C8D8E8" }}
+          >
+            Login
+          </Link>
+          <a href="#contact" className="btn-primary" style={{ padding: "12px 24px", fontSize: "13px" }}>
+            Free Consultation
+          </a>
+        </div>
+
+        {/* Mobile / tablet hamburger */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="lg:hidden p-2 text-white relative z-50"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {/* Mobile / tablet drawer — animated max-height */}
+      <div
+        id="mobile-menu"
+        className="lg:hidden overflow-hidden transition-[max-height] duration-300 ease-out"
+        style={{
+          maxHeight: open ? "70vh" : "0px",
+          backgroundColor: "rgba(10,22,40,0.98)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+        }}
+      >
+        <nav className="container mx-auto px-4 py-2 flex flex-col">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="py-4 text-base uppercase tracking-widest text-white"
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontWeight: 600,
+                borderBottom: "1px solid rgba(30,144,255,0.2)",
+              }}
+            >
+              {l.label}
+            </a>
+          ))}
+          <Link
+            to="/login"
+            onClick={() => setOpen(false)}
+            className="py-4 text-base uppercase tracking-widest text-white"
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 600,
+              borderBottom: "1px solid rgba(30,144,255,0.2)",
+            }}
+          >
             Login
           </Link>
           <a
             href="#contact"
-            className="bg-[#C8FF00] text-black font-bold px-5 py-2.5 rounded-full text-sm hover:scale-105 transition-transform"
+            onClick={() => setOpen(false)}
+            className="btn-primary mt-4 mb-4 w-full text-center"
+            style={{ padding: "14px 24px" }}
           >
             Book Free Consult
           </a>
         </nav>
-        <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-white" aria-label="Menu">
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
-      {open && (
-        <div className="md:hidden bg-[#0A0A0A] border-t border-white/5 animate-fade-in">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="py-3 px-2 text-base text-white/80 hover:text-[#C8FF00] hover:bg-white/5 rounded transition-colors"
-              >
-                {l.label}
-              </a>
-            ))}
-            <Link to="/login" onClick={() => setOpen(false)} className="py-3 px-2 text-base text-white/80 hover:text-[#C8FF00] hover:bg-white/5 rounded transition-colors">
-              Login
-            </Link>
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="mt-2 bg-[#C8FF00] text-black font-bold px-5 py-3 rounded-full text-base text-center"
-            >
-              Book Free Consult
-            </a>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
 
 function Hero() {
+  const [heroImgFailed, setHeroImgFailed] = useState(false);
+  // Fallback to the existing portrait image if hero-training.jpg isn't uploaded yet
+  const heroImgSrc = heroImgFailed ? "/images/jay-portrait.jpeg" : "/images/hero-training.jpg";
+
   return (
-    <section id="top" className="relative min-h-screen flex items-center bg-[#0A0A0A] bg-noise pt-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0A0A] pointer-events-none" />
-      <div className="absolute top-1/3 -right-32 w-96 h-96 bg-[#C8FF00]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 -left-32 w-96 h-96 bg-[#C8FF00]/5 rounded-full blur-3xl pointer-events-none" />
+    <section
+      id="top"
+      className="relative w-full overflow-hidden"
+      style={{ minHeight: "100dvh", backgroundColor: "var(--brand-navy, #0D1B2A)" }}
+    >
+      {/* Mobile-only background image with overlay */}
+      <div className="absolute inset-0 lg:hidden pointer-events-none">
+        <img
+          src={heroImgSrc}
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover opacity-40"
+          onError={() => !heroImgFailed && setHeroImgFailed(true)}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0.92) 60%, rgba(13,27,42,1) 100%)",
+          }}
+        />
+      </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 py-20">
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 md:mb-8 animate-fade-in">
-            <span className="h-2 w-2 rounded-full bg-[#C8FF00] animate-pulse" />
-            <span className="text-xs md:text-sm text-white/80 font-medium">Now booking — April 2026 spaces</span>
-          </div>
-
-          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-[0.9] tracking-tight text-white animate-fade-up">
-            RESULTS.
-            <br />
-            <span className="text-[#C8FF00]">NOT EXCUSES.</span>
-          </h1>
-
-          <p className="mt-6 md:mt-8 text-lg md:text-2xl text-white/70 max-w-2xl animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            Personal training in Birmingham — online and in-person. Built for people who are done starting over.
+      <div
+        className="relative z-10 container mx-auto px-4 md:px-6 grid lg:grid-cols-[55fr_45fr] gap-8 lg:gap-12 items-center"
+        style={{ minHeight: "100dvh", paddingTop: "96px", paddingBottom: "64px" }}
+      >
+        {/* LEFT — text */}
+        <div className="flex flex-col justify-center">
+          <p
+            className="fade-up uppercase mb-5 md:mb-6"
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 600,
+              fontSize: "13px",
+              letterSpacing: "0.18em",
+              color: "var(--brand-blue, #1E90FF)",
+            }}
+          >
+            Personal Training · UK &amp; Worldwide
           </p>
 
-          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+          <h1
+            className="fade-up delay-1 text-white"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 900,
+              fontStyle: "italic",
+              fontSize: "clamp(58px, 9vw, 88px)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.01em",
+              textTransform: "uppercase",
+            }}
+          >
+            The person<br />
+            you want<br />
+            to become<br />
+            <span style={{ color: "var(--brand-blue, #1E90FF)" }}>exists.</span>
+          </h1>
+
+          <p
+            className="fade-up delay-2 mt-6 md:mt-8"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "#C8D8E8",
+              maxWidth: "480px",
+            }}
+          >
+            13 years. 200+ transformations. One trainer who actually gives a damn about your results — in the gym, online, or anywhere in the world.
+          </p>
+
+          <div className="fade-up delay-3 mt-8 flex flex-wrap items-center" style={{ gap: "16px" }}>
             <a
               href="#contact"
-              className="group bg-[#C8FF00] text-black font-bold text-base md:text-lg px-8 py-4 rounded-full hover:scale-[1.02] transition-transform inline-flex items-center justify-center gap-2 animate-pulse-glow"
+              className="btn-primary inline-flex items-center justify-center"
+              style={{ padding: "16px 32px", fontSize: "15px" }}
             >
-              Book a Free Consultation
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              Start Your Transformation
             </a>
             <a
-              href="#packages"
-              className="border-2 border-white/20 text-white font-bold text-base md:text-lg px-8 py-4 rounded-full hover:border-[#C8FF00] hover:text-[#C8FF00] transition-colors inline-flex items-center justify-center"
+              href="#results"
+              className="btn-ghost inline-flex items-center justify-center gap-2"
+              style={{ padding: "16px 28px", fontSize: "15px" }}
             >
-              View Packages
+              See Real Results
+              <ChevronDown className="h-4 w-4" />
             </a>
+          </div>
+
+          <ul
+            className="fade-up delay-4 mt-8 flex flex-wrap items-center"
+            style={{
+              gap: "24px",
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "13px",
+              color: "#C8D8E8",
+              listStyle: "none",
+              padding: 0,
+            }}
+          >
+            {[
+              "Free first consultation",
+              "No contracts",
+              "100+ five-star reviews",
+            ].map((item) => (
+              <li key={item} className="inline-flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4" style={{ color: "var(--brand-blue, #1E90FF)" }} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* RIGHT — image area (desktop only; mobile uses background above) */}
+        <div className="hidden lg:flex items-center justify-center fade-up delay-2">
+          <div className="relative w-full" style={{ aspectRatio: "4 / 5", maxWidth: "520px" }}>
+            {/* Floating blue glow behind image */}
+            <div
+              aria-hidden="true"
+              className="absolute pointer-events-none"
+              style={{
+                width: "600px",
+                height: "600px",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                background:
+                  "radial-gradient(circle, rgba(30,144,255,0.25) 0%, rgba(30,144,255,0) 70%)",
+                zIndex: 0,
+              }}
+            />
+            <div
+              className="relative w-full h-full overflow-hidden"
+              style={{
+                backgroundColor: "#112240",
+                border: "1px solid rgba(30,144,255,0.3)",
+                borderRadius: "4px",
+                zIndex: 1,
+              }}
+            >
+              {!heroImgFailed || heroImgSrc !== "/images/hero-training.jpg" ? (
+                <img
+                  src={heroImgSrc}
+                  alt="Jay Mac in personal training session"
+                  className="w-full h-full object-cover"
+                  style={{ borderRadius: "4px" }}
+                  onError={() => !heroImgFailed && setHeroImgFailed(true)}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-center px-6">
+                  <span
+                    style={{
+                      fontFamily: "'Barlow', sans-serif",
+                      fontWeight: 600,
+                      fontSize: "13px",
+                      letterSpacing: "0.18em",
+                      color: "rgba(200,216,232,0.6)",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Hero image — upload /images/hero-training.jpg
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <a href="#proof" className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 hover:text-[#C8FF00] transition-colors hidden md:block">
-        <ChevronDown className="h-6 w-6 animate-bounce" />
+      {/* Bouncing chevron — scrolls to #proof */}
+      <a
+        href="#proof"
+        aria-label="Scroll to social proof"
+        className="hero-chevron absolute left-1/2 -translate-x-1/2 z-10"
+        style={{ bottom: "24px", color: "var(--brand-blue, #1E90FF)" }}
+      >
+        <ChevronDown className="h-7 w-7" />
       </a>
     </section>
   );
