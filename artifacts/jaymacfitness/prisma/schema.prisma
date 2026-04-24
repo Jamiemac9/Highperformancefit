@@ -31,6 +31,12 @@ enum LeadStatus {
   LOST
 }
 
+enum PackageType {
+  IN_PERSON
+  ONLINE
+  GROUP
+}
+
 model User {
   id            String         @id @default(cuid())
   email         String         @unique
@@ -88,12 +94,17 @@ model TrainerAvailability {
 }
 
 model Package {
-  id          String    @id @default(cuid())
-  name        String
-  sessions    Int
-  price       Decimal   @db.Decimal(10, 2)
-  description String?
-  bookings    Booking[]
+  id              String      @id @default(cuid())
+  name            String      @unique
+  type            PackageType @default(IN_PERSON)
+  sessions        Int
+  price           Decimal     @db.Decimal(10, 2)
+  pricePerSession Decimal?    @db.Decimal(10, 2)
+  description     String?
+  highlights      String[]    @default([])
+  isActive        Boolean     @default(true)
+  featured        Boolean     @default(false)
+  bookings        Booking[]
 }
 
 model Booking {
