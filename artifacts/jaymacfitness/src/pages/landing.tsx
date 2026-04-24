@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiGet, apiPost } from "../lib/api";
 import {
-  Dumbbell,
-  Laptop,
-  Users,
   ArrowRight,
   ChevronDown,
   Star,
@@ -24,27 +21,6 @@ import {
 } from "lucide-react";
 
 type Pkg = { id: string; name: string; sessions: number; price: string; description?: string };
-
-const SERVICES = [
-  {
-    icon: Dumbbell,
-    title: "1-2-1 Personal Training",
-    desc: "Focused, hands-on coaching at Foundry Gym Kings Heath. Built around your body, your goals, your pace.",
-    href: "#packages",
-  },
-  {
-    icon: Laptop,
-    title: "Online Coaching",
-    desc: "Custom programming, video form checks and weekly accountability — train anywhere with a coach in your pocket.",
-    href: "#packages",
-  },
-  {
-    icon: Users,
-    title: "Group Training",
-    desc: "High-energy small group sessions. Push harder with people who push back. Limited spaces each week.",
-    href: "#contact",
-  },
-];
 
 const STEPS = [
   { icon: Calendar, title: "Free Consultation", desc: "Tell me your goals, training history and what's held you back. No pressure, just a conversation." },
@@ -456,20 +432,122 @@ function Hero() {
   );
 }
 
+function useCountUp(target: number, durationMs = 1500) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    let rafId = 0;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting || startedRef.current) return;
+          startedRef.current = true;
+          obs.disconnect();
+
+          if (reduceMotion) {
+            setValue(target);
+            return;
+          }
+          const start = performance.now();
+          const tick = (now: number) => {
+            const t = Math.min(1, (now - start) / durationMs);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - t, 3);
+            setValue(Math.round(target * eased));
+            if (t < 1) rafId = requestAnimationFrame(tick);
+            else setValue(target);
+          };
+          rafId = requestAnimationFrame(tick);
+        });
+      },
+      { threshold: 0.4 },
+    );
+    obs.observe(el);
+    return () => {
+      obs.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [target, durationMs]);
+
+  return { ref, value };
+}
+
+function ProofStat({
+  target,
+  suffix = "",
+  label,
+}: {
+  target: number;
+  suffix?: string;
+  label: string;
+}) {
+  const { ref, value } = useCountUp(target);
+  return (
+    <div className="flex flex-col items-center justify-center text-center px-4 py-2">
+      <span
+        ref={ref}
+        style={{
+          fontFamily: "'Barlow Condensed', sans-serif",
+          fontStyle: "italic",
+          fontWeight: 900,
+          fontSize: "clamp(48px, 7vw, 68px)",
+          lineHeight: 1,
+          color: "var(--brand-blue, #1E90FF)",
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {value}
+        {suffix}
+      </span>
+      <span
+        className="mt-2 uppercase text-white"
+        style={{
+          fontFamily: "'Barlow', sans-serif",
+          fontWeight: 600,
+          fontSize: "13px",
+          letterSpacing: "0.12em",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function SocialProof() {
   const stats = [
-    { value: "100+", label: "Clients Trained" },
-    { value: "4.9★", label: "Average Rating" },
-    { value: "13", label: "Years Experience" },
+    { target: 13, suffix: "+", label: "Years Experience" },
+    { target: 200, suffix: "+", label: "Clients Transformed" },
+    { target: 100, suffix: "+", label: "Five-Star Reviews" },
+    { target: 3, suffix: "", label: "Training Formats" },
   ];
   return (
-    <section id="proof" className="bg-[#C8FF00] text-black py-6 md:py-8 border-y-4 border-black">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-3 gap-4 md:gap-12 text-center">
-          {stats.map((s) => (
-            <div key={s.label} className="flex flex-col">
-              <span className="font-display text-3xl md:text-5xl leading-none">{s.value}</span>
-              <span className="text-xs md:text-sm font-bold uppercase tracking-wider mt-1">{s.label}</span>
+    <section
+      id="proof"
+      className="w-full"
+      style={{
+        background: "linear-gradient(135deg, #112240 0%, #0D1B2A 100%)",
+        borderTop: "1px solid rgba(30,144,255,0.2)",
+        borderBottom: "1px solid rgba(30,144,255,0.2)",
+      }}
+    >
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={i > 0 ? "lg:border-l" : ""}
+              style={i > 0 ? { borderColor: "rgba(30,144,255,0.3)" } : undefined}
+            >
+              <ProofStat target={s.target} suffix={s.suffix} label={s.label} />
             </div>
           ))}
         </div>
@@ -504,36 +582,157 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
+const WHAT_I_DO = [
+  {
+    title: "1-2-1 Personal Training",
+    body:
+      "You get my full attention. Every session is built around you — your body, your pace, your goals. No programme pulled from a shelf. If it doesn't challenge you, it changes.",
+    href: "#packages",
+  },
+  {
+    title: "Group Training",
+    body:
+      "Accountability multiplied. My small-group sessions bring the intensity of personal training with the energy of a team around you. Cheaper than 1-2-1. More powerful than a gym class.",
+    href: "#packages",
+  },
+  {
+    title: "Outdoor Training",
+    body:
+      "Fresh air, no machines, zero excuses. Outdoor sessions use your environment as the gym. It's harder, it's different, and it works when the walls of a gym start feeling like a cage.",
+    href: "#contact",
+  },
+  {
+    title: "Online Coaching",
+    body:
+      "Time zones don't matter. If you have a phone and 45 minutes, I can train you. Custom plans, video check-ins, and a WhatsApp line to me directly. I've transformed clients in five countries.",
+    href: "#contact",
+  },
+];
+
 function Services() {
   return (
-    <section id="services" className="py-20 md:py-32 bg-[#0A0A0A]">
+    <section
+      id="services"
+      className="py-20 md:py-28"
+      style={{ backgroundColor: "#0A1628" }}
+    >
       <div className="container mx-auto px-4 md:px-6">
-        <Reveal>
-          <div className="max-w-3xl mb-12 md:mb-20">
-            <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">What I Offer</p>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">
-              THREE WAYS
-              <br />
-              TO TRAIN.
-            </h2>
-          </div>
-        </Reveal>
+        {/* Section header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 reveal">
+          <p
+            className="uppercase mb-4"
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 600,
+              fontSize: "13px",
+              letterSpacing: "0.2em",
+              color: "var(--brand-blue, #1E90FF)",
+            }}
+          >
+            The Service
+          </p>
+          <h2
+            className="text-white"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 900,
+              fontStyle: "italic",
+              fontSize: "clamp(40px, 6vw, 64px)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.005em",
+              textTransform: "uppercase",
+            }}
+          >
+            How We Train Together
+          </h2>
+          <p
+            className="mt-5 mx-auto"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "16px",
+              lineHeight: 1.6,
+              color: "#C8D8E8",
+              maxWidth: "560px",
+            }}
+          >
+            In the gym. Outside. Online. No matter where you are — there's no excuse not to start.
+          </p>
+        </div>
 
-        <div className="grid gap-6 md:gap-8 md:grid-cols-3">
-          {SERVICES.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.1}>
-              <div className="group h-full border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#C8FF00]/40 transition-all duration-300">
-                <div className="h-14 w-14 rounded-xl bg-[#C8FF00]/10 border border-[#C8FF00]/20 flex items-center justify-center mb-6 group-hover:bg-[#C8FF00] transition-colors">
-                  <s.icon className="h-7 w-7 text-[#C8FF00] group-hover:text-black transition-colors" />
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl mb-3 tracking-wide">{s.title}</h3>
-                <p className="text-white/60 leading-relaxed mb-6">{s.desc}</p>
-                <a href={s.href} className="inline-flex items-center gap-2 text-[#C8FF00] font-bold text-sm uppercase tracking-wider group-hover:gap-3 transition-all">
-                  Learn More <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </Reveal>
-          ))}
+        {/* 2x2 service cards */}
+        <div className="grid gap-5 md:gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+          {WHAT_I_DO.map((s, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            return (
+              <a
+                key={s.title}
+                href={s.href}
+                className="service-card reveal block h-full"
+                style={{
+                  transitionDelay: `${i * 0.08}s`,
+                  backgroundColor: "#112240",
+                  border: "1px solid #1A3A5C",
+                  borderRadius: "4px",
+                  padding: "32px",
+                  textDecoration: "none",
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="block"
+                  style={{
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontWeight: 900,
+                    fontStyle: "italic",
+                    fontSize: "48px",
+                    lineHeight: 1,
+                    color: "var(--brand-blue, #1E90FF)",
+                    opacity: 0.4,
+                    marginBottom: "16px",
+                  }}
+                >
+                  {num}
+                </span>
+                <h3
+                  className="text-white"
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "22px",
+                    lineHeight: 1.25,
+                    marginBottom: "12px",
+                  }}
+                >
+                  {s.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "15px",
+                    lineHeight: 1.65,
+                    color: "#C8D8E8",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {s.body}
+                </p>
+                <span
+                  className="service-card__cta inline-flex items-center gap-2"
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "14px",
+                    color: "var(--brand-blue, #1E90FF)",
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Find Out More
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,0 +1,59 @@
+Build the full backend API for Jay Mac Fitness. Do not touch the frontend.
+
+PUBLIC ROUTES:
+
+POST /api/enquiries — rate limited (5 per IP per hour via express-rate-limit)
+  - Validate: name (required, min 2), email (required, valid), phone (optional), goal (optional), trainingType (optional), message (optional)
+  - Capture utmSource, utmMedium from body if present
+  - Save to LeadEnquiry
+  - Send notification email to process.env.TRAINER_EMAIL via nodemailer: subject "New Enquiry — [name]", body includes all fields, formatted. Log to console if SMTP not configured.
+  - Return 201 with created record
+
+GET /api/packages — return all where isActive=true, ordered by price ASC
+GET /api/testimonials/published — return all where isPublished=true
+
+TRAINER AUTH REQUIRED:
+
+GET /api/enquiries — all leads DESC by createdAt. Query params: status, search (name or email), page (default 1), limit (default 20). Return { data, total, page, totalPages }
+PATCH /api/enquiries/:id — update status and/or internalNote
+POST /api/enquiries/:id/convert — create User (role CLIENT, random password, log to console), create ClientProfile from lead, update lead status to CONVERTED, return new client
+
+GET /api/clients — all clients with their active booking sessions remaining. Support search by name/email, filter by status
+POST /api/clients — create User (CLIENT) + ClientProfile directly
+GET /api/clients/:id — full client with sessions (DESC by date), active booking, all progress notes
+PATCH /api/clients/:id — update ClientProfile fields
+
+POST /api/sessions — log a session. Body: clientId, date, duration, type, notes, completed
+GET /api/sessions — all sessions. Query: clientId, completed, from, to. Trainer sees all, client sees own.
+
+POST /api/progress-notes — { clientId, content }
+
+GET /api/packages/all — all packages including inactive (trainer only)
+POST /api/packages — create package
+PATCH /api/packages/:id — update package
+DELETE /api/packages/:id — delete package
+
+GET /api/slots?from=&to= — availability slots in date range (auth)
+POST /api/slots — create slot or recurring (repeatWeeks N = create N weekly copies)
+PATCH /api/slots/:id — update slot
+DELETE /api/slots/:id — delete slot
+
+CLIENT AUTH REQUIRED:
+
+GET /api/portal/dashboard — { upcomingSessions (next 3), booking (active), latestProgressNote }
+PATCH /api/portal/profile — update own ClientProfile (firstName, lastName, phone, goals, emergencyContact)
+POST /api/bookings/purchase — { packageId } — create Booking, set sessionsRemaining
+POST /api/bookings/session — { slotId } — book a slot, check sessionsRemaining > 0, decrement
+
+AUTH ROUTES (public):
+POST /auth/login, POST /auth/logout, POST /auth/refresh, GET /auth/me, PATCH /auth/change-password
+
+Middleware:
+- authenticateToken: verify JWT, attach req.user
+- requireRole('TRAINER'): 403 if not TRAINER
+- requireRole('CLIENT'): 403 if not CLIENT
+- Global error handler: return { error: message } JSON, no stack traces in production
+
+Express routes:
+GET /sitemap.xml — XML sitemap for public pages
+GET /robots.txt — allow /, disallow /dashboard /portal, point to sitemap
