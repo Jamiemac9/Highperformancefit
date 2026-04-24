@@ -562,6 +562,24 @@ body {
   color: #4DAAFF !important;
 }
 
+/* Results transformation cards — bordered hover with subtle lift */
+.results-card {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.results-card:hover {
+  border-color: rgba(30,144,255,0.5) !important;
+  transform: scale(1.015);
+}
+
+/* 2-line clamp helper for collapsible quotes */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Hero scroll-cue chevron — gentle infinite bounce */
 @keyframes heroBounce {
   0%, 100% { transform: translate(-50%, 0); opacity: 0.85; }
