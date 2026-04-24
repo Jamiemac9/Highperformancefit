@@ -1,0 +1,40 @@
+Build the Navigation and Hero section for the Jay Mac Fitness landing page. Use the design system already configured.
+
+NAVIGATION (sticky, full-width):
+- Starting state: fully transparent background, no shadow
+- Scrolled state (after 60px): background rgba(10,22,40,0.92) with backdrop-filter blur(12px), border-bottom 1px solid rgba(30,144,255,0.2)
+- Left: <img src="/images/logo.png" alt="Jay Mac Fitness" height="36px"> (logo is blue/white)
+- Centre (desktop only): nav links — About, Services, Results, Packages, FAQ — font-family Barlow 600, uppercase, 13px tracking-widest, color #C8D8E8 on hover → white with blue underline slide in
+- Right: "Free Consultation" button — btn-primary, small (12px 24px padding)
+- Mobile: hamburger icon (3 bars → X). Slide-down mobile menu with full-width links. Blue border bottom per link. "Book Free Consult" full-width CTA inside the menu.
+- Hamburger toggle uses React state. Smooth max-height CSS transition for drawer.
+
+HERO SECTION:
+Full-viewport height (100dvh). Two-column layout on desktop (55% left text, 45% right image). Stack to single column on mobile, image behind as background with dark overlay.
+
+LEFT COLUMN — text block, vertically centred:
+- Small uppercase label (Barlow 600, blue, letter-spacing): "PERSONAL TRAINING · UK & WORLDWIDE"
+- Main headline — Barlow Condensed 900 italic, 88px desktop / 58px mobile, white, line-height 0.95:
+  "THE PERSON
+  YOU WANT
+  TO BECOME
+  EXISTS."
+  (last word "EXISTS." in --brand-blue)
+- Supporting line (Inter 18px, #C8D8E8, line-height 1.6, max-width 480px):
+  "13 years. 200+ transformations. One trainer who actually gives a damn about your results — in the gym, online, or anywhere in the world."
+- Two CTA buttons side by side (gap 16px):
+  Primary: "Start Your Transformation" — btn-primary, large
+  Ghost: "See Real Results ↓" — btn-ghost — smooth scrolls to #results
+- Trust row below buttons (flex, gap 24px, small Inter 13px, color #C8D8E8):
+  ✓ Free first consultation  ✓ No contracts  ✓ 100+ five-star reviews
+- Animate all elements: fade-up with staggered delays (label → headline → body → buttons → trust row)
+
+RIGHT COLUMN — image area:
+- Placeholder div styled as: background #112240, border 1px solid rgba(30,144,255,0.3), border-radius 4px
+- Inside: text-center, muted text "HERO IMAGE — upload /images/hero-training.jpg"
+- When image file exists: <img src="/images/hero-training.jpg" alt="Jay Mac in personal training session" class="w-full h-full object-cover rounded">
+- Add a floating blue glow effect behind the image: pseudo-element, radial-gradient from rgba(30,144,255,0.25) to transparent, 600px circle, positioned behind the image
+
+BELOW HERO — scroll anchor line:
+- Animated downward chevron in blue, bouncing loop CSS animation
+- Smooth scrolls to #proof when clicked
