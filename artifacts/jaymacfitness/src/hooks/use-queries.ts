@@ -65,7 +65,7 @@ export const useDeleteSession = () => {
 };
 
 // Packages
-export const usePackages = () => useQuery({ queryKey: ["packages"], queryFn: () => apiGet("/api/packages?all=1") });
+export const usePackages = () => useQuery({ queryKey: ["packages", "all"], queryFn: () => apiGet("/api/packages?all=1") });
 export const useCreatePackage = () => {
   const queryClient = useQueryClient();
   return useMutation({

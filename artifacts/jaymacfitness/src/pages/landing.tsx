@@ -79,8 +79,9 @@ const FAQS = [
 
 export default function Landing() {
   const { data: packages = [] } = useQuery<Pkg[]>({
-    queryKey: ["packages"],
+    queryKey: ["packages", "public"],
     queryFn: () => apiGet("/api/packages") as Promise<Pkg[]>,
+    staleTime: 60_000,
   });
 
   return (
@@ -944,7 +945,7 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
           className={featured ? "btn-primary" : "btn-ghost"}
           style={{ display: "block", width: "100%", textAlign: "center" }}
         >
-          {featured ? "Start Transforming" : "Enquire About This"}
+          {featured ? "Start Transforming" : "Get Started"}
         </a>
 
         {featured && (
@@ -967,11 +968,13 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
 }
 
 function Packages({ packages }: { packages: Pkg[] }) {
-  // Order: featured packages first, then by sessions ascending — matches API.
-  const ordered = [...packages].sort((a, b) => {
-    if (!!b.featured !== !!a.featured) return b.featured ? 1 : -1;
-    return a.sessions - b.sessions;
-  });
+  // Featured first, then by session count. Cap to 4 cards per the brief.
+  const ordered = [...packages]
+    .sort((a, b) => {
+      if (!!b.featured !== !!a.featured) return b.featured ? 1 : -1;
+      return a.sessions - b.sessions;
+    })
+    .slice(0, 4);
 
   return (
     <section id="packages" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5 relative">
@@ -983,6 +986,18 @@ function Packages({ packages }: { packages: Pkg[] }) {
               Invest In Yourself
             </p>
             <h2 className="headline text-5xl md:text-7xl leading-none">CHOOSE YOUR STARTING POINT.</h2>
+            <p
+              className="mt-6"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "16px",
+                lineHeight: 1.6,
+                color: "#C8D8E8",
+                opacity: 0.85,
+              }}
+            >
+              Real coaching. Real plans. Real results — pick the package that fits where you are right now.
+            </p>
           </div>
         </Reveal>
 
@@ -1016,9 +1031,8 @@ function Packages({ packages }: { packages: Pkg[] }) {
                   textUnderlineOffset: "3px",
                 }}
               >
-                Book a free consultation
-              </a>{" "}
-              and we&apos;ll figure it out together.
+                Book a free consultation first — zero pressure, zero commitment.
+              </a>
             </p>
           </div>
         </Reveal>

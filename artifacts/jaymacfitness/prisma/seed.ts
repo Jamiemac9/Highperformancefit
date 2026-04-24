@@ -48,7 +48,7 @@ async function main() {
       featured: false,
     },
     {
-      name: "Group Training",
+      name: "Group",
       type: "GROUP" as const,
       sessions: 8,
       price: 200.0,
