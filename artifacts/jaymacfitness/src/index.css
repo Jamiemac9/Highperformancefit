@@ -539,6 +539,29 @@ body {
   right: 0;
 }
 
+/* Service cards — bordered hover with blue glow shadow */
+.service-card {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.service-card:hover,
+.service-card:focus-visible {
+  border-color: rgba(30,144,255,0.6) !important;
+  box-shadow: 0 8px 32px rgba(30,144,255,0.12);
+  transform: translateY(-2px);
+  outline: none;
+}
+.service-card:focus-visible {
+  outline: 2px solid var(--brand-blue, #1E90FF);
+  outline-offset: 3px;
+}
+.service-card:hover .service-card__cta,
+.service-card:focus-visible .service-card__cta {
+  color: #4DAAFF !important;
+}
+
 /* Hero scroll-cue chevron — gentle infinite bounce */
 @keyframes heroBounce {
   0%, 100% { transform: translate(-50%, 0); opacity: 0.85; }

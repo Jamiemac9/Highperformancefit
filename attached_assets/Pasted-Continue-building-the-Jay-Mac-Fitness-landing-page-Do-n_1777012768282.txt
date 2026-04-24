@@ -1,0 +1,53 @@
+Continue building the Jay Mac Fitness landing page. Do not touch anything already built.
+
+SECTION: REAL RESULTS (id="results")
+This is the #1 conversion section. Give it maximum visual impact.
+
+Background: #0A1628. Full-width.
+
+Section header — left-aligned on desktop, centred on mobile:
+  Small blue label: "TRANSFORMATIONS"
+  Headline (Barlow Condensed 900 italic, 72px desktop / 52px mobile):
+    "200+ PEOPLE WHO
+    THOUGHT THEY
+    COULDN'T."
+  Subline (Inter 17px, #C8D8E8): "These aren't photoshopped. They're not outliers. They're what happens when you stop waiting."
+
+THREE TRANSFORMATION CARDS in a row (stack on mobile). Each card is a dramatic before/after reveal:
+
+Card structure (each):
+  Background: #112240
+  Border: 1px solid #1A3A5C
+  Border-radius: 4px
+  Overflow: hidden
+  On hover: border-color rgba(30,144,255,0.5), scale 1.015, transition 0.2s
+
+  TOP — split image area, height: 320px:
+    Left half (50%): "BEFORE" photo placeholder — background #1A3A5C, centered label "BEFORE — Amy K. (upload transformation-amy.jpg)"
+    Right half (50%): "AFTER" photo placeholder — background #1E3D5A with a subtle blue tint, centered label "AFTER"
+    Divider line: absolute, center of the image area, 2px white, full height, with a circle badge at center: "BEFORE / AFTER" small white text, blue background
+    Both halves: when real images are present, use object-cover, object-position: top
+
+  BOTTOM — result details, padding 20px 24px:
+    Name: Barlow 700 18px white
+    Result stat: Barlow Condensed 900 italic 32px blue — e.g. "LOST 3 STONE"
+    Secondary stat: Inter 13px #C8D8E8 — e.g. "In 14 weeks · 1-2-1 Training"
+    Quote: Inter 14px #C8D8E8 italic, max 2 lines with ellipsis, expand on click
+    Star rating: 5 blue stars, small
+
+Card 1 data: Name: "Amy K.", result: "LOST 3 STONE", secondary: "In 14 weeks · 1-2-1 Training", quote: "I'd tried everything before Jay. He didn't just give me a programme — he gave me a reason to actually stick to it.", before image label: "transformation-amy.jpg (left half)", after image label: "transformation-amy.jpg (right half)"
+
+Card 2 data: Name: "Danny & Jen", result: "6 STONE BETWEEN THEM", secondary: "6 months · Couples Training", quote: "We started together, we finished together. Jay handled two completely different bodies with the same outcome — transformation.", before image: "dannyandjen_progress_pic.jpg (before side)", after image: "dannyandjen_progress_pic.jpg (after side)"
+
+Card 3 data: Name: "Elaine T.", result: "BACK STRONGER THAN EVER", secondary: "Post-injury rehab & training", quote: "After my injury I thought it was over. Jay started slow, built me back, and now I'm in the best shape of my 50s.", before image: "elaine_transformation.jpg (before side)", after image: "elaine_transformation.jpg (after side)"
+
+BELOW THE CARDS — full-width CTA band:
+  Background: linear-gradient(90deg, rgba(30,144,255,0.12), rgba(30,144,255,0.04))
+  Border: 1px solid rgba(30,144,255,0.25)
+  Padding: 40px
+  Flex row (stack on mobile): left side text, right side button
+  Left: Barlow Condensed 900 italic 38px white: "YOUR NAME COULD BE HERE."
+         Inter 16px #C8D8E8: "Every single person above had a reason to wait. They stopped waiting."
+  Right: btn-primary large: "I'm Ready — Let's Go"
+
+All cards and the CTA band get class="reveal" with stagger.

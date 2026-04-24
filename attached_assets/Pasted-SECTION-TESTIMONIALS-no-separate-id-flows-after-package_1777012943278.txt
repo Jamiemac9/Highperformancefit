@@ -1,0 +1,98 @@
+SECTION: TESTIMONIALS (no separate id — flows after packages)
+Background: #0A1628
+
+Three testimonial cards in a row (1 col on mobile, swipeable with CSS scroll snap):
+  Each card: background #112240, border 1px solid rgba(30,144,255,0.2), padding 32px, border-radius 4px
+  Opening quote mark: Barlow Condensed 900 italic, 96px, blue, line-height 0.5, opacity 0.6
+  Quote text: Inter 17px white italic, line-height 1.7
+  Client name: Barlow 700 15px white, margin-top 20px
+  Result stat: Barlow Condensed 900 italic 22px blue — e.g. "Lost 3 stone · 14 weeks"
+  Stars: 5 small blue stars (★★★★★)
+Pull from GET /api/testimonials/published.
+Mobile scroll: display flex, overflow-x auto, scroll-snap-type x mandatory, each card scroll-snap-align start, gap 16px — CSS only, no JS library.
+
+SECTION: FAQ (id="faq")
+Background: #0D1B2A
+
+Centred header:
+  Blue label: "GOT QUESTIONS"
+  Headline (Barlow Condensed 900 italic, 56px): "STRAIGHT ANSWERS."
+
+Accordion — 7 questions. Each: background #112240, border 1px solid #1A3A5C, margin-bottom 8px, border-radius 3px.
+Button row (full width, flex between question and chevron): Barlow 700 17px white on left, blue chevron → rotates 180deg when open. CSS max-height transition for smooth expand.
+Answer text: Inter 15px #C8D8E8 line-height 1.7, padding 0 24px 20px.
+
+Write these 7 FAQs as direct NLP-optimised Q&A pairs:
+
+Q1: "Do you train people who've never set foot in a gym?"
+A1: "Absolutely — and honestly, those sessions are some of my favourites. No bad habits to undo. We start at exactly where you are, not where you think you should be. Your level isn't a barrier, it's just a starting point."
+
+Q2: "How quickly will I actually see results?"
+A2: "Most people feel different within 2 weeks — more energy, better sleep, something shifting. Visible changes usually show up between weeks 4–8 depending on consistency and your starting point. I track your progress so you can see it even when you can't feel it yet."
+
+Q3: "What's the difference between online coaching and in-person sessions?"
+A3: "Honestly? The programme quality is identical. Online coaching is for people whose schedule, location, or life makes in-person sessions impractical. You get a custom plan, regular video check-ins, and direct WhatsApp access to me. I've transformed clients in five different countries this way."
+
+Q4: "I've got a busy life — work, kids, everything. Is this realistic for me?"
+A4: "That's exactly who I built this for. I came from a corporate career. I know what it's like to try and fit fitness around a packed diary. We'll build a programme around your life — not the other way around. 3 sessions a week minimum is all it takes."
+
+Q5: "What makes you different from just joining a gym or using an app?"
+A5: "An app doesn't notice when your form is off. A gym membership doesn't text you when you've gone quiet for a week. I do. Personal training with me is about accountability, adaptation, and someone in your corner who genuinely cares whether you show up — and whether you get results."
+
+Q6: "How much does it cost and is there a contract?"
+A6: "Packages start at £175 for 5 sessions (£35 each), scaling down to £27 per session on the 20-session Elite package. Online coaching is £149/month. No long-term contracts. No cancellation penalties. You buy a package, you use it — that's it."
+
+Q7: "I've had an injury. Can you still train me?"
+A7: "Yes — and in many cases this is where I add the most value. I've worked with post-surgery rehabilitation, mobility issues, and chronic conditions. I'll always work within what your body can handle and build from there. If medical clearance is needed, I'll tell you upfront."
+
+SECTION: LEAD FORM (id="contact")
+Background: #0A1628 (darkest — makes this section feel like a private conversation)
+
+Two columns on desktop (50/50). Stack on mobile.
+
+LEFT COLUMN:
+  Blue label: "LET'S TALK"
+  Headline (Barlow Condensed 900 italic, 60px white):
+    "YOUR FIRST
+    SESSION IS
+    FREE."
+  Body (Inter 17px #C8D8E8, line-height 1.7, max-width 440px):
+    "Fill in your details and I'll be in touch within 24 hours. No sales script. No pressure. Just a real conversation about what you want to achieve and whether we're a good fit."
+  Three trust lines (flex col, gap 12px, Inter 14px #C8D8E8):
+    ✓ Free initial consultation — no commitment
+    ✓ I'll reply within 24 hours, personally
+    ✓ 13+ years experience · 100+ five-star reviews
+  Below (after gap): small testimonial snippet — background rgba(30,144,255,0.08), border-left 3px solid #1E90FF, padding 16px 20px:
+    Italic white Inter 15px: "I nearly didn't fill this form in. Glad I did. Best decision I've made."
+    Attribution: "— Danny, Group & 1-2-1 client"
+
+RIGHT COLUMN — form card:
+  Background: #112240, border: 1px solid rgba(30,144,255,0.25), border-radius: 4px, padding: 40px
+  Headline above form: Barlow 700 20px white: "Tell me about your goal"
+  
+  FIELDS (Inter 14px labels, inputs: background #1A3A5C border #2A5080, text white, border-radius 3px, padding 12px 16px, focus border-color #1E90FF focus box-shadow 0 0 0 3px rgba(30,144,255,0.15)):
+    - Full Name (text, required)
+    - Email (email, required)  
+    - Phone (tel, optional — label: "Phone (optional)")
+    - Training Type (select: "I want to train in person" | "I want to train outdoors" | "I want online coaching" | "I want group training" | "Not sure yet — let's chat")
+    - Goal (select: "Lose weight & tone up" | "Build muscle & strength" | "Improve fitness & stamina" | "Recover from injury" | "General health & wellbeing" | "Something else")
+    - Message (textarea, rows 3, placeholder: "Anything else you want me to know? Where you're starting from, what's held you back before, your schedule...")
+  
+  SUBMIT BUTTON: btn-primary full-width, large — "Send My Enquiry — It's Free"
+  
+  Below button: Inter 12px #C8D8E8 centred: "Your details are private and will never be shared. You'll hear from Jay directly."
+  
+  On submit: POST /api/enquiries with all fields + capture UTM params from URL if present. Show inline success message replacing the form: Barlow 700 24px white: "Done — I'll be in touch within 24 hours." Inter 16px blue: "Keep an eye on your inbox (and check your junk, just in case)." No page reload.
+  Show error state if request fails: red border on form card, error message inline.
+
+  Below the form, a Google Maps placeholder div: <!-- TODO: Replace with Google Maps iframe embed for your training location -->
+
+FOOTER:
+Background: #0A1628, border-top: 2px solid rgba(30,144,255,0.2)
+Three columns (stack on mobile, centre-align mobile):
+  Col 1: Logo image (/images/logo.png, height 44px) + tagline Barlow 600 14px blue uppercase: "ACHIEVE YOUR GOALS" + Inter 13px #C8D8E8 mt-12: "Personal training in the UK and worldwide. Real people. Real results."
+  Col 2: Quick links header Barlow 700 14px white uppercase. Links: Home, About, Services, Results, Packages, FAQ, Contact — Inter 14px #C8D8E8 hover:white
+  Col 3: "FOLLOW JAY" Barlow 700 14px white uppercase. Social icons row: Instagram, Facebook, TikTok (SVG icons, href="#", blue fill). Below: btn-primary small: "Book Free Consult"
+Bottom bar: border-top 1px solid #1A3A5C, padding 16px, flex between: Inter 12px #C8D8E8 "© 2025 Jay Mac Fitness. All rights reserved." and links: Privacy Policy | Terms
+
+Smooth scroll: all nav anchor links (#about, #services, #results, #packages, #faq, #contact) must use scrollIntoView behavior: smooth, or CSS html { scroll-behavior: smooth; }
