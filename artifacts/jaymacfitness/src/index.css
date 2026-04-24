@@ -64,6 +64,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Jay Mac brand palette — usable as Tailwind utilities (bg-navy, text-blue-soft, etc.) */
+  --color-navy: #0D1B2A;
+  --color-navy-dark: #0A1628;
+  --color-navy-mid: #112240;
+  --color-navy-steel: #1A3A5C;
+  --color-blue: #1E90FF;
+  --color-blue-soft: #4DAAFF;
+  --color-blue-glow: rgba(30, 144, 255, 0.15);
+  --color-offwhite: #C8D8E8;
 }
 
 /* LIGHT MODE */
@@ -409,4 +419,100 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+}
+/* ===========================================================================
+   JAY MAC FITNESS BRAND DESIGN SYSTEM
+   =========================================================================== */
+:root {
+  --brand-blue: #1E90FF;
+  --brand-navy: #0D1B2A;
+  --brand-dark: #0A1628;
+  --brand-mid: #112240;
+  --brand-steel: #1A3A5C;
+  --brand-white: #FFFFFF;
+  --brand-off-white: #C8D8E8;
+  --brand-blue-glow: rgba(30, 144, 255, 0.15);
+  --brand-blue-soft: #4DAAFF;
+}
+
+body {
+  background-color: var(--brand-navy);
+  color: var(--brand-white);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand headline + subhead helpers — opt-in via class so existing pages stay untouched */
+.headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 900;
+}
+
+.subhead {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+}
+
+/* Entrance animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.55s ease-out both; }
+.fade-up.delay-1 { animation-delay: 0.10s; }
+.fade-up.delay-2 { animation-delay: 0.22s; }
+.fade-up.delay-3 { animation-delay: 0.36s; }
+.fade-up.delay-4 { animation-delay: 0.50s; }
+
+/* Blue glow primary button */
+.btn-primary {
+  display: inline-block;
+  background: var(--brand-blue);
+  color: #fff;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 3px;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 24px rgba(30, 144, 255, 0.35);
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #4DAAFF;
+  box-shadow: 0 0 36px rgba(30, 144, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-block;
+  border: 2px solid var(--brand-blue);
+  color: var(--brand-blue);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 32px;
+  border-radius: 3px;
+  background: transparent;
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  background: var(--brand-blue-glow);
+  color: #fff;
+}
+
+/* IntersectionObserver scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
