@@ -20,7 +20,25 @@ import {
   X,
 } from "lucide-react";
 
-type Pkg = { id: string; name: string; sessions: number; price: string; description?: string };
+type PackageType = "IN_PERSON" | "ONLINE" | "GROUP";
+type Pkg = {
+  id: string;
+  name: string;
+  type?: PackageType;
+  sessions: number;
+  price: string;
+  pricePerSession?: string | null;
+  description?: string;
+  highlights?: string[];
+  isActive?: boolean;
+  featured?: boolean;
+};
+
+const PACKAGE_TYPE_LABEL: Record<PackageType, string> = {
+  IN_PERSON: "In-Person",
+  ONLINE: "Online",
+  GROUP: "Group",
+};
 
 const STEPS = [
   { icon: Calendar, title: "Free Consultation", desc: "Tell me your goals, training history and what's held you back. No pressure, just a conversation." },
@@ -62,7 +80,7 @@ const FAQS = [
 export default function Landing() {
   const { data: packages = [] } = useQuery<Pkg[]>({
     queryKey: ["packages"],
-    queryFn: () => apiGet<Pkg[]>("/api/packages"),
+    queryFn: () => apiGet("/api/packages") as Promise<Pkg[]>,
   });
 
   return (
@@ -762,77 +780,248 @@ function HowItWorks() {
   );
 }
 
-function Packages({ packages }: { packages: Pkg[] }) {
+function formatGbp(value: string | number | null | undefined): string {
+  if (value === null || value === undefined || value === "") return "—";
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "—";
+  return Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`;
+}
+
+function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
+  const featured = !!pkg.featured;
+  const typeLabel = pkg.type ? PACKAGE_TYPE_LABEL[pkg.type] : "In-Person";
+  const highlights =
+    pkg.highlights && pkg.highlights.length > 0
+      ? pkg.highlights
+      : [`${pkg.sessions} x 60-minute sessions`, "Personalised training plan", "Nutrition guidance included"];
+  const perSession = pkg.pricePerSession ?? (pkg.sessions > 0 ? Number(pkg.price) / pkg.sessions : null);
+
   return (
-    <section id="packages" className="py-20 md:py-32 bg-[#0A1628] border-t border-white/5 relative">
+    <Reveal delay={index * 0.08}>
+      <div
+        className="relative h-full flex flex-col"
+        style={{
+          background: featured
+            ? "linear-gradient(160deg, #112240 0%, #1A3A5C 100%)"
+            : "#112240",
+          border: featured ? "2px solid #1E90FF" : "1px solid #1A3A5C",
+          borderRadius: "4px",
+          padding: "28px",
+          boxShadow: featured
+            ? "0 0 40px rgba(30,144,255,0.25), inset 0 0 0 1px rgba(30,144,255,0.15)"
+            : "none",
+          transition: "transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
+        }}
+      >
+        {featured && (
+          <div
+            className="absolute"
+            style={{
+              top: "-14px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              background: "#1E90FF",
+              color: "#fff",
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 700,
+              fontSize: "11px",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              padding: "6px 14px",
+              borderRadius: "2px",
+              boxShadow: "0 4px 16px rgba(30,144,255,0.45)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Most Popular
+          </div>
+        )}
+
+        {/* Header: name + type pill */}
+        <div className="flex items-start justify-between gap-3 mb-5">
+          <h3
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 700,
+              fontSize: "20px",
+              lineHeight: 1.2,
+              color: "#fff",
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+            }}
+          >
+            {pkg.name}
+          </h3>
+          <span
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 700,
+              fontSize: "11px",
+              color: "#1E90FF",
+              border: "1px solid rgba(30,144,255,0.5)",
+              padding: "4px 10px",
+              borderRadius: "2px",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {typeLabel}
+          </span>
+        </div>
+
+        {/* Price block */}
+        <div className="mb-2">
+          <span
+            className="headline"
+            style={{
+              fontSize: featured ? "60px" : "52px",
+              lineHeight: 1,
+              color: featured ? "#1E90FF" : "#fff",
+              display: "inline-block",
+            }}
+          >
+            {formatGbp(pkg.price)}
+          </span>
+        </div>
+        <div
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "13px",
+            color: "#C8D8E8",
+            opacity: 0.85,
+            marginBottom: "4px",
+          }}
+        >
+          {perSession != null ? `${formatGbp(perSession)} per session` : "\u00A0"}
+        </div>
+        <div
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "13px",
+            color: "#C8D8E8",
+            opacity: 0.7,
+            marginBottom: "20px",
+          }}
+        >
+          {pkg.sessions} {pkg.sessions === 1 ? "session" : "sessions"}
+        </div>
+
+        <div
+          style={{
+            height: "1px",
+            background: "rgba(30,144,255,0.18)",
+            marginBottom: "20px",
+          }}
+        />
+
+        {/* Highlights */}
+        <ul className="space-y-3 mb-8 flex-1">
+          {highlights.map((h) => (
+            <li key={h} className="flex items-start gap-3">
+              <CheckCircle2
+                className="h-4 w-4 flex-shrink-0"
+                style={{ color: "#1E90FF", marginTop: "3px" }}
+                aria-hidden="true"
+              />
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "14px",
+                  lineHeight: 1.55,
+                  color: "#C8D8E8",
+                }}
+              >
+                {h}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <a
+          href="#contact"
+          className={featured ? "btn-primary" : "btn-ghost"}
+          style={{ display: "block", width: "100%", textAlign: "center" }}
+        >
+          {featured ? "Start Transforming" : "Enquire About This"}
+        </a>
+
+        {featured && (
+          <div
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "12px",
+              color: "#4DAAFF",
+              textAlign: "center",
+              marginTop: "12px",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Next available slot: this week
+          </div>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
+function Packages({ packages }: { packages: Pkg[] }) {
+  // Order: featured packages first, then by sessions ascending — matches API.
+  const ordered = [...packages].sort((a, b) => {
+    if (!!b.featured !== !!a.featured) return b.featured ? 1 : -1;
+    return a.sessions - b.sessions;
+  });
+
+  return (
+    <section id="packages" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5 relative">
       <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
       <div className="container mx-auto px-4 md:px-6 relative">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Investment</p>
-            <h2 className="headline text-5xl md:text-7xl leading-none">PICK YOUR PLAN</h2>
-            <p className="mt-6 text-[#C8D8E8]/70 text-lg">Simple pricing. No hidden fees. Just results.</p>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">
+              Invest In Yourself
+            </p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">CHOOSE YOUR STARTING POINT.</h2>
           </div>
         </Reveal>
 
-        <div className="grid gap-6 md:gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-          {(packages.length === 0
-            ? [
-                { id: "p1", name: "Starter", sessions: 5, price: "175.00", description: "Perfect for trying personal training" },
-                { id: "p2", name: "Commitment", sessions: 10, price: "300.00", description: "Best value — most popular choice" },
-              ]
-            : packages
-          ).map((pkg, i) => {
-            const featured = i === 1;
-            return (
-              <Reveal key={pkg.id} delay={i * 0.1}>
-                <div
-                  className={`relative h-full rounded-3xl p-8 md:p-10 transition-all duration-300 ${
-                    featured
-                      ? "bg-[#1E90FF] text-white border-2 border-[#1E90FF] shadow-[0_12px_40px_rgba(30,144,255,0.25)]"
-                      : "bg-white/[0.03] border border-white/10 text-white hover:border-[#1E90FF]/50 hover:shadow-[0_8px_32px_rgba(30,144,255,0.12)]"
-                  }`}
-                >
-                  {featured && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0D1B2A] text-[#1E90FF] text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border border-[#1E90FF]/40">
-                      Most Popular
-                    </div>
-                  )}
-                  <h3 className="headline text-3xl md:text-4xl mb-2 tracking-wide">{pkg.name}</h3>
-                  <p className={`text-sm mb-6 ${featured ? "text-white/80" : "text-[#C8D8E8]/70"}`}>
-                    {pkg.sessions} personal training sessions
-                  </p>
-                  <div className="flex items-baseline gap-1 mb-8">
-                    <span className="headline text-6xl md:text-7xl leading-none">£{Math.round(Number(pkg.price))}</span>
-                  </div>
-                  <ul className="space-y-3 mb-10">
-                    {[
-                      `${pkg.sessions} x 60-minute sessions`,
-                      "Personalised training plan",
-                      "Nutrition guidance included",
-                      "WhatsApp support between sessions",
-                    ].map((feat) => (
-                      <li key={feat} className="flex items-start gap-3">
-                        <CheckCircle2 className={`h-5 w-5 flex-shrink-0 mt-0.5 ${featured ? "text-white" : "text-[#1E90FF]"}`} />
-                        <span className={`text-sm ${featured ? "text-white/90" : "text-white/80"}`}>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="#contact"
-                    className={`block w-full text-center font-bold uppercase tracking-wider text-sm py-4 rounded-full transition-colors ${
-                      featured
-                        ? "bg-[#0D1B2A] text-white hover:bg-[#08111E]"
-                        : "bg-[#1E90FF] text-white hover:bg-[#4DAAFF]"
-                    }`}
-                  >
-                    Get Started
-                  </a>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+        {ordered.length === 0 ? (
+          <p className="text-center text-[#C8D8E8]/60">Packages coming soon.</p>
+        ) : (
+          <div className="grid gap-6 md:gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto items-stretch">
+            {ordered.map((pkg, i) => (
+              <PackageCard key={pkg.id} pkg={pkg} index={i} />
+            ))}
+          </div>
+        )}
+
+        <Reveal delay={0.2}>
+          <div className="text-center mt-14 md:mt-20 max-w-2xl mx-auto">
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "16px",
+                color: "#C8D8E8",
+                opacity: 0.85,
+              }}
+            >
+              Not sure which is right for you?{" "}
+              <a
+                href="#contact"
+                style={{
+                  color: "#1E90FF",
+                  fontWeight: 600,
+                  textDecoration: "underline",
+                  textUnderlineOffset: "3px",
+                }}
+              >
+                Book a free consultation
+              </a>{" "}
+              and we&apos;ll figure it out together.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
