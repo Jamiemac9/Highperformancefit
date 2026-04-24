@@ -6,7 +6,8 @@ Full-stack web app for personal trainer Jay Mac: bold dark/lime marketing site a
 - **Frontend**: React + Vite + React Router v6, Tailwind, @tanstack/react-query, plain `fetch` via `src/lib/api.ts`
 - **Backend**: Express + Prisma + PostgreSQL, JWT (httpOnly cookies)
 - **Email**: nodemailer (jsonTransport in dev)
-- **Theme**: dark `#0A0A0A` background, electric lime `#C8FF00` accent, fonts Bebas Neue (display) + DM Sans (body)
+- **Theme (in transition)**: pivoting from dark/lime to navy/blue. Landing page Nav + Hero now use the new system (navy `#0D1B2A` + blue `#1E90FF` + Barlow Condensed italic 900 / Barlow / Inter); the rest of the landing and other pages still use the legacy dark `#0A0A0A` + lime `#C8FF00` + Bebas Neue / DM Sans. Both font sets are loaded.
+- **Brand foundation in `src/index.css`**: Tailwind v4 `@theme` exposes `--color-navy(-dark/-mid/-steel)`, `--color-blue(-soft/-glow)`, `--color-offwhite` so utilities like `bg-navy`, `text-blue-soft` work. Helper classes: `.headline`, `.subhead`, `.btn-primary`, `.btn-ghost`, `.fade-up` + `.delay-1..4`, `.reveal` / `.reveal.visible`, `.nav-link` (sliding underline), `.hero-chevron` (bouncing). `src/utils/scrollReveal.ts` is initialised once in `App.tsx` and watches the DOM so route-change reveals also fire.
 - **Mobile-first** layout throughout
 
 ## Routes
