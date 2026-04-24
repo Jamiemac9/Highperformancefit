@@ -66,7 +66,7 @@ export default function Landing() {
   });
 
   return (
-    <div className="font-body bg-[#0A0A0A] text-white min-h-screen overflow-x-hidden">
+    <div className="font-body bg-[#0D1B2A] text-white min-h-screen overflow-x-hidden">
       <Nav />
       <Hero />
       {/* Anchor target for the hero "See Real Results ↓" ghost button */}
@@ -557,26 +557,10 @@ function SocialProof() {
 }
 
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.classList.add("in-view");
-            obs.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  // Uses the global scroll-reveal observer in src/utils/scrollReveal.ts which
+  // adds the `visible` class to any `.reveal` element when it enters viewport.
   return (
-    <div ref={ref} className="reveal" style={{ animationDelay: `${delay}s` }}>
+    <div className="reveal" style={{ transitionDelay: `${delay}s` }}>
       {children}
     </div>
   );
@@ -741,12 +725,12 @@ function Services() {
 
 function HowItWorks() {
   return (
-    <section id="how" className="py-20 md:py-32 bg-[#0A0A0A] border-t border-white/5">
+    <section id="how" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-            <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">The Process</p>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">HOW IT WORKS</h2>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">The Process</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">HOW IT WORKS</h2>
           </div>
         </Reveal>
 
@@ -757,16 +741,16 @@ function HowItWorks() {
               <Reveal key={step.title} delay={i * 0.05}>
                 <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-8 md:gap-12`}>
                   <div className="flex-shrink-0 relative">
-                    <div className="h-32 w-32 md:h-40 md:w-40 rounded-2xl bg-[#C8FF00] flex items-center justify-center">
-                      <step.icon className="h-14 w-14 md:h-16 md:w-16 text-black" strokeWidth={2} />
+                    <div className="h-32 w-32 md:h-40 md:w-40 rounded-2xl bg-[#1E90FF] flex items-center justify-center shadow-[0_8px_32px_rgba(30,144,255,0.25)]">
+                      <step.icon className="h-14 w-14 md:h-16 md:w-16 text-white" strokeWidth={2} />
                     </div>
-                    <div className="absolute -top-3 -right-3 h-12 w-12 rounded-full bg-[#0A0A0A] border-2 border-[#C8FF00] flex items-center justify-center">
-                      <span className="font-display text-xl text-[#C8FF00]">0{i + 1}</span>
+                    <div className="absolute -top-3 -right-3 h-12 w-12 rounded-full bg-[#0D1B2A] border-2 border-[#1E90FF] flex items-center justify-center">
+                      <span className="headline text-xl text-[#1E90FF]">0{i + 1}</span>
                     </div>
                   </div>
                   <div className={`flex-1 text-center ${reversed ? "md:text-right" : "md:text-left"}`}>
-                    <h3 className="font-display text-3xl md:text-5xl mb-3 tracking-wide">{step.title}</h3>
-                    <p className="text-white/60 text-lg leading-relaxed max-w-xl mx-auto md:mx-0">{step.desc}</p>
+                    <h3 className="headline text-3xl md:text-5xl mb-3 tracking-wide">{step.title}</h3>
+                    <p className="text-[#C8D8E8]/70 text-lg leading-relaxed max-w-xl mx-auto md:mx-0">{step.desc}</p>
                   </div>
                 </div>
               </Reveal>
@@ -780,14 +764,14 @@ function HowItWorks() {
 
 function Packages({ packages }: { packages: Pkg[] }) {
   return (
-    <section id="packages" className="py-20 md:py-32 bg-[#0A0A0A] border-t border-white/5 relative">
-      <div className="absolute inset-0 bg-noise opacity-50 pointer-events-none" />
+    <section id="packages" className="py-20 md:py-32 bg-[#0A1628] border-t border-white/5 relative">
+      <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
       <div className="container mx-auto px-4 md:px-6 relative">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-            <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">Investment</p>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">PICK YOUR PLAN</h2>
-            <p className="mt-6 text-white/60 text-lg">Simple pricing. No hidden fees. Just results.</p>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Investment</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">PICK YOUR PLAN</h2>
+            <p className="mt-6 text-[#C8D8E8]/70 text-lg">Simple pricing. No hidden fees. Just results.</p>
           </div>
         </Reveal>
 
@@ -805,21 +789,21 @@ function Packages({ packages }: { packages: Pkg[] }) {
                 <div
                   className={`relative h-full rounded-3xl p-8 md:p-10 transition-all duration-300 ${
                     featured
-                      ? "bg-[#C8FF00] text-black border-2 border-[#C8FF00]"
-                      : "bg-white/[0.03] border border-white/10 text-white hover:border-[#C8FF00]/40"
+                      ? "bg-[#1E90FF] text-white border-2 border-[#1E90FF] shadow-[0_12px_40px_rgba(30,144,255,0.25)]"
+                      : "bg-white/[0.03] border border-white/10 text-white hover:border-[#1E90FF]/50 hover:shadow-[0_8px_32px_rgba(30,144,255,0.12)]"
                   }`}
                 >
                   {featured && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-[#C8FF00] text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0D1B2A] text-[#1E90FF] text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border border-[#1E90FF]/40">
                       Most Popular
                     </div>
                   )}
-                  <h3 className="font-display text-3xl md:text-4xl mb-2 tracking-wide">{pkg.name}</h3>
-                  <p className={`text-sm mb-6 ${featured ? "text-black/70" : "text-white/60"}`}>
+                  <h3 className="headline text-3xl md:text-4xl mb-2 tracking-wide">{pkg.name}</h3>
+                  <p className={`text-sm mb-6 ${featured ? "text-white/80" : "text-[#C8D8E8]/70"}`}>
                     {pkg.sessions} personal training sessions
                   </p>
                   <div className="flex items-baseline gap-1 mb-8">
-                    <span className="font-display text-6xl md:text-7xl leading-none">£{Math.round(Number(pkg.price))}</span>
+                    <span className="headline text-6xl md:text-7xl leading-none">£{Math.round(Number(pkg.price))}</span>
                   </div>
                   <ul className="space-y-3 mb-10">
                     {[
@@ -829,8 +813,8 @@ function Packages({ packages }: { packages: Pkg[] }) {
                       "WhatsApp support between sessions",
                     ].map((feat) => (
                       <li key={feat} className="flex items-start gap-3">
-                        <CheckCircle2 className={`h-5 w-5 flex-shrink-0 mt-0.5 ${featured ? "text-black" : "text-[#C8FF00]"}`} />
-                        <span className={`text-sm ${featured ? "text-black/80" : "text-white/80"}`}>{feat}</span>
+                        <CheckCircle2 className={`h-5 w-5 flex-shrink-0 mt-0.5 ${featured ? "text-white" : "text-[#1E90FF]"}`} />
+                        <span className={`text-sm ${featured ? "text-white/90" : "text-white/80"}`}>{feat}</span>
                       </li>
                     ))}
                   </ul>
@@ -838,8 +822,8 @@ function Packages({ packages }: { packages: Pkg[] }) {
                     href="#contact"
                     className={`block w-full text-center font-bold uppercase tracking-wider text-sm py-4 rounded-full transition-colors ${
                       featured
-                        ? "bg-black text-[#C8FF00] hover:bg-black/80"
-                        : "bg-[#C8FF00] text-black hover:bg-white"
+                        ? "bg-[#0D1B2A] text-white hover:bg-[#08111E]"
+                        : "bg-[#1E90FF] text-white hover:bg-[#4DAAFF]"
                     }`}
                   >
                     Get Started
@@ -857,12 +841,12 @@ function Packages({ packages }: { packages: Pkg[] }) {
 function Testimonials() {
   const [active, setActive] = useState(0);
   return (
-    <section className="py-20 md:py-32 bg-[#0A0A0A] border-t border-white/5">
+    <section className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-            <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">Real People. Real Results.</p>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">WHAT CLIENTS SAY</h2>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Real People. Real Results.</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">WHAT CLIENTS SAY</h2>
           </div>
         </Reveal>
 
@@ -895,7 +879,7 @@ function Testimonials() {
                 key={i}
                 onClick={() => setActive(i)}
                 aria-label={`Go to testimonial ${i + 1}`}
-                className={`h-2 rounded-full transition-all ${active === i ? "bg-[#C8FF00] w-8" : "bg-white/20 w-2"}`}
+                className={`h-2 rounded-full transition-all ${active === i ? "bg-[#1E90FF] w-8" : "bg-white/20 w-2"}`}
               />
             ))}
           </div>
@@ -907,16 +891,16 @@ function Testimonials() {
 
 function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
   return (
-    <div className="h-full border border-white/10 rounded-2xl p-8 bg-white/[0.02]">
+    <div className="h-full border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:border-[#1E90FF]/30 transition-colors">
       <div className="flex gap-1 mb-6">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className="h-5 w-5 fill-[#C8FF00] text-[#C8FF00]" />
+          <Star key={i} className="h-5 w-5 fill-[#1E90FF] text-[#1E90FF]" />
         ))}
       </div>
-      <p className="text-white/80 leading-relaxed mb-6 text-lg">&ldquo;{t.quote}&rdquo;</p>
+      <p className="text-white/85 leading-relaxed mb-6 text-lg">&ldquo;{t.quote}&rdquo;</p>
       <div className="border-t border-white/10 pt-4">
         <div className="font-bold text-white">{t.name}</div>
-        <div className="text-sm text-white/50">{t.detail}</div>
+        <div className="text-sm text-[#C8D8E8]/60">{t.detail}</div>
       </div>
     </div>
   );
@@ -925,12 +909,12 @@ function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="py-20 md:py-32 bg-[#0A0A0A] border-t border-white/5">
+    <section id="faq" className="py-20 md:py-32 bg-[#0A1628] border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">Questions</p>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">FAQ</h2>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Questions</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">FAQ</h2>
           </div>
         </Reveal>
         <div className="max-w-3xl mx-auto space-y-3">
@@ -938,7 +922,7 @@ function FAQ() {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={i * 0.04}>
-                <div className="border border-white/10 rounded-xl overflow-hidden bg-white/[0.02]">
+                <div className={`border rounded-xl overflow-hidden bg-white/[0.02] transition-colors ${isOpen ? "border-[#1E90FF]/40" : "border-white/10"}`}>
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left hover:bg-white/[0.03] transition-colors"
@@ -946,7 +930,7 @@ function FAQ() {
                   >
                     <span className="font-bold text-base md:text-lg">{f.q}</span>
                     <ChevronDown
-                      className={`h-5 w-5 text-[#C8FF00] flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                      className={`h-5 w-5 text-[#1E90FF] flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                     />
                   </button>
                   <div
@@ -955,7 +939,7 @@ function FAQ() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-5 md:px-6 pb-5 md:pb-6 text-white/70 leading-relaxed">{f.a}</p>
+                      <p className="px-5 md:px-6 pb-5 md:pb-6 text-[#C8D8E8]/75 leading-relaxed">{f.a}</p>
                     </div>
                   </div>
                 </div>
@@ -997,37 +981,37 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-[#0A0A0A] border-t border-white/5">
+    <section id="contact" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-6xl mx-auto">
           <div>
             <Reveal>
-              <p className="text-[#C8FF00] font-bold uppercase tracking-[0.2em] text-sm mb-4">Get In Touch</p>
-              <h2 className="font-display text-5xl md:text-7xl leading-none mb-6">
+              <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Get In Touch</p>
+              <h2 className="headline text-5xl md:text-7xl leading-none mb-6">
                 READY TO
                 <br />
-                <span className="text-[#C8FF00]">START?</span>
+                <span className="text-[#1E90FF]">START?</span>
               </h2>
-              <p className="text-white/70 text-lg leading-relaxed mb-8">
+              <p className="text-[#C8D8E8]/75 text-lg leading-relaxed mb-8">
                 Send a message and I'll reply within 24 hours to book your free consultation. No pressure, no spam.
               </p>
 
               <div className="space-y-4 mb-8">
-                <a href="mailto:hello@jaymacfitness.co.uk" className="flex items-center gap-4 text-white/80 hover:text-[#C8FF00] transition-colors">
+                <a href="mailto:hello@jaymacfitness.co.uk" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <Mail className="h-5 w-5 text-[#C8FF00]" />
+                    <Mail className="h-5 w-5 text-[#1E90FF]" />
                   </div>
                   <span>hello@jaymacfitness.co.uk</span>
                 </a>
-                <a href="tel:+447700900000" className="flex items-center gap-4 text-white/80 hover:text-[#C8FF00] transition-colors">
+                <a href="tel:+447700900000" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <Phone className="h-5 w-5 text-[#C8FF00]" />
+                    <Phone className="h-5 w-5 text-[#1E90FF]" />
                   </div>
                   <span>+44 7700 900000</span>
                 </a>
                 <div className="flex items-center gap-4 text-white/80">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <MapPin className="h-5 w-5 text-[#C8FF00]" />
+                    <MapPin className="h-5 w-5 text-[#1E90FF]" />
                   </div>
                   <span>Foundry Gym, Kings Heath, Birmingham</span>
                 </div>
@@ -1051,17 +1035,17 @@ function Contact() {
             >
               {success ? (
                 <div className="text-center py-12">
-                  <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-[#C8FF00]/10 border border-[#C8FF00]/30 mb-6">
-                    <CheckCircle2 className="h-8 w-8 text-[#C8FF00]" />
+                  <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-[#1E90FF]/10 border border-[#1E90FF]/30 mb-6">
+                    <CheckCircle2 className="h-8 w-8 text-[#1E90FF]" />
                   </div>
-                  <h3 className="font-display text-3xl md:text-4xl mb-3">MESSAGE SENT</h3>
-                  <p className="text-white/70 mb-6">
+                  <h3 className="headline text-3xl md:text-4xl mb-3">MESSAGE SENT</h3>
+                  <p className="text-[#C8D8E8]/75 mb-6">
                     Thanks for reaching out. I'll be in touch within 24 hours to book your free consultation.
                   </p>
                   <button
                     type="button"
                     onClick={() => setSuccess(false)}
-                    className="text-[#C8FF00] font-bold uppercase tracking-wider text-sm hover:underline"
+                    className="text-[#1E90FF] font-bold uppercase tracking-wider text-sm hover:underline"
                   >
                     Send another message
                   </button>
@@ -1077,7 +1061,7 @@ function Contact() {
                       name="name"
                       required
                       placeholder="Your full name"
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#C8FF00] transition-colors min-h-[44px]"
+                      className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
                     />
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -1091,7 +1075,7 @@ function Contact() {
                         type="email"
                         required
                         placeholder="you@example.com"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#C8FF00] transition-colors min-h-[44px]"
+                        className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
                       />
                     </div>
                     <div>
@@ -1103,7 +1087,7 @@ function Contact() {
                         name="phone"
                         type="tel"
                         placeholder="+44 ..."
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#C8FF00] transition-colors min-h-[44px]"
+                        className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
                       />
                     </div>
                   </div>
@@ -1117,7 +1101,7 @@ function Contact() {
                         name="goal"
                         required
                         defaultValue=""
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:border-[#C8FF00] transition-colors appearance-none min-h-[44px]"
+                        className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:border-[#1E90FF] transition-colors appearance-none min-h-[44px]"
                       >
                         <option value="" disabled>
                           Select your goal
@@ -1141,7 +1125,7 @@ function Contact() {
                       required
                       rows={4}
                       placeholder="Tell me a bit about where you are now and what you want to achieve..."
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#C8FF00] transition-colors resize-none"
+                      className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors resize-none"
                     />
                   </div>
                   {error && (
@@ -1150,7 +1134,7 @@ function Contact() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full bg-[#C8FF00] text-black font-bold uppercase tracking-wider py-4 rounded-full hover:scale-[1.01] transition-transform disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+                    className="w-full bg-[#1E90FF] text-white font-bold uppercase tracking-wider py-4 rounded-full hover:bg-[#4DAAFF] hover:shadow-[0_8px_32px_rgba(30,144,255,0.35)] transition-all disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
                   >
                     {submitting ? "Sending..." : "Send Message"}
                     {!submitting && <ArrowRight className="h-4 w-4" />}
@@ -1168,14 +1152,14 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="bg-black border-t border-white/10 py-12">
+    <footer className="bg-[#08111E] border-t border-white/10 py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
           <div>
-            <a href="#top" className="font-display text-2xl tracking-wider text-white inline-block mb-4">
-              JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+            <a href="#top" className="headline text-2xl tracking-wider text-white inline-block mb-4">
+              JAYMAC<span className="text-[#1E90FF]">FITNESS</span>
             </a>
-            <p className="text-white/50 text-sm leading-relaxed">
+            <p className="text-[#C8D8E8]/55 text-sm leading-relaxed">
               Personal training in Birmingham — online and in-person. Built for results that last.
             </p>
           </div>
@@ -1189,7 +1173,7 @@ function Footer() {
                 ["#faq", "FAQ"],
                 ["#contact", "Contact"],
               ].map(([href, label]) => (
-                <a key={href} href={href} className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors">
+                <a key={href} href={href} className="text-[#C8D8E8]/65 hover:text-[#1E90FF] text-sm transition-colors">
                   {label}
                 </a>
               ))}
@@ -1203,7 +1187,7 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram @jaymacjm"
-                className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#C8FF00] hover:text-black hover:border-[#C8FF00] transition-colors"
+                className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#1E90FF] hover:text-white hover:border-[#1E90FF] transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
@@ -1212,7 +1196,7 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook Jay PT"
-                className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#C8FF00] hover:text-black hover:border-[#C8FF00] transition-colors"
+                className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#1E90FF] hover:text-white hover:border-[#1E90FF] transition-colors"
               >
                 <Facebook className="h-5 w-5" />
               </a>
