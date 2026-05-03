@@ -64,11 +64,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
 
-              {/* Public routes wrapped in marketing layout */}
-              <Route path="/" element={<Layout />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-              </Route>
+              {/* Public auth routes — full-bleed branded pages, no marketing chrome */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
               {/* Client portal */}
               <Route element={<ProtectedRoute role="CLIENT" />}>
