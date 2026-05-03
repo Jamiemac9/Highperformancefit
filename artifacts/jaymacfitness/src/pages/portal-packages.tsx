@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiGet, apiPost } from "../lib/api";
-import { Loader2, Check, ShoppingCart, AlertCircle, CheckCircle2, Info } from "lucide-react";
+import { Loader2, Check, ShoppingCart, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 interface Pkg {
@@ -12,22 +12,22 @@ interface Pkg {
 }
 
 export default function PortalPackages() {
-  const qc = useQueryClient();
   const [confirm, setConfirm] = useState<Pkg | null>(null);
-  const [successInfo, setSuccessInfo] = useState<string | null>(null);
 
   const { data, isLoading } = useQuery<Pkg[]>({
     queryKey: ["packages"],
     queryFn: () => apiGet("/api/packages"),
   });
 
+  // Kicks off a real Stripe Checkout session and redirects the browser to it.
   const purchase = useMutation({
-    mutationFn: (packageId: string) => apiPost("/api/bookings/purchase", { packageId }),
-    onSuccess: (resp: any) => {
-      qc.invalidateQueries({ queryKey: ["me-summary"] });
-      qc.invalidateQueries({ queryKey: ["my-bookings"] });
-      setConfirm(null);
-      setSuccessInfo(resp?.message ?? "Package purchased.");
+    mutationFn: async (packageId: string) => {
+      const resp = await apiPost("/api/checkout/create-session", { packageId });
+      if (!resp?.url) throw new Error("Could not start checkout. Please try again.");
+      return resp.url as string;
+    },
+    onSuccess: (url) => {
+      window.location.href = url;
     },
   });
 
@@ -37,28 +37,10 @@ export default function PortalPackages() {
         Choose a package that fits your training schedule. All sessions are 1-on-1 with Jay.
       </p>
 
-      {!import.meta.env.PROD && (
-        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 px-4 py-3 text-xs text-blue-200 flex items-start gap-2">
-          <Info className="h-4 w-4 mt-0.5 shrink-0" />
-          <span>
-            Stripe is not configured yet. Purchases are recorded immediately for testing — set the
-            <code className="mx-1 px-1 py-0.5 bg-blue-500/20 rounded">STRIPE_SECRET_KEY</code>
-            environment variable to enable real payments.
-          </span>
-        </div>
-      )}
-
       {purchase.isError && (
         <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 flex items-start gap-2">
           <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-          <span>{(purchase.error as Error)?.message || "Could not purchase package."}</span>
-        </div>
-      )}
-
-      {successInfo && (
-        <div className="rounded-lg border border-[#C8FF00]/30 bg-[#C8FF00]/10 px-4 py-3 text-sm text-[#C8FF00] flex items-start gap-2">
-          <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0" />
-          <span>{successInfo}</span>
+          <span>{(purchase.error as Error)?.message || "Could not start checkout."}</span>
         </div>
       )}
 
@@ -139,7 +121,7 @@ export default function PortalPackages() {
               </div>
             </div>
             <div className="mt-4 text-[11px] text-white/40 italic">
-              Stripe payment is in placeholder mode — purchase will be recorded immediately.
+              You'll be redirected to Stripe's secure checkout to complete payment.
             </div>
             <div className="mt-6 flex gap-2">
               <button
@@ -155,7 +137,7 @@ export default function PortalPackages() {
                 className="flex-1 px-4 py-2.5 rounded-lg bg-[#C8FF00] hover:bg-[#b8ee00] text-black text-sm font-semibold disabled:opacity-50 inline-flex items-center justify-center gap-2"
               >
                 {purchase.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
-                Confirm purchase
+                {purchase.isPending ? "Redirecting…" : "Pay with Stripe"}
               </button>
             </div>
           </div>
