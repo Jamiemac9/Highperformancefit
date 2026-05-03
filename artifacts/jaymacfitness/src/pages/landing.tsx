@@ -1543,11 +1543,11 @@ function Contact() {
                   </div>
                   <span>hello@jaymacfitness.co.uk</span>
                 </a>
-                <a href="tel:+447700900000" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
+                <a href="tel:+44775336214" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <Phone className="h-5 w-5 text-[#1E90FF]" />
                   </div>
-                  <span>+44 7700 900000</span>
+                  <span>0775 336 214</span>
                 </a>
                 <div className="flex items-center gap-4 text-white/80">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
