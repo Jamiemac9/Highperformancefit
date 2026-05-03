@@ -88,8 +88,63 @@ export default function Landing() {
     staleTime: 60_000,
   });
 
+  const [paidBanner, setPaidBanner] = useState<string | null>(null);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") === "1") {
+      const pkg = params.get("pkg") || "your package";
+      setPaidBanner(pkg);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("paid");
+      url.searchParams.delete("pkg");
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, []);
+
   return (
     <div className="font-body bg-[#0D1B2A] text-white min-h-screen overflow-x-hidden">
+      {paidBanner && (
+        <div
+          role="status"
+          style={{
+            position: "fixed",
+            top: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 100,
+            background: "#112240",
+            border: "1px solid #1E90FF",
+            color: "#fff",
+            padding: "14px 22px",
+            borderRadius: 10,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+            maxWidth: "90vw",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <span>
+            ✅ Payment received for <strong>{paidBanner}</strong>. Jay will be
+            in touch shortly to schedule your sessions.
+          </span>
+          <button
+            type="button"
+            onClick={() => setPaidBanner(null)}
+            aria-label="Dismiss"
+            style={{
+              background: "transparent",
+              color: "#9fb6cf",
+              border: "none",
+              cursor: "pointer",
+              fontSize: 18,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        </div>
+      )}
       <Nav />
       <Hero />
       <SocialProof />
@@ -1114,6 +1169,27 @@ function formatGbp(value: string | number | null | undefined): string {
 
 function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
   const featured = !!pkg.featured;
+  const [buying, setBuying] = useState(false);
+
+  async function handleBuy() {
+    if (buying) return;
+    try {
+      setBuying(true);
+      const data = await apiPost("/api/checkout/create-session", {
+        packageId: pkg.id,
+      });
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Sorry — could not start checkout. Please try again.");
+        setBuying(false);
+      }
+    } catch (err: any) {
+      const msg = err?.message || "Could not start checkout.";
+      alert(msg);
+      setBuying(false);
+    }
+  }
   const typeLabel = pkg.type ? PACKAGE_TYPE_LABEL[pkg.type] : "In-Person";
   const highlights =
     pkg.highlights && pkg.highlights.length > 0
@@ -1263,27 +1339,27 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
           ))}
         </ul>
 
-        {/* CTA */}
-        {pkg.stripeLink ? (
-          <a
-            href={pkg.stripeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={featured ? "btn-primary" : "btn-ghost"}
-            style={{ display: "block", width: "100%", textAlign: "center" }}
-            aria-label={`Pay for the ${pkg.name} package securely via Stripe`}
-          >
-            {featured ? "Buy Now — Start Transforming" : "Buy Now"}
-          </a>
-        ) : (
-          <a
-            href="#contact"
-            className={featured ? "btn-primary" : "btn-ghost"}
-            style={{ display: "block", width: "100%", textAlign: "center" }}
-          >
-            {featured ? "Start Transforming" : "Get Started"}
-          </a>
-        )}
+        {/* CTA — kicks off a Stripe Checkout session */}
+        <button
+          type="button"
+          onClick={handleBuy}
+          disabled={buying}
+          className={featured ? "btn-primary" : "btn-ghost"}
+          style={{
+            display: "block",
+            width: "100%",
+            textAlign: "center",
+            cursor: buying ? "wait" : "pointer",
+            opacity: buying ? 0.7 : 1,
+          }}
+          aria-label={`Pay for the ${pkg.name} package securely via Stripe`}
+        >
+          {buying
+            ? "Redirecting to Stripe…"
+            : featured
+              ? "Buy Now — Start Transforming"
+              : "Buy Now"}
+        </button>
 
         {featured && (
           <div
