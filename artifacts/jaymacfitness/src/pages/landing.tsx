@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiGet, apiPost } from "../lib/api";
+import amyTransformation from "@assets/amy_trasnformation_1777814405343.jpg";
+import dannyJenTransformation from "@assets/dannyandjen_progress_pic_1777814405345.jpg";
+import elaineTransformation from "@assets/elaine_transformation_1777814405346.jpg";
 import {
   ArrowRight,
   ChevronDown,
@@ -616,8 +619,7 @@ type Transformation = {
   result: string;
   detail: string;
   quote: string;
-  beforeLabel: string;
-  afterLabel: string;
+  image: string;
 };
 
 const TRANSFORMATIONS: Transformation[] = [
@@ -627,8 +629,7 @@ const TRANSFORMATIONS: Transformation[] = [
     detail: "14 weeks · 1-2-1 Training",
     quote:
       "I'd tried every diet and every gym. Jay was the first person who actually listened, built a plan around my life, and held me to it. Three stone down and I've kept it off.",
-    beforeLabel: "BEFORE PHOTO",
-    afterLabel: "AFTER PHOTO",
+    image: amyTransformation,
   },
   {
     name: "Danny & Jen",
@@ -636,8 +637,7 @@ const TRANSFORMATIONS: Transformation[] = [
     detail: "6 months · Couples Training",
     quote:
       "Training together with Jay changed our marriage. We pushed each other, we got fitter together, and six stone later we're stronger than we've ever been — in every sense.",
-    beforeLabel: "BEFORE PHOTO",
-    afterLabel: "AFTER PHOTO",
+    image: dannyJenTransformation,
   },
   {
     name: "Elaine T.",
@@ -645,8 +645,7 @@ const TRANSFORMATIONS: Transformation[] = [
     detail: "Post-injury rehab & training",
     quote:
       "After my injury I thought I was finished with the gym. Jay rebuilt me from the ground up — patient, methodical, never rushed. I'm lifting more now than before I got hurt.",
-    beforeLabel: "BEFORE PHOTO",
-    afterLabel: "AFTER PHOTO",
+    image: elaineTransformation,
   },
 ];
 
@@ -669,87 +668,58 @@ function TransformationCard({
         overflow: "hidden",
       }}
     >
-      {/* Split before/after image area */}
+      {/* Before / after composite photo */}
       <div
         className="relative w-full"
-        style={{ height: "320px" }}
-        aria-label={`${t.name} before and after`}
+        style={{ height: "320px", backgroundColor: "#0A1628" }}
       >
-        <div className="absolute inset-0 flex">
-          <div
-            className="flex-1 flex items-center justify-center"
-            style={{ backgroundColor: "#1A3A5C" }}
-          >
-            <span
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                fontWeight: 600,
-                fontSize: "12px",
-                letterSpacing: "0.18em",
-                color: "rgba(200,216,232,0.7)",
-                textTransform: "uppercase",
-              }}
-            >
-              {t.beforeLabel}
-            </span>
-          </div>
-          <div
-            className="flex-1 flex items-center justify-center"
-            style={{
-              backgroundColor: "#1E3D5A",
-              backgroundImage:
-                "linear-gradient(135deg, rgba(30,144,255,0.08), rgba(30,144,255,0))",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Barlow', sans-serif",
-                fontWeight: 600,
-                fontSize: "12px",
-                letterSpacing: "0.18em",
-                color: "rgba(200,216,232,0.7)",
-                textTransform: "uppercase",
-              }}
-            >
-              {t.afterLabel}
-            </span>
-          </div>
-        </div>
-        {/* Centre divider */}
-        <div
-          aria-hidden="true"
-          className="absolute top-0 bottom-0"
-          style={{
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "2px",
-            backgroundColor: "#FFFFFF",
-          }}
+        <img
+          src={t.image}
+          alt={`${t.name} — before and after transformation`}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full"
+          style={{ objectFit: "cover", objectPosition: "center top" }}
         />
-        {/* Centre badge */}
-        <div
+        {/* Top-left BEFORE / top-right AFTER labels for clarity */}
+        <span
           aria-hidden="true"
-          className="absolute flex items-center justify-center text-center"
+          className="absolute"
           style={{
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "72px",
-            height: "72px",
-            borderRadius: "50%",
-            backgroundColor: "var(--brand-blue, #1E90FF)",
-            color: "#FFFFFF",
+            top: "12px",
+            left: "12px",
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 700,
             fontSize: "10px",
-            letterSpacing: "0.08em",
-            lineHeight: 1.1,
-            boxShadow: "0 0 24px rgba(30,144,255,0.45)",
-            padding: "0 6px",
+            letterSpacing: "0.18em",
+            color: "#FFFFFF",
+            backgroundColor: "rgba(13,27,42,0.78)",
+            padding: "4px 8px",
+            borderRadius: "2px",
+            textTransform: "uppercase",
           }}
         >
-          BEFORE / AFTER
-        </div>
+          Before
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute"
+          style={{
+            top: "12px",
+            right: "12px",
+            fontFamily: "'Barlow', sans-serif",
+            fontWeight: 700,
+            fontSize: "10px",
+            letterSpacing: "0.18em",
+            color: "#FFFFFF",
+            backgroundColor: "rgba(30,144,255,0.92)",
+            padding: "4px 8px",
+            borderRadius: "2px",
+            textTransform: "uppercase",
+            boxShadow: "0 0 12px rgba(30,144,255,0.4)",
+          }}
+        >
+          After
+        </span>
       </div>
 
       {/* Card body */}
