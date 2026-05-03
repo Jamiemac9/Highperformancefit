@@ -35,6 +35,7 @@ type Pkg = {
   highlights?: string[];
   isActive?: boolean;
   featured?: boolean;
+  stripeLink?: string | null;
 };
 
 const PACKAGE_TYPE_LABEL: Record<PackageType, string> = {
@@ -620,6 +621,9 @@ type Transformation = {
   detail: string;
   quote: string;
   image: string;
+  /** When true, the composite image reads after-on-the-left / before-on-the-right,
+   *  so the corner pill labels are swapped to match. */
+  swapBeforeAfter?: boolean;
 };
 
 const TRANSFORMATIONS: Transformation[] = [
@@ -646,6 +650,7 @@ const TRANSFORMATIONS: Transformation[] = [
     quote:
       "After my injury I thought I was finished with the gym. Jay rebuilt me from the ground up — patient, methodical, never rushed. I'm lifting more now than before I got hurt.",
     image: elaineTransformation,
+    swapBeforeAfter: true,
   },
 ];
 
@@ -680,7 +685,7 @@ function TransformationCard({
           className="absolute inset-0 w-full h-full"
           style={{ objectFit: "cover", objectPosition: "center top" }}
         />
-        {/* Top-left BEFORE / top-right AFTER labels for clarity */}
+        {/* Corner pill labels — swap when the source composite reads after-left / before-right. */}
         <span
           aria-hidden="true"
           className="absolute"
@@ -692,13 +697,16 @@ function TransformationCard({
             fontSize: "10px",
             letterSpacing: "0.18em",
             color: "#FFFFFF",
-            backgroundColor: "rgba(13,27,42,0.78)",
+            backgroundColor: t.swapBeforeAfter
+              ? "rgba(30,144,255,0.92)"
+              : "rgba(13,27,42,0.78)",
             padding: "4px 8px",
             borderRadius: "2px",
             textTransform: "uppercase",
+            boxShadow: t.swapBeforeAfter ? "0 0 12px rgba(30,144,255,0.4)" : "none",
           }}
         >
-          Before
+          {t.swapBeforeAfter ? "After" : "Before"}
         </span>
         <span
           aria-hidden="true"
@@ -711,14 +719,16 @@ function TransformationCard({
             fontSize: "10px",
             letterSpacing: "0.18em",
             color: "#FFFFFF",
-            backgroundColor: "rgba(30,144,255,0.92)",
+            backgroundColor: t.swapBeforeAfter
+              ? "rgba(13,27,42,0.78)"
+              : "rgba(30,144,255,0.92)",
             padding: "4px 8px",
             borderRadius: "2px",
             textTransform: "uppercase",
-            boxShadow: "0 0 12px rgba(30,144,255,0.4)",
+            boxShadow: t.swapBeforeAfter ? "none" : "0 0 12px rgba(30,144,255,0.4)",
           }}
         >
-          After
+          {t.swapBeforeAfter ? "Before" : "After"}
         </span>
       </div>
 
@@ -1254,13 +1264,26 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
         </ul>
 
         {/* CTA */}
-        <a
-          href="#contact"
-          className={featured ? "btn-primary" : "btn-ghost"}
-          style={{ display: "block", width: "100%", textAlign: "center" }}
-        >
-          {featured ? "Start Transforming" : "Get Started"}
-        </a>
+        {pkg.stripeLink ? (
+          <a
+            href={pkg.stripeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={featured ? "btn-primary" : "btn-ghost"}
+            style={{ display: "block", width: "100%", textAlign: "center" }}
+            aria-label={`Pay for the ${pkg.name} package securely via Stripe`}
+          >
+            {featured ? "Buy Now — Start Transforming" : "Buy Now"}
+          </a>
+        ) : (
+          <a
+            href="#contact"
+            className={featured ? "btn-primary" : "btn-ghost"}
+            style={{ display: "block", width: "100%", textAlign: "center" }}
+          >
+            {featured ? "Start Transforming" : "Get Started"}
+          </a>
+        )}
 
         {featured && (
           <div
@@ -1709,16 +1732,16 @@ function Footer() {
                 <Instagram className="h-5 w-5" />
               </a>
               <a
-                href="https://facebook.com/JayPT"
+                href="https://www.facebook.com/jay.pt.58"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook Jay PT"
+                aria-label="Facebook — Jay Mac"
                 className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#1E90FF] hover:text-white hover:border-[#1E90FF] transition-colors"
               >
                 <Facebook className="h-5 w-5" />
               </a>
             </div>
-            <p className="text-white/40 text-xs">Instagram @jaymacjm · Facebook Jay PT</p>
+            <p className="text-white/40 text-xs">Instagram @jaymacjm · Facebook jay.pt.58</p>
           </div>
         </div>
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-white/40">

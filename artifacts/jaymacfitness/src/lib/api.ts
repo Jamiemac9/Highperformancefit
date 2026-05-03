@@ -17,7 +17,9 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.message || "An error occurred");
+    throw new Error(
+      errorData.error || errorData.message || `Request failed (${res.status})`,
+    );
   }
 
   // Handle empty responses

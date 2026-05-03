@@ -47,6 +47,7 @@ const createSchema = z.object({
   highlights: z.array(z.string()).optional(),
   isActive: z.boolean().optional(),
   featured: z.boolean().optional(),
+  stripeLink: z.string().url().nullable().optional(),
 });
 
 packagesRouter.post("/", requireAuth, requireTrainer, async (req, res) => {
