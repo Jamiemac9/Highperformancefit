@@ -1,0 +1,39 @@
+Build the complete authentication system for Jay Mac Fitness. Do not change anything already built.
+
+BACKEND (already partially scaffolded — implement the route logic):
+POST /auth/login — hash compare, return JWT 15min + set httpOnly refresh cookie 7d, return { user: { id, email, role, firstName } }
+POST /auth/refresh — verify refresh cookie, issue new JWT
+POST /auth/logout — clear both cookies
+GET /auth/me — return current user from JWT
+PATCH /auth/change-password — verify oldPassword, hash newPassword, save
+
+FRONTEND:
+Create /client/src/context/AuthContext.jsx:
+  - Provides: user, isLoading, isAuthenticated, login(email, password), logout()
+  - On mount: call GET /auth/me to rehydrate. Set isLoading true until resolved.
+  - login(): POST /auth/login, set user state, redirect based on role (TRAINER → /dashboard, CLIENT → /portal/dashboard)
+  - logout(): POST /auth/logout, clear user state, redirect to /login
+
+Create ProtectedRoute component:
+  - If isLoading: show full-screen spinner (blue spinning ring, CSS animation, centred on navy background)
+  - If not authenticated: redirect to /login
+  - If authenticated: render <Outlet />
+
+Create RoleRoute component:
+  - Extends ProtectedRoute — also checks role matches prop
+  - Wrong role: redirect to /unauthorized (build a simple page: "You don't have access to this area.")
+
+LOGIN PAGE at /login:
+  Background: #0D1B2A, full screen centred card
+  Card: background #112240, border 1px solid rgba(30,144,255,0.25), padding 48px, border-radius 4px, max-width 420px, shadow 0 20px 60px rgba(0,0,0,0.5)
+  Logo image (/images/logo.png height 48px, centred, margin-bottom 32px)
+  Headline: Barlow Condensed 900 italic 44px white: "WELCOME BACK"
+  Email input, Password input with show/hide toggle (eye icon)
+  "Log In" button: btn-primary full-width
+  Error: inline red message below button
+  Link below: Inter 13px #C8D8E8: "Not a client yet? " + blue link → scrolls to landing page #contact
+
+Build placeholder pages (minimal — just shell with correct layout):
+  /dashboard — "Trainer dashboard loading..." — blue spinner
+  /portal/dashboard — "Client portal loading..." — blue spinner
+These will be built in the next phases.

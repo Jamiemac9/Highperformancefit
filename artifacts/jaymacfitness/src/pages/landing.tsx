@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiGet, apiPost } from "../lib/api";
+import amyTransformation from "@assets/amy_trasnformation_1777814405343.jpg";
+import dannyJenTransformation from "@assets/dannyandjen_progress_pic_1777814405345.jpg";
+import elaineTransformation from "@assets/elaine_transformation_1777814405346.jpg";
 import {
   ArrowRight,
   ChevronDown,
@@ -88,9 +91,8 @@ export default function Landing() {
     <div className="font-body bg-[#0D1B2A] text-white min-h-screen overflow-x-hidden">
       <Nav />
       <Hero />
-      {/* Anchor target for the hero "See Real Results ↓" ghost button */}
-      <div id="results" aria-hidden="true" />
       <SocialProof />
+      <Results />
       <Services />
       {/* Anchor target for the nav "About" link — points at the process section */}
       <div id="about" aria-hidden="true" />
@@ -611,6 +613,318 @@ const WHAT_I_DO = [
     href: "#contact",
   },
 ];
+
+type Transformation = {
+  name: string;
+  result: string;
+  detail: string;
+  quote: string;
+  image: string;
+};
+
+const TRANSFORMATIONS: Transformation[] = [
+  {
+    name: "Amy K.",
+    result: "LOST 3 STONE",
+    detail: "14 weeks · 1-2-1 Training",
+    quote:
+      "I'd tried every diet and every gym. Jay was the first person who actually listened, built a plan around my life, and held me to it. Three stone down and I've kept it off.",
+    image: amyTransformation,
+  },
+  {
+    name: "Danny & Jen",
+    result: "6 STONE BETWEEN THEM",
+    detail: "6 months · Couples Training",
+    quote:
+      "Training together with Jay changed our marriage. We pushed each other, we got fitter together, and six stone later we're stronger than we've ever been — in every sense.",
+    image: dannyJenTransformation,
+  },
+  {
+    name: "Elaine T.",
+    result: "BACK STRONGER THAN EVER",
+    detail: "Post-injury rehab & training",
+    quote:
+      "After my injury I thought I was finished with the gym. Jay rebuilt me from the ground up — patient, methodical, never rushed. I'm lifting more now than before I got hurt.",
+    image: elaineTransformation,
+  },
+];
+
+function TransformationCard({
+  t,
+  index,
+}: {
+  t: Transformation;
+  index: number;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <article
+      className="results-card reveal flex flex-col h-full"
+      style={{
+        transitionDelay: `${index * 0.08}s`,
+        backgroundColor: "#112240",
+        border: "1px solid #1A3A5C",
+        borderRadius: "4px",
+        overflow: "hidden",
+      }}
+    >
+      {/* Before / after composite photo */}
+      <div
+        className="relative w-full"
+        style={{ height: "320px", backgroundColor: "#0A1628" }}
+      >
+        <img
+          src={t.image}
+          alt={`${t.name} — before and after transformation`}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full"
+          style={{ objectFit: "cover", objectPosition: "center top" }}
+        />
+        {/* Top-left BEFORE / top-right AFTER labels for clarity */}
+        <span
+          aria-hidden="true"
+          className="absolute"
+          style={{
+            top: "12px",
+            left: "12px",
+            fontFamily: "'Barlow', sans-serif",
+            fontWeight: 700,
+            fontSize: "10px",
+            letterSpacing: "0.18em",
+            color: "#FFFFFF",
+            backgroundColor: "rgba(13,27,42,0.78)",
+            padding: "4px 8px",
+            borderRadius: "2px",
+            textTransform: "uppercase",
+          }}
+        >
+          Before
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute"
+          style={{
+            top: "12px",
+            right: "12px",
+            fontFamily: "'Barlow', sans-serif",
+            fontWeight: 700,
+            fontSize: "10px",
+            letterSpacing: "0.18em",
+            color: "#FFFFFF",
+            backgroundColor: "rgba(30,144,255,0.92)",
+            padding: "4px 8px",
+            borderRadius: "2px",
+            textTransform: "uppercase",
+            boxShadow: "0 0 12px rgba(30,144,255,0.4)",
+          }}
+        >
+          After
+        </span>
+      </div>
+
+      {/* Card body */}
+      <div
+        className="flex flex-col flex-1"
+        style={{ padding: "24px" }}
+      >
+        <h3
+          className="text-white"
+          style={{
+            fontFamily: "'Barlow', sans-serif",
+            fontWeight: 700,
+            fontSize: "18px",
+            lineHeight: 1.25,
+            marginBottom: "8px",
+          }}
+        >
+          {t.name}
+        </h3>
+        <p
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 900,
+            fontStyle: "italic",
+            fontSize: "32px",
+            lineHeight: 1.05,
+            color: "var(--brand-blue, #1E90FF)",
+            textTransform: "uppercase",
+            letterSpacing: "-0.005em",
+          }}
+        >
+          {t.result}
+        </p>
+        <p
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "13px",
+            lineHeight: 1.5,
+            color: "#C8D8E8",
+            marginTop: "6px",
+          }}
+        >
+          {t.detail}
+        </p>
+        <div
+          className="flex items-center gap-1"
+          aria-label="5 out of 5 stars"
+          style={{ marginTop: "12px" }}
+        >
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              className="h-4 w-4"
+              style={{
+                color: "var(--brand-blue, #1E90FF)",
+                fill: "var(--brand-blue, #1E90FF)",
+              }}
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className={expanded ? "" : "clamp-2"}
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontStyle: "italic",
+            fontSize: "14px",
+            lineHeight: 1.6,
+            color: "#C8D8E8",
+            marginTop: "14px",
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            textAlign: "left",
+            cursor: "pointer",
+            width: "100%",
+          }}
+        >
+          “{t.quote}”
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function Results() {
+  return (
+    <section
+      id="results"
+      className="py-20 md:py-28"
+      style={{ backgroundColor: "#0A1628" }}
+    >
+      <div className="container mx-auto px-4 md:px-6">
+        {/* Section header */}
+        <div className="max-w-4xl mb-12 md:mb-16 reveal text-center md:text-left mx-auto md:mx-0">
+          <p
+            className="uppercase mb-4"
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontWeight: 600,
+              fontSize: "13px",
+              letterSpacing: "0.2em",
+              color: "var(--brand-blue, #1E90FF)",
+            }}
+          >
+            Transformations
+          </p>
+          <h2
+            className="text-white"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 900,
+              fontStyle: "italic",
+              fontSize: "clamp(52px, 7.2vw, 72px)",
+              lineHeight: 1.0,
+              letterSpacing: "-0.005em",
+              textTransform: "uppercase",
+            }}
+          >
+            200+ People Who
+            <br />
+            Thought They
+            <br />
+            Couldn't.
+          </h2>
+          <p
+            className="mt-5"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "17px",
+              lineHeight: 1.6,
+              color: "#C8D8E8",
+              maxWidth: "620px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            Real clients. Real timelines. Real results — built one honest session at a time.
+          </p>
+        </div>
+
+        {/* Three transformation cards */}
+        <div className="grid gap-6 md:grid-cols-3">
+          {TRANSFORMATIONS.map((t, i) => (
+            <TransformationCard key={t.name} t={t} index={i} />
+          ))}
+        </div>
+
+        {/* Full-width CTA band */}
+        <div
+          className="reveal results-cta"
+          style={{
+            transitionDelay: `${TRANSFORMATIONS.length * 0.08}s`,
+            marginTop: "48px",
+            padding: "40px",
+            borderRadius: "4px",
+            border: "1px solid rgba(30,144,255,0.25)",
+            backgroundImage:
+              "linear-gradient(135deg, rgba(30,144,255,0.18) 0%, rgba(17,34,64,0.6) 60%, rgba(10,22,40,0.6) 100%)",
+          }}
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="text-center md:text-left">
+              <p
+                className="text-white"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 900,
+                  fontStyle: "italic",
+                  fontSize: "clamp(30px, 4.2vw, 38px)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.005em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Your Name Could Be Here.
+              </p>
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "15px",
+                  lineHeight: 1.6,
+                  color: "#C8D8E8",
+                  marginTop: "8px",
+                }}
+              >
+                Free consultation. No pressure. Just a plan that actually works.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              className="btn-primary"
+              style={{ whiteSpace: "nowrap", fontSize: "15px", padding: "16px 36px" }}
+            >
+              I'm Ready — Let's Go
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Services() {
   return (
