@@ -30,13 +30,14 @@ async function main() {
       ],
       isActive: true,
       featured: false,
+      stripeLink: null as string | null,
     },
     {
       name: "Commitment",
       type: "IN_PERSON" as const,
       sessions: 10,
-      price: 450.0,
-      pricePerSession: 45.0,
+      price: 350.0,
+      pricePerSession: 35.0,
       description: "Build the habit. See real change.",
       highlights: [
         "Everything in Starter",
@@ -46,6 +47,7 @@ async function main() {
       ],
       isActive: true,
       featured: false,
+      stripeLink: null as string | null,
     },
     {
       name: "Group",
@@ -62,13 +64,14 @@ async function main() {
       ],
       isActive: true,
       featured: false,
+      stripeLink: null as string | null,
     },
     {
       name: "Transformation",
       type: "IN_PERSON" as const,
       sessions: 24,
-      price: 960.0,
-      pricePerSession: 40.0,
+      price: 840.0,
+      pricePerSession: 35.0,
       description: "12 weeks. 2 sessions a week. Total transformation.",
       highlights: [
         "Everything in Commitment",
@@ -79,6 +82,7 @@ async function main() {
       ],
       isActive: true,
       featured: true,
+      stripeLink: null as string | null,
     },
   ];
 

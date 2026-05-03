@@ -104,6 +104,7 @@ model Package {
   highlights      String[]    @default([])
   isActive        Boolean     @default(true)
   featured        Boolean     @default(false)
+  stripeLink      String?
   bookings        Booking[]
 }
 
