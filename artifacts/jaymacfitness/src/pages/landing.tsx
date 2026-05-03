@@ -92,8 +92,10 @@ export default function Landing() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("paid") === "1") {
-      const pkg = params.get("pkg") || "your package";
-      setPaidBanner(pkg);
+      const raw = params.get("pkg") || "your package";
+      // Cap length to keep the banner sane even if the URL is tampered with.
+      // (React already escapes the value, so it's safe text — this is just UX.)
+      setPaidBanner(raw.slice(0, 60));
       const url = new URL(window.location.href);
       url.searchParams.delete("paid");
       url.searchParams.delete("pkg");
