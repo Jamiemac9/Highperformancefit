@@ -10,6 +10,15 @@ import {
   requireAuth,
   type AuthedRequest,
 } from "../auth/jwt.js";
+import { sendMail, welcomeEmail, loginNoticeEmail } from "../lib/mailer.js";
+
+function siteOrigin(req: { headers: Record<string, any>; protocol?: string }): string {
+  const replitDomain = (process.env.REPLIT_DOMAINS || "").split(",")[0]?.trim();
+  if (replitDomain) return `https://${replitDomain}`;
+  const proto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0] || req.protocol || "https";
+  const host = req.headers.host;
+  return `${proto}://${host}`;
+}
 
 export const authRouter = Router();
 
@@ -38,6 +47,24 @@ authRouter.post("/login", async (req, res) => {
   res.cookie("access_token", access, { ...cookieOpts, maxAge: 15 * 60 * 1000 });
   res.cookie("refresh_token", refresh, { ...cookieOpts, maxAge: 7 * 24 * 60 * 60 * 1000 });
   res.json({ user: { id: user.id, email: user.email, role: user.role } });
+
+  // Fire-and-forget sign-in notification (clients only — don't spam Jay every time he logs in).
+  if (user.role === "CLIENT") {
+    (async () => {
+      try {
+        const profile = await prisma.clientProfile.findUnique({ where: { userId: user.id } });
+        const firstName = profile?.firstName || "there";
+        const ip =
+          (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+          req.socket.remoteAddress ||
+          undefined;
+        const tpl = loginNoticeEmail({ firstName, when: new Date(), ip });
+        await sendMail({ to: user.email, ...tpl });
+      } catch (e) {
+        console.warn("[auth] login notice email failed:", (e as Error).message);
+      }
+    })();
+  }
 });
 
 authRouter.post("/register", async (req, res) => {
@@ -63,6 +90,19 @@ authRouter.post("/register", async (req, res) => {
   res.cookie("access_token", signAccess(payload), { ...cookieOpts, maxAge: 15 * 60 * 1000 });
   res.cookie("refresh_token", signRefresh(payload), { ...cookieOpts, maxAge: 7 * 24 * 60 * 60 * 1000 });
   res.status(201).json({ user: { id: user.id, email: user.email, role: user.role } });
+
+  // Fire-and-forget welcome email.
+  (async () => {
+    try {
+      const tpl = welcomeEmail({
+        firstName,
+        loginUrl: `${siteOrigin(req)}/portal`,
+      });
+      await sendMail({ to: user.email, ...tpl });
+    } catch (e) {
+      console.warn("[auth] welcome email failed:", (e as Error).message);
+    }
+  })();
 });
 
 authRouter.post("/refresh", (req, res) => {
