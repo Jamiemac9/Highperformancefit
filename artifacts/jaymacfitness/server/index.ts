@@ -17,6 +17,26 @@ const app = express();
 const PORT = Number(process.env.PORT || process.env.API_PORT || 5050);
 
 app.set("trust proxy", 1);
+
+// HTTPS + naked-domain redirect for SEO
+// Must sit before any route handler so all traffic (including API) is canonicalised.
+const CANONICAL_DOMAIN = "highperformancefit.co.uk";
+app.use((req, res, next) => {
+  // Skip enforcement in local dev to avoid redirect loops.
+  if (process.env.NODE_ENV !== "production" && !process.env.REPLIT_DOMAINS) {
+    return next();
+  }
+  const host = ((req.headers["x-forwarded-host"] as string) || req.headers.host || "").split(":")[0].toLowerCase();
+  if (host.includes("localhost") || host.includes("127.0.0.1") || host.endsWith(".replit.dev")) {
+    return next();
+  }
+  const proto = ((req.headers["x-forwarded-proto"] as string) || req.protocol || "http").toLowerCase();
+  const needsHttps = proto !== "https";
+  const needsNaked = host !== CANONICAL_DOMAIN;
+  if (!needsHttps && !needsNaked) return next();
+  return res.redirect(301, `https://${CANONICAL_DOMAIN}${req.originalUrl || req.url}`);
+});
+
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
