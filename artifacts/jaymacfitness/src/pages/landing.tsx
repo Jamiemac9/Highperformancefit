@@ -210,11 +210,11 @@ function Nav() {
     >
       <div className="container mx-auto px-4 md:px-6 h-16 lg:h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#top" className="flex items-center gap-2 shrink-0" aria-label="Jay Mac Fitness — Home">
+        <a href="#top" className="flex items-center gap-2 shrink-0" aria-label="High Performance Fit — Home">
           {!logoFailed ? (
             <img
               src="/images/logo.png"
-              alt="Jay Mac Fitness"
+              alt="High Performance Fit"
               style={{ height: "36px", width: "auto" }}
               onError={() => setLogoFailed(true)}
             />
@@ -223,7 +223,7 @@ function Nav() {
               className="text-xl md:text-2xl tracking-wider text-white font-bold italic"
               style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900 }}
             >
-              JAYMAC<span style={{ color: "var(--brand-blue, #1E90FF)" }}>FITNESS</span>
+              HP<span style={{ color: "var(--brand-blue, #1E90FF)" }}>FIT</span>
             </span>
           )}
         </a>
@@ -472,7 +472,7 @@ function Hero() {
               {!heroImgFailed || heroImgSrc !== "/images/hero-training.jpg" ? (
                 <img
                   src={heroImgSrc}
-                  alt="Jay Mac in personal training session"
+                  alt="Personal training session"
                   className="w-full h-full object-cover"
                   style={{ borderRadius: "4px" }}
                   onError={() => !heroImgFailed && setHeroImgFailed(true)}
@@ -1615,11 +1615,11 @@ function Contact() {
               </p>
 
               <div className="space-y-4 mb-8">
-                <a href="mailto:hello@jaymacfitness.co.uk" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
+                <a href="mailto:hello@highperformancefit.co.uk" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-[#1E90FF]" />
                   </div>
-                  <span>hello@jaymacfitness.co.uk</span>
+                  <span>hello@highperformancefit.co.uk</span>
                 </a>
                 <a href="tel:+447753226214" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
@@ -1757,7 +1757,7 @@ function Contact() {
                     {submitting ? "Sending..." : "Send Message"}
                     {!submitting && <ArrowRight className="h-4 w-4" />}
                   </button>
-                  <p className="text-xs text-white/40 text-center">By submitting, you agree to be contacted by Jay Mac Fitness about your enquiry.</p>
+                  <p className="text-xs text-white/40 text-center">By submitting, you agree to be contacted by High Performance Fit about your enquiry.</p>
                 </>
               )}
             </form>
@@ -1775,7 +1775,7 @@ function Footer() {
         <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
           <div>
             <a href="#top" className="headline text-2xl tracking-wider text-white inline-block mb-4">
-              JAYMAC<span className="text-[#1E90FF]">FITNESS</span>
+              HP<span className="text-[#1E90FF]">FIT</span>
             </a>
             <p className="text-[#C8D8E8]/55 text-sm leading-relaxed">
               Personal training in Birmingham — online and in-person. Built for results that last.
@@ -1813,7 +1813,7 @@ function Footer() {
                 href="https://www.facebook.com/jay.pt.58"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook — Jay Mac"
+                aria-label="Facebook — HP Fit"
                 className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#1E90FF] hover:text-white hover:border-[#1E90FF] transition-colors"
               >
                 <Facebook className="h-5 w-5" />
@@ -1823,7 +1823,7 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-white/40">
-          <p>&copy; 2026 JayMacFitness. All rights reserved.</p>
+          <p>&copy; 2026 High Performance Fit. All rights reserved.</p>
           <p>Foundry Gym, Kings Heath, Birmingham</p>
         </div>
       </div>

@@ -65,7 +65,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Jay Mac brand palette — usable as Tailwind utilities (bg-navy, text-blue-soft, etc.) */
+  /* High Performance Fit brand palette — usable as Tailwind utilities (bg-navy, text-blue-soft, etc.) */
   --color-navy: #0D1B2A;
   --color-navy-dark: #0A1628;
   --color-navy-mid: #112240;
@@ -421,7 +421,7 @@
   }
 }
 /* ===========================================================================
-   JAY MAC FITNESS BRAND DESIGN SYSTEM
+   HIGH PERFORMANCE FIT BRAND DESIGN SYSTEM
    =========================================================================== */
 :root {
   --brand-blue: #1E90FF;

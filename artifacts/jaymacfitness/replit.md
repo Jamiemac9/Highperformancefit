@@ -1,6 +1,6 @@
-# JayMacFitness
+# High Performance Fit
 
-Full-stack web app for personal trainer Jay Mac: bold navy/blue marketing site at `/` plus a trainer CRM at `/dashboard/*`.
+Full-stack web app for High Performance Fit: bold navy/blue marketing site at `/` plus a trainer CRM at `/dashboard/*`.
 
 ## Stack
 - **Frontend**: React + Vite + React Router v6, Tailwind, @tanstack/react-query, plain `fetch` via `src/lib/api.ts`
