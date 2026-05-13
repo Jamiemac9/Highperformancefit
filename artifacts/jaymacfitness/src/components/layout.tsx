@@ -53,7 +53,7 @@ export function Layout() {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight">
             <Dumbbell className="h-6 w-6 text-primary" />
-            <span>JayMac<span className="text-primary">Fitness</span></span>
+            <span>HP<span className="text-primary">Fit</span></span>
           </Link>
 
           {user ? (
@@ -75,7 +75,7 @@ export function Layout() {
                   <div className="flex flex-col gap-6 py-6 h-full">
                     <Link to="/" className="flex items-center gap-2 font-bold text-xl" onClick={() => setOpen(false)}>
                       <Dumbbell className="h-6 w-6 text-primary" />
-                      <span>JayMac<span className="text-primary">Fitness</span></span>
+                      <span>HP<span className="text-primary">Fit</span></span>
                     </Link>
                     <nav className="flex flex-col gap-2">
                       <NavLinks />

@@ -20,7 +20,7 @@ export function PortalLayout() {
       {/* Sidebar — desktop */}
       <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 flex-col border-r border-white/10 bg-black/40 backdrop-blur z-40">
         <Link to="/" className="font-display text-2xl tracking-wider px-6 h-20 flex items-center border-b border-white/10">
-          JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+          HP<span className="text-[#C8FF00]">FIT</span>
         </Link>
         <div className="px-6 py-4 border-b border-white/10">
           <div className="text-[10px] uppercase tracking-wider text-white/40">Client Portal</div>
@@ -61,7 +61,7 @@ export function PortalLayout() {
       {/* Mobile top bar */}
       <header className="lg:hidden sticky top-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-b border-white/10 h-14 flex items-center justify-between px-4">
         <Link to="/" className="font-display text-xl tracking-wider">
-          JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+          HP<span className="text-[#C8FF00]">FIT</span>
         </Link>
         <button onClick={logout} aria-label="Logout" className="text-white/60 hover:text-white p-2">
           <LogOut className="h-5 w-5" />

@@ -37,9 +37,9 @@ async function sendWelcomeEmail(email: string, tempPassword: string, firstName: 
     jsonTransport: true,
   });
   const info = await transport.sendMail({
-    from: '"JayMacFitness" <noreply@jaymacfitness.co.uk>',
+    from: '"High Performance Fit" <noreply@highperformancefit.co.uk>',
     to: email,
-    subject: "Welcome to JayMacFitness — your account is ready",
+    subject: "Welcome to High Performance Fit — your account is ready",
     text: `Hi ${firstName},\n\nYour client account has been created.\n\nLogin email: ${email}\nTemporary password: ${tempPassword}\n\nPlease change your password after your first login.\n\nJay`,
   });
   console.log(`[email] welcome email queued for ${email}`, info.messageId);

@@ -30,7 +30,7 @@ export function DashboardLayout() {
       {/* Sidebar — desktop */}
       <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 flex-col border-r border-white/10 bg-black/40 backdrop-blur z-40">
         <Link to="/" className="font-display text-2xl tracking-wider px-6 h-20 flex items-center border-b border-white/10">
-          JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+          HP<span className="text-[#C8FF00]">FIT</span>
         </Link>
         <nav className="flex-1 px-3 py-6 space-y-1">
           {NAV.map((item) => (
@@ -69,7 +69,7 @@ export function DashboardLayout() {
       {/* Mobile top bar */}
       <header className="lg:hidden sticky top-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-b border-white/10 h-14 flex items-center justify-between px-4">
         <Link to="/" className="font-display text-xl tracking-wider">
-          JAYMAC<span className="text-[#C8FF00]">FITNESS</span>
+          HP<span className="text-[#C8FF00]">FIT</span>
         </Link>
         <button
           onClick={logout}

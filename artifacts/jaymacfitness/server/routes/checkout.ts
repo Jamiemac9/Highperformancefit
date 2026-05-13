@@ -83,7 +83,7 @@ checkoutRouter.post("/create-session", async (req, res, next) => {
             currency: "gbp",
             unit_amount: unitAmount,
             product_data: {
-              name: `JayMacFitness — ${pkg.name}`,
+              name: `High Performance Fit — ${pkg.name}`,
               description:
                 pkg.description ||
                 `${pkg.sessions} session${pkg.sessions === 1 ? "" : "s"} with Jay`,

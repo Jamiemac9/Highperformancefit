@@ -130,7 +130,7 @@ export default function Register() {
               className="headline"
               style={{ fontSize: "40px", lineHeight: 1, color: "#FFFFFF" }}
             >
-              JOIN <span style={{ color: "#1E90FF" }}>JAYMAC.</span>
+              JOIN <span style={{ color: "#1E90FF" }}>HP FIT.</span>
             </h1>
             <p
               className="mt-3"
@@ -199,7 +199,7 @@ export default function Register() {
               <input
                 id="phone"
                 type="tel"
-                placeholder="0775 336 214"
+                placeholder="07753 226 214"
                 style={inputStyle}
                 {...register("phone")}
               />
