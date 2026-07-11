@@ -81,7 +81,7 @@ export default function Register() {
   };
 
   return (
-    <div
+    <main
       className="min-h-screen flex items-center justify-center px-4 py-10"
       style={{
         background:
@@ -260,6 +260,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

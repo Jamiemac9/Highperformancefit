@@ -7,6 +7,7 @@ import { Trash2, Mail, Phone } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { useToast } from "../hooks/use-toast";
 import { Badge } from "../components/ui/badge";
+import { Label } from "../components/ui/label";
 
 export default function Leads() {
   const { data: leads, isLoading } = useLeads();
