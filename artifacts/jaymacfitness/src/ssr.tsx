@@ -23,6 +23,11 @@ import AboutJay from "./pages/about-jay";
 import Faq from "./pages/faq";
 import Contact from "./pages/contact";
 import Blog from "./pages/blog";
+import PersonalTrainerKingsHeath from "./pages/personal-trainer-kings-heath";
+import PersonalTrainerMoseley from "./pages/personal-trainer-moseley";
+import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
+import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
+import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
 
 const h = React.createElement;
 
@@ -51,6 +56,11 @@ export function render(url: string): string {
   else if (url === "/faq") Page = () => h(MarketingLayout, null, h(Faq));
   else if (url === "/contact") Page = () => h(MarketingLayout, null, h(Contact));
   else if (url === "/blog") Page = () => h(MarketingLayout, null, h(Blog));
+  else if (url === "/personal-trainer-kings-heath") Page = () => h(MarketingLayout, null, h(PersonalTrainerKingsHeath));
+  else if (url === "/personal-trainer-moseley") Page = () => h(MarketingLayout, null, h(PersonalTrainerMoseley));
+  else if (url === "/personal-trainer-edgbaston") Page = () => h(MarketingLayout, null, h(PersonalTrainerEdgbaston));
+  else if (url === "/personal-trainer-harborne") Page = () => h(MarketingLayout, null, h(PersonalTrainerHarborne));
+  else if (url === "/personal-trainer-selly-oak") Page = () => h(MarketingLayout, null, h(PersonalTrainerSellyOak));
   else Page = () => null;
 
   return renderToString(

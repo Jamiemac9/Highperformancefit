@@ -43,6 +43,26 @@ from = "/blog"
 to = "/blog/index.html"
 
 [[services.production.rewrites]]
+from = "/personal-trainer-kings-heath"
+to = "/personal-trainer-kings-heath/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-moseley"
+to = "/personal-trainer-moseley/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-edgbaston"
+to = "/personal-trainer-edgbaston/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-harborne"
+to = "/personal-trainer-harborne/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-selly-oak"
+to = "/personal-trainer-selly-oak/index.html"
+
+[[services.production.rewrites]]
 from = "/about-jay"
 to = "/about-jay/index.html"
 

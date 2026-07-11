@@ -21,6 +21,11 @@ import AboutJay from "./pages/about-jay";
 import Faq from "./pages/faq";
 import Contact from "./pages/contact";
 import Blog from "./pages/blog";
+import PersonalTrainerKingsHeath from "./pages/personal-trainer-kings-heath";
+import PersonalTrainerMoseley from "./pages/personal-trainer-moseley";
+import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
+import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
+import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
 import Dashboard from "./pages/dashboard";
 import Clients from "./pages/clients";
 import ClientDetail from "./pages/client-detail";
@@ -82,6 +87,13 @@ function App() {
               <Route path="/faq" element={<MarketingLayout><Faq /></MarketingLayout>} />
               <Route path="/contact" element={<MarketingLayout><Contact /></MarketingLayout>} />
               <Route path="/blog" element={<MarketingLayout><Blog /></MarketingLayout>} />
+
+              {/* Hyperlocal area landing pages */}
+              <Route path="/personal-trainer-kings-heath" element={<MarketingLayout><PersonalTrainerKingsHeath /></MarketingLayout>} />
+              <Route path="/personal-trainer-moseley" element={<MarketingLayout><PersonalTrainerMoseley /></MarketingLayout>} />
+              <Route path="/personal-trainer-edgbaston" element={<MarketingLayout><PersonalTrainerEdgbaston /></MarketingLayout>} />
+              <Route path="/personal-trainer-harborne" element={<MarketingLayout><PersonalTrainerHarborne /></MarketingLayout>} />
+              <Route path="/personal-trainer-selly-oak" element={<MarketingLayout><PersonalTrainerSellyOak /></MarketingLayout>} />
 
               {/* Public auth routes — full-bleed branded pages, no marketing chrome */}
               <Route path="/login" element={<Login />} />
