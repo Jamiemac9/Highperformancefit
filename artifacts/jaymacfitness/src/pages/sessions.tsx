@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { useState } from "react";
 import { format } from "date-fns";
 import { Spinner } from "../components/ui/spinner";
-import { Check, Clock, MapPin, MonitorPlay, Plus, Trash2 } from "lucide-react";
+import { Calendar, Check, Clock, MapPin, MonitorPlay, Plus, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,

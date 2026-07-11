@@ -90,6 +90,7 @@ export default function Landing() {
 
   const [paidBanner, setPaidBanner] = useState<string | null>(null);
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("paid") === "1") {
       const raw = params.get("pkg") || "your package";
@@ -104,7 +105,8 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="font-body bg-[#0D1B2A] text-white min-h-screen overflow-x-hidden">
+    <>
+    <main className="font-body bg-[#0D1B2A] text-white min-h-screen overflow-x-hidden">
       {paidBanner && (
         <div
           role="status"
@@ -159,8 +161,9 @@ export default function Landing() {
       <Testimonials />
       <FAQ />
       <Contact />
-      <Footer />
-    </div>
+    </main>
+    <Footer />
+    </>
   );
 }
 
@@ -170,6 +173,7 @@ function Nav() {
   const [logoFailed, setLogoFailed] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -178,6 +182,7 @@ function Nav() {
 
   // Lock body scroll when mobile drawer is open — preserve and restore prior value
   useEffect(() => {
+    if (typeof document === "undefined") return;
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";

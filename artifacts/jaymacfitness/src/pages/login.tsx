@@ -72,7 +72,7 @@ export default function Login() {
   };
 
   return (
-    <div
+    <main
       className="min-h-screen flex items-center justify-center px-4 py-10"
       style={{
         background:
@@ -234,6 +234,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
