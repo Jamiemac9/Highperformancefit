@@ -18,9 +18,41 @@ localPort = 20026
 run = "pnpm --filter @workspace/jaymacfitness run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/jaymacfitness", "run", "build" ]
+build = ["pnpm", "--filter", "@workspace/jaymacfitness", "run", "build"]
 publicDir = "artifacts/jaymacfitness/dist/public"
 serve = "static"
+
+[[services.production.rewrites]]
+from = "/personal-training-birmingham"
+to = "/personal-training-birmingham/index.html"
+
+[[services.production.rewrites]]
+from = "/online-coaching"
+to = "/online-coaching/index.html"
+
+[[services.production.rewrites]]
+from = "/group-training"
+to = "/group-training/index.html"
+
+[[services.production.rewrites]]
+from = "/outdoor-training"
+to = "/outdoor-training/index.html"
+
+[[services.production.rewrites]]
+from = "/blog"
+to = "/blog/index.html"
+
+[[services.production.rewrites]]
+from = "/about-jay"
+to = "/about-jay/index.html"
+
+[[services.production.rewrites]]
+from = "/faq"
+to = "/faq/index.html"
+
+[[services.production.rewrites]]
+from = "/contact"
+to = "/contact/index.html"
 
 [[services.production.rewrites]]
 from = "/login"
@@ -40,14 +72,14 @@ BASE_PATH = "/"
 
 [[services]]
 name = "api"
-paths = [ "/api" ]
+paths = ["/api"]
 localPort = 5050
 
 [services.development]
 run = "pnpm --filter @workspace/jaymacfitness run server:dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/jaymacfitness", "run", "prisma:generate" ]
+build = ["pnpm", "--filter", "@workspace/jaymacfitness", "run", "prisma:generate"]
 run = "pnpm --filter @workspace/jaymacfitness run server:start"
 
 [services.env]

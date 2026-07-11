@@ -1,3 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /portal
+Disallow: /api
+
 Sitemap: https://highperformancefit.co.uk/sitemap.xml

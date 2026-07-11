@@ -13,6 +13,14 @@ import { PortalLayout } from "./components/portal-layout";
 import Landing from "./pages/landing";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import PersonalTrainingBirmingham from "./pages/personal-training-birmingham";
+import OnlineCoaching from "./pages/online-coaching";
+import GroupTraining from "./pages/group-training";
+import OutdoorTraining from "./pages/outdoor-training";
+import AboutJay from "./pages/about-jay";
+import Faq from "./pages/faq";
+import Contact from "./pages/contact";
+import Blog from "./pages/blog";
 import Dashboard from "./pages/dashboard";
 import Clients from "./pages/clients";
 import ClientDetail from "./pages/client-detail";
@@ -26,6 +34,7 @@ import PortalBook from "./pages/portal-book";
 import PortalPackages from "./pages/portal-packages";
 import PortalProfile from "./pages/portal-profile";
 import NotFound from "./pages/not-found";
+import { MarketingLayout } from "./components/MarketingLayout";
 
 function LegacyClientRedirect() {
   const { id } = useParams();
@@ -63,6 +72,16 @@ function App() {
           <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <Routes>
               <Route path="/" element={<Landing />} />
+
+              {/* Public marketing pages — with nav + footer */}
+              <Route path="/personal-training-birmingham" element={<MarketingLayout><PersonalTrainingBirmingham /></MarketingLayout>} />
+              <Route path="/online-coaching" element={<MarketingLayout><OnlineCoaching /></MarketingLayout>} />
+              <Route path="/group-training" element={<MarketingLayout><GroupTraining /></MarketingLayout>} />
+              <Route path="/outdoor-training" element={<MarketingLayout><OutdoorTraining /></MarketingLayout>} />
+              <Route path="/about-jay" element={<MarketingLayout><AboutJay /></MarketingLayout>} />
+              <Route path="/faq" element={<MarketingLayout><Faq /></MarketingLayout>} />
+              <Route path="/contact" element={<MarketingLayout><Contact /></MarketingLayout>} />
+              <Route path="/blog" element={<MarketingLayout><Blog /></MarketingLayout>} />
 
               {/* Public auth routes — full-bleed branded pages, no marketing chrome */}
               <Route path="/login" element={<Login />} />

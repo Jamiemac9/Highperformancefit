@@ -4,15 +4,54 @@
     <loc>https://highperformancefit.co.uk/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
   </url>
   <url>
-    <loc>https://highperformancefit.co.uk/login</loc>
-    <priority>0.3</priority>
-    <changefreq>monthly</changefreq>
+    <loc>https://highperformancefit.co.uk/personal-training-birmingham</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
   </url>
   <url>
-    <loc>https://highperformancefit.co.uk/register</loc>
-    <priority>0.3</priority>
+    <loc>https://highperformancefit.co.uk/online-coaching</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/group-training</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/outdoor-training</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/blog</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/about-jay</loc>
+    <priority>0.6</priority>
     <changefreq>monthly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/faq</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://highperformancefit.co.uk/contact</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-07-11</lastmod>
   </url>
 </urlset>
