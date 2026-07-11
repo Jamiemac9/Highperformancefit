@@ -434,8 +434,56 @@ const routes = [
   {
     route: "/",
     title: "High Performance Fit — Personal Training Birmingham & Online",
-    description: "High Performance Fit — Personal training in Birmingham and worldwide. 13 years experience, 200+ transformations. 1-to-1 in-person and online coaching. Book your free consultation.",
+    description: "High Performance Fit — Personal training in Birmingham and worldwide. 1-to-1 in-person and online coaching. Book your free consultation.",
     schema: true,
+  },
+  {
+    route: "/personal-training-birmingham",
+    title: "1-2-1 Personal Training Birmingham — High Performance Fit",
+    description: "One-to-one personal training at Foundry Gym, Kings Heath, Birmingham. Custom programmes, nutrition support and flexible scheduling. Book a free consultation.",
+    schema: false,
+  },
+  {
+    route: "/online-coaching",
+    title: "Online Coaching — High Performance Fit",
+    description: "Custom training programmes, weekly video check-ins, form reviews and direct WhatsApp access. Online personal training with Jay Macdonald.",
+    schema: false,
+  },
+  {
+    route: "/group-training",
+    title: "Group Training Birmingham — High Performance Fit",
+    description: "Small group personal training in Birmingham. Train with 3–6 people, get the energy of a team at a price that makes sense. Free trial session.",
+    schema: false,
+  },
+  {
+    route: "/outdoor-training",
+    title: "Outdoor Training Birmingham — High Performance Fit",
+    description: "Outdoor personal training in Birmingham parks. Bodyweight, kettlebells and resistance bands. Kings Heath Park, Cannon Hill Park and more.",
+    schema: false,
+  },
+  {
+    route: "/blog",
+    title: "Fitness Blog — High Performance Fit",
+    description: "Training tips, insights and advice from Birmingham personal trainer Jay Macdonald. No clickbait — just what actually works.",
+    schema: false,
+  },
+  {
+    route: "/about-jay",
+    title: "About Jay Macdonald — High Performance Fit",
+    description: "Meet Jay — REPS Level 3 qualified personal trainer in Birmingham. 8+ years experience, 500+ clients coached. Book a free consultation.",
+    schema: false,
+  },
+  {
+    route: "/faq",
+    title: "FAQ — High Performance Fit",
+    description: "Frequently asked questions about personal training, online coaching, group sessions and pricing at High Performance Fit Birmingham.",
+    schema: false,
+  },
+  {
+    route: "/contact",
+    title: "Contact — High Performance Fit",
+    description: "Get in touch with High Performance Fit. Call, text or email Jay Macdonald. Free consultation available. Foundry Gym, Kings Heath, Birmingham.",
+    schema: false,
   },
   {
     route: "/login",
