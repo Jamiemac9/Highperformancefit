@@ -1,0 +1,47 @@
+Create 4 dedicated service pages for highperformancefit.co.uk. Each page must be a complete, standalone landing page (not a section on the homepage).
+
+Each page must follow this exact structure:
+
+Page 1: /personal-training-birmingham
+- H1: "Personal Training Birmingham — 1-to-1 Coaching That Works"
+- Direct answer block (40-60 words): "High Performance Fit provides 1-to-1 personal training in Birmingham for people who want real results. Based at Foundry Gym in Kings Heath, Jay has 13 years experience and 200+ transformations. No contracts. Free first consultation."
+- Service scope: What's included, session length, location, price range (if public), who it's for
+- Proof: 2-3 specific client results with names, timelines, and outcomes
+- Comparison: 1-to-1 PT vs. gym membership vs. fitness apps (honest table)
+- FAQ: 6 questions specific to 1-to-1 training (mine from Reddit r/Birmingham, r/fitness, r/PersonalTraining)
+- CTA: Book free consultation
+- Schema: Service + LocalBusiness + FAQPage
+
+Page 2: /online-coaching
+- H1: "Online Personal Training UK & Worldwide — Custom Plans, Real Results"
+- Direct answer: "High Performance Fit offers online personal coaching to clients in 5+ countries. Custom training programmes, video form reviews, weekly check-ins, and direct WhatsApp access to Jay."
+- Service scope: How it works, what's included, price, time zones, equipment needed
+- Proof: Online client testimonials (names, locations, outcomes)
+- Comparison: Online PT vs. fitness apps vs. YouTube programmes
+- FAQ: 6 questions about online coaching
+- CTA: Book free consultation
+- Schema: Service + FAQPage
+
+Page 3: /group-training
+- H1: "Small Group Personal Training Birmingham — Accountability & Energy"
+- Direct answer: "Train in a small group of 4-6 people with the intensity of 1-to-1 coaching and the motivation of a team. Based in Birmingham. More affordable than private sessions."
+- Service scope: Group size, schedule, location, price, who it's for
+- Proof: Group client results
+- FAQ: 6 questions
+- CTA: Book free trial session
+- Schema: Service + FAQPage
+
+Page 4: /outdoor-training
+- H1: "Outdoor Personal Training Birmingham — Fresh Air, No Machines"
+- Direct answer: "Outdoor training sessions in Birmingham parks and open spaces. No gym needed. Bodyweight and environment-based workouts. Harder, different, and effective."
+- Service scope: Locations, weather policy, what to bring, price
+- FAQ: 6 questions
+- CTA: Book free session
+- Schema: Service + FAQPage
+
+All pages must:
+- Use semantic HTML5: <header>, <nav>, <main>, <article>, <section>, <aside>, <footer>
+- One H1 per page, logical H2→H3 hierarchy
+- Include internal links to other services and the homepage
+- Include breadcrumb navigation
+- Be prerendered or server-rendered (not client-side only)

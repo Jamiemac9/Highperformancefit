@@ -355,6 +355,190 @@ function jsonLdSchema() {
 }
 
 // --------------------------------------------------------------------------
+// Per-page JSON-LD schema generators
+// --------------------------------------------------------------------------
+function wrapSchema(data) {
+  return `<script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n</script>`;
+}
+
+function ptSchema() {
+  const now = new Date().toISOString().split("T")[0];
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/personal-training-birmingham/#service`,
+        "name": "1-to-1 Personal Training Birmingham",
+        "description": "One-to-one personal training at Foundry Gym in Kings Heath, Birmingham. Custom programmes, nutrition support, progress tracking and flexible scheduling.",
+        "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
+        "areaServed": { "@type": "City", "name": "Birmingham" },
+        "serviceType": "Personal Training",
+        "offers": {
+          "@type": "Offer",
+          "price": "45.00",
+          "priceCurrency": "GBP",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": `${BASE_URL}/personal-training-birmingham`,
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "127",
+        },
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": `${BASE_URL}/#localbusiness`,
+        "name": "High Performance Fit",
+        "image": `${BASE_URL}/opengraph.jpg`,
+        "url": BASE_URL + "/",
+        "telephone": "+447753226214",
+        "email": "hello@highperformancefit.co.uk",
+        "priceRange": "£45–£60 per session",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Foundry Gym, Kings Heath",
+          "addressLocality": "Birmingham",
+          "postalCode": "B14 7JZ",
+          "addressCountry": "GB",
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 52.436, "longitude": -1.892 },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "06:00", "closes": "21:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "16:00" },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE_URL}/personal-training-birmingham/#faqpage`,
+        "mainEntity": [
+          { "@type": "Question", "name": "How much does personal training cost in Birmingham?", "acceptedAnswer": { "@type": "Answer", "text": "Sessions start from £45 per hour when bought in a block. Single sessions are £55. Monthly packages with payment plans available. No contract." } },
+          { "@type": "Question", "name": "Do I need a gym membership at Foundry Gym?", "acceptedAnswer": { "@type": "Answer", "text": "No. Your training fee covers gym access during our sessions. Discounted day passes available for independent training." } },
+          { "@type": "Question", "name": "How many sessions per week do I need?", "acceptedAnswer": { "@type": "Answer", "text": "Most clients train 2–3 times per week with the coach and do 1–2 independent sessions. Beginners often start with 2 sessions." } },
+          { "@type": "Question", "name": "What if I have an injury or medical condition?", "acceptedAnswer": { "@type": "Answer", "text": "Every exercise is modified to your body. I work with clients post-injury and with conditions like diabetes, hypertension and arthritis." } },
+          { "@type": "Question", "name": "How long until I see results?", "acceptedAnswer": { "@type": "Answer", "text": "Most clients feel stronger within 2–3 weeks. Visible body composition changes typically show within 6–8 weeks with consistency." } },
+          { "@type": "Question", "name": "Can I train with a partner or friend?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — partner training (2 people) is £70 per session total (£35 each). Great for accountability without the group dynamic." } },
+        ],
+      },
+    ],
+  });
+}
+
+function onlineSchema() {
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/online-coaching/#service`,
+        "name": "Online Personal Training UK & Worldwide",
+        "description": "Custom training programmes, weekly video check-ins, form reviews and direct WhatsApp access. Online personal training with Jay Macdonald.",
+        "provider": { "@type": "Organization", "@id": `${BASE_URL}/#organization` },
+        "areaServed": { "@type": "Country", "name": "United Kingdom" },
+        "serviceType": "Online Coaching",
+        "offers": {
+          "@type": "Offer",
+          "price": "49.00",
+          "priceCurrency": "GBP",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": `${BASE_URL}/online-coaching`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE_URL}/online-coaching/#faqpage`,
+        "mainEntity": [
+          { "@type": "Question", "name": "How does online personal training actually work?", "acceptedAnswer": { "@type": "Answer", "text": "Complete an intake form, receive a custom programme via our app, weekly 15-minute video check-ins, form video reviews and daily WhatsApp access." } },
+          { "@type": "Question", "name": "What equipment do I need for online coaching?", "acceptedAnswer": { "@type": "Answer", "text": "Minimum: a phone and open space. Preferred: dumbbells or resistance bands. Programmes are designed around what you have." } },
+          { "@type": "Question", "name": "How much does online coaching cost?", "acceptedAnswer": { "@type": "Answer", "text": "Standard plan from £49/week (£196/month). Premium with weekly video calls and full nutrition planning is £79/week. No contract." } },
+          { "@type": "Question", "name": "What time zones do you cover?", "acceptedAnswer": { "@type": "Answer", "text": "Based in Birmingham (GMT/BST) but coach clients across UK, Europe, US East Coast, Middle East and Asia." } },
+          { "@type": "Question", "name": "How do video form reviews work?", "acceptedAnswer": { "@type": "Answer", "text": "Record exercises on your phone, upload via WhatsApp or app. Reviewed within 24 hours with detailed corrections and cues." } },
+          { "@type": "Question", "name": "Is online coaching as effective as in-person training?", "acceptedAnswer": { "@type": "Answer", "text": "For self-motivated clients, yes — sometimes more so because you train more frequently. Accountability comes from weekly check-ins and daily access." } },
+        ],
+      },
+    ],
+  });
+}
+
+function groupSchema() {
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/group-training/#service`,
+        "name": "Small Group Personal Training Birmingham",
+        "description": "Train in a small group of 4–6 people with the intensity of 1-to-1 coaching and the motivation of a team. Based at Foundry Gym in Kings Heath, Birmingham.",
+        "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
+        "areaServed": { "@type": "City", "name": "Birmingham" },
+        "serviceType": "Group Training",
+        "offers": {
+          "@type": "Offer",
+          "price": "23.60",
+          "priceCurrency": "GBP",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": `${BASE_URL}/group-training`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE_URL}/group-training/#faqpage`,
+        "mainEntity": [
+          { "@type": "Question", "name": "How many people are in a group training session?", "acceptedAnswer": { "@type": "Answer", "text": "Groups are capped at 4–6 people. Small enough for individual attention, large enough for real energy." } },
+          { "@type": "Question", "name": "Do I need to be at the same fitness level as everyone else?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every exercise has progressions and regressions. Beginners and intermediates can train side by side." } },
+          { "@type": "Question", "name": "How much does group training cost compared to 1-to-1?", "acceptedAnswer": { "@type": "Answer", "text": "Group sessions are roughly 40–50% cheaper per person. 8 sessions/month is £189 (£23.60/session) vs £45/session for 1-to-1." } },
+          { "@type": "Question", "name": "What times are group sessions available?", "acceptedAnswer": { "@type": "Answer", "text": "Current groups: Tuesday & Thursday 18:30, Saturday 09:00. Morning groups forming for early risers." } },
+          { "@type": "Question", "name": "Can I try a session before committing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — your first group session is free. Come along, meet the group and see how sessions run. No pressure." } },
+          { "@type": "Question", "name": "What if I miss a session?", "acceptedAnswer": { "@type": "Answer", "text": "You can join another group the same week (subject to space) or swap for a discounted 30-minute 1-to-1 catch-up." } },
+        ],
+      },
+    ],
+  });
+}
+
+function outdoorSchema() {
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/outdoor-training/#service`,
+        "name": "Outdoor Personal Training Birmingham",
+        "description": "Outdoor training sessions in Birmingham parks and open spaces. Bodyweight and environment-based workouts using hills, stairs, trees and natural terrain.",
+        "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
+        "areaServed": { "@type": "City", "name": "Birmingham" },
+        "serviceType": "Outdoor Training",
+        "offers": {
+          "@type": "Offer",
+          "price": "25.00",
+          "priceCurrency": "GBP",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": `${BASE_URL}/outdoor-training`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE_URL}/outdoor-training/#faqpage`,
+        "mainEntity": [
+          { "@type": "Question", "name": "What happens if it rains during an outdoor session?", "acceptedAnswer": { "@type": "Answer", "text": "Light rain — we train. Heavy rain or thunderstorms — we move to a covered area or Foundry Gym as backup. Text sent 2 hours before if location changes." } },
+          { "@type": "Question", "name": "What equipment do I need to bring?", "acceptedAnswer": { "@type": "Answer", "text": "Comfortable kit, trainers with grip and a water bottle. The coach brings all equipment: kettlebells, bands, ropes, ladders." } },
+          { "@type": "Question", "name": "Where exactly do outdoor sessions take place?", "acceptedAnswer": { "@type": "Answer", "text": "Kings Heath Park, Cannon Hill Park, Moseley Park and Highbury Park. Exact spot confirmed 24 hours before each session." } },
+          { "@type": "Question", "name": "How much does outdoor training cost?", "acceptedAnswer": { "@type": "Answer", "text": "Group outdoor (4–6 people): £25/session or £85/month for 4 sessions. 1-to-1 outdoor: £60/session. All equipment provided." } },
+          { "@type": "Question", "name": "Is outdoor training as effective as gym training?", "acceptedAnswer": { "@type": "Answer", "text": "For most goals, yes. Natural terrain challenges your body in ways gym machines can't. Builds functional strength and mental resilience." } },
+          { "@type": "Question", "name": "What should I wear for outdoor training?", "acceptedAnswer": { "@type": "Answer", "text": "Layer up. Winter: base layer, mid-layer, waterproof jacket, hat and gloves. Summer: breathable top, shorts, sunscreen and cap." } },
+        ],
+      },
+    ],
+  });
+}
+
+// --------------------------------------------------------------------------
 // 3. Load the SSR bundle and render each route
 // --------------------------------------------------------------------------
 const ssrBundle = path.resolve(__dirname, "../dist/ssr/ssr.js");
@@ -376,7 +560,7 @@ async function prerenderRoute({ route, title, description }) {
 // --------------------------------------------------------------------------
 // 4. Build the final HTML files
 // --------------------------------------------------------------------------
-function buildHtml(route, rendered, includeSchema = false) {
+function buildHtml(route, rendered, schema = false) {
   const baseHtml = fs.readFileSync(path.resolve(__dirname, "../index.html"), "utf-8");
 
   const injected = baseHtml.replace(
@@ -397,10 +581,13 @@ function buildHtml(route, rendered, includeSchema = false) {
     `<link rel="canonical" href="${BASE_URL}${route === "/" ? "/" : route}" />`
   );
 
-  // Inject JSON-LD schema before </head> on landing page only
-  const withSchema = includeSchema
-    ? described.replace("</head>", `${jsonLdSchema()}\n</head>`)
-    : described;
+  // Inject JSON-LD schema before </head>
+  let withSchema = described;
+  if (schema === true) {
+    withSchema = described.replace("</head>", `${jsonLdSchema()}\n</head>`);
+  } else if (typeof schema === "string" && schema.length > 0) {
+    withSchema = described.replace("</head>", `${schema}\n</head>`);
+  }
 
   const noscript = `
 <noscript>
@@ -439,27 +626,27 @@ const routes = [
   },
   {
     route: "/personal-training-birmingham",
-    title: "1-2-1 Personal Training Birmingham — High Performance Fit",
-    description: "One-to-one personal training at Foundry Gym, Kings Heath, Birmingham. Custom programmes, nutrition support and flexible scheduling. Book a free consultation.",
-    schema: false,
+    title: "Personal Training Birmingham — 1-to-1 Coaching That Works | High Performance Fit",
+    description: "1-to-1 personal training in Birmingham at Foundry Gym, Kings Heath. Custom programmes, nutrition support, progress tracking. Free consultation. Sessions from £45.",
+    schema: ptSchema(),
   },
   {
     route: "/online-coaching",
-    title: "Online Coaching — High Performance Fit",
-    description: "Custom training programmes, weekly video check-ins, form reviews and direct WhatsApp access. Online personal training with Jay Macdonald.",
-    schema: false,
+    title: "Online Personal Training UK & Worldwide — Custom Plans, Real Results | High Performance Fit",
+    description: "Online personal coaching with custom programmes, video form reviews, weekly check-ins and WhatsApp access. Clients in 5+ countries. From £49/week.",
+    schema: onlineSchema(),
   },
   {
     route: "/group-training",
-    title: "Group Training Birmingham — High Performance Fit",
-    description: "Small group personal training in Birmingham. Train with 3–6 people, get the energy of a team at a price that makes sense. Free trial session.",
-    schema: false,
+    title: "Small Group Personal Training Birmingham — Accountability & Energy | High Performance Fit",
+    description: "Small group training in Birmingham for 4–6 people. Team energy, structured sessions, individual attention. From £23.60/session. Free trial.",
+    schema: groupSchema(),
   },
   {
     route: "/outdoor-training",
-    title: "Outdoor Training Birmingham — High Performance Fit",
-    description: "Outdoor personal training in Birmingham parks. Bodyweight, kettlebells and resistance bands. Kings Heath Park, Cannon Hill Park and more.",
-    schema: false,
+    title: "Outdoor Personal Training Birmingham — Fresh Air, No Machines | High Performance Fit",
+    description: "Outdoor training in Birmingham parks. Bodyweight, kettlebells, natural terrain. Kings Heath Park, Cannon Hill Park. Group £25, 1-to-1 £60. Free taster.",
+    schema: outdoorSchema(),
   },
   {
     route: "/blog",
