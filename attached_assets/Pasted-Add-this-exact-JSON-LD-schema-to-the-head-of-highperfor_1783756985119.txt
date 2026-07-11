@@ -1,0 +1,72 @@
+Add this exact JSON-LD schema to the <head> of highperformancefit.co.uk. Place it as a raw <script type="application/ld+json"> tag in the index.html (or inject it during prerendering) so it appears in the source HTML.
+
+Use this @graph structure:
+
+1. WebSite schema
+   - url: https://highperformancefit.co.uk/
+   - name: High Performance Fit
+   - description: Personal training in Birmingham and worldwide. 13 years experience, 200+ transformations. 1-to-1 in-person and online coaching.
+
+2. Organization schema
+   - name: High Performance Fit
+   - url: https://highperformancefit.co.uk/
+   - logo: [upload a logo image and use its URL]
+   - sameAs: [links to Instagram, Facebook, LinkedIn, Google Business Profile, Yelp if you have them]
+   - contactPoint: telephone +44 [your number], contactType "customer service"
+
+3. Person schema (for Jay — the trainer)
+   - @type: Person
+   - name: Jay [surname if you want to use it, or just "Jay"]
+   - jobTitle: Personal Trainer & Founder
+   - worksFor: { @type: Organization, name: "High Performance Fit" }
+   - description: [2-3 sentences about Jay's experience, certifications, approach]
+   - alumniOf: [any certifications: NASM, ACE, REPS Level 3, etc.]
+   - knowsAbout: ["Weight loss", "Strength training", "Online coaching", "Injury rehabilitation", "Nutrition coaching"]
+   - image: [professional headshot URL]
+
+4. LocalBusiness schema (or more specific: ExerciseGym or HealthClub if applicable, otherwise LocalBusiness)
+   - name: High Performance Fit
+   - @type: LocalBusiness
+   - url: https://highperformancefit.co.uk/
+   - telephone: +44 [your number]
+   - email: [your email]
+   - address: {
+       streetAddress: [gym address or "Foundry Gym, Kings Heath"],
+       addressLocality: Birmingham,
+       addressRegion: West Midlands,
+       postalCode: [your postcode],
+       addressCountry: GB
+     }
+   - geo: { latitude, longitude }
+   - priceRange: ££
+   - openingHoursSpecification: [your actual hours]
+   - areaServed: ["Birmingham", "Kings Heath", "Moseley", "Edgbaston", "Harborne", "Solihull", "Online worldwide"]
+   - hasOfferCatalog: [link to your services]
+   - aggregateRating: {
+       @type: AggregateRating,
+       ratingValue: "5",
+       reviewCount: "100"
+     }
+
+5. Service schema (for each service type)
+   - @type: Service
+   - name: "1-to-1 Personal Training Birmingham"
+   - provider: { @type: LocalBusiness, name: "High Performance Fit" }
+   - areaServed: Birmingham
+   - serviceType: Personal Training
+   - description: [1-2 sentences]
+   - hasOfferCatalog: [pricing tiers if you have them]
+
+   Repeat for: Group Training, Outdoor Training, Online Coaching
+
+6. FAQPage schema (for your existing FAQ section)
+   - Map each of your 6 FAQs to Question/Answer pairs
+   - Ensure the text matches exactly what's visible on the page
+
+7. HowTo schema (for your "How It Works" 4-step process)
+   - @type: HowTo
+   - name: "How High Performance Fit Works"
+   - description: "4-step process from consultation to results"
+   - step: [4 steps with name, text, and optional image]
+
+Validate everything at: https://search.google.com/test/rich-results
