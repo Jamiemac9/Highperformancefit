@@ -12,6 +12,7 @@ import { JSDOM } from "jsdom";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import areas from "../src/data/areas.json" with { type: "json" };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(__dirname, "../dist/public");
@@ -538,6 +539,66 @@ function outdoorSchema() {
   });
 }
 
+function areaSchema(area) {
+  const slug = area.slug;
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": `${BASE_URL}/#localbusiness`,
+        "name": "High Performance Fit",
+        "image": `${BASE_URL}/opengraph.jpg`,
+        "url": BASE_URL + "/",
+        "telephone": "+447753226214",
+        "email": "hello@highperformancefit.co.uk",
+        "priceRange": "£45–£60 per session",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Foundry Gym, Kings Heath",
+          "addressLocality": "Birmingham",
+          "addressRegion": "West Midlands",
+          "postalCode": "B14 7JZ",
+          "addressCountry": "GB",
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 52.436, "longitude": -1.892 },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "06:00", "closes": "21:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "16:00" },
+        ],
+        "areaServed": area.serviceAreaList.map((name) => ({ "@type": "Place", "name": `${name}, Birmingham` })),
+      },
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/personal-trainer-${slug}/#service`,
+        "name": `Personal Training in ${area.name}, Birmingham`,
+        "description": area.directAnswer,
+        "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
+        "areaServed": { "@type": "Place", "name": `${area.name}, Birmingham` },
+        "serviceType": "Personal Training",
+        "offers": {
+          "@type": "Offer",
+          "price": "45.00",
+          "priceCurrency": "GBP",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": `${BASE_URL}/personal-trainer-${slug}`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE_URL}/personal-trainer-${slug}/#faqpage`,
+        "mainEntity": area.faqs.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a },
+        })),
+      },
+    ],
+  });
+}
+
 // --------------------------------------------------------------------------
 // 3. Load the SSR bundle and render each route
 // --------------------------------------------------------------------------
@@ -653,6 +714,36 @@ const routes = [
     title: "Fitness Blog — High Performance Fit",
     description: "Training tips, insights and advice from Birmingham personal trainer Jay Macdonald. No clickbait — just what actually works.",
     schema: false,
+  },
+  {
+    route: "/personal-trainer-kings-heath",
+    title: areas["kings-heath"].title,
+    description: areas["kings-heath"].metaDescription,
+    schema: areaSchema(areas["kings-heath"]),
+  },
+  {
+    route: "/personal-trainer-moseley",
+    title: areas["moseley"].title,
+    description: areas["moseley"].metaDescription,
+    schema: areaSchema(areas["moseley"]),
+  },
+  {
+    route: "/personal-trainer-edgbaston",
+    title: areas["edgbaston"].title,
+    description: areas["edgbaston"].metaDescription,
+    schema: areaSchema(areas["edgbaston"]),
+  },
+  {
+    route: "/personal-trainer-harborne",
+    title: areas["harborne"].title,
+    description: areas["harborne"].metaDescription,
+    schema: areaSchema(areas["harborne"]),
+  },
+  {
+    route: "/personal-trainer-selly-oak",
+    title: areas["selly-oak"].title,
+    description: areas["selly-oak"].metaDescription,
+    schema: areaSchema(areas["selly-oak"]),
   },
   {
     route: "/about-jay",

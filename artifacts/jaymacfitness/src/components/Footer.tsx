@@ -1,17 +1,39 @@
-import { Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook, MapPin, Phone, Mail } from "lucide-react";
+
+const AREA_LINKS: [string, string][] = [
+  ["/personal-trainer-kings-heath", "Kings Heath"],
+  ["/personal-trainer-moseley", "Moseley"],
+  ["/personal-trainer-edgbaston", "Edgbaston"],
+  ["/personal-trainer-harborne", "Harborne"],
+  ["/personal-trainer-selly-oak", "Selly Oak"],
+];
 
 export function Footer() {
   return (
     <footer className="bg-[#08111E] border-t border-white/10 py-12">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           <div>
             <a href="/" className="headline text-2xl tracking-wider text-white inline-block mb-4">
               HP<span className="text-[#1E90FF]">FIT</span>
             </a>
-            <p className="text-[#C8D8E8]/55 text-sm leading-relaxed">
+            <p className="text-[#C8D8E8]/55 text-sm leading-relaxed mb-5">
               Personal training in Birmingham — online and in-person. Built for results that last.
             </p>
+            <address className="not-italic space-y-2 text-sm text-[#C8D8E8]/65">
+              <p className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-[#1E90FF] flex-shrink-0 mt-0.5" />
+                <span>Foundry Gym, Kings Heath,<br />Birmingham, West Midlands B14 7JZ</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-[#1E90FF] flex-shrink-0" />
+                <a href="tel:+447753226214" className="hover:text-[#1E90FF] transition-colors">07753 226 214</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-[#1E90FF] flex-shrink-0" />
+                <a href="mailto:hello@highperformancefit.co.uk" className="hover:text-[#1E90FF] transition-colors">hello@highperformancefit.co.uk</a>
+              </p>
+            </address>
           </div>
           <div>
             <h4 className="font-bold uppercase tracking-wider text-sm text-white mb-4">Explore</h4>
@@ -26,6 +48,16 @@ export function Footer() {
                 ["/contact", "Contact"],
                 ["/blog", "Blog"],
               ].map(([href, label]) => (
+                <a key={href} href={href} className="text-[#C8D8E8]/65 hover:text-[#1E90FF] text-sm transition-colors">
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div>
+            <h4 className="font-bold uppercase tracking-wider text-sm text-white mb-4">Areas We Cover</h4>
+            <nav className="flex flex-col gap-2">
+              {AREA_LINKS.map(([href, label]) => (
                 <a key={href} href={href} className="text-[#C8D8E8]/65 hover:text-[#1E90FF] text-sm transition-colors">
                   {label}
                 </a>
@@ -59,7 +91,7 @@ export function Footer() {
         </div>
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row gap-4 items-center justify-between text-xs text-white/40">
           <p>&copy; 2026 High Performance Fit. All rights reserved.</p>
-          <p>Foundry Gym, Kings Heath, Birmingham</p>
+          <p>Foundry Gym, Kings Heath, Birmingham, West Midlands B14 7JZ</p>
         </div>
       </div>
     </footer>

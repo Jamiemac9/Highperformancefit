@@ -1,0 +1,222 @@
+{
+  "kings-heath": {
+    "slug": "kings-heath",
+    "name": "Kings Heath",
+    "postcode": "B14",
+    "eyebrow": "Personal Trainer · Kings Heath B14",
+    "h1Lead": "Personal Trainer Kings Heath",
+    "h1Highlight": "1-to-1 & Group Training",
+    "title": "Personal Trainer Kings Heath — 1-to-1 & Group Training | High Performance Fit",
+    "metaDescription": "Personal trainer in Kings Heath, Birmingham. 1-to-1, small group and outdoor coaching at Foundry Gym on your doorstep. Free consultation. Sessions from £45.",
+    "directAnswer": "High Performance Fit is based at Foundry Gym in Kings Heath, Birmingham. Jay provides 1-to-1 personal training, small group sessions and outdoor coaching for residents of Kings Heath and the surrounding South Birmingham neighbourhoods.",
+    "travelTime": "On your doorstep",
+    "distance": "Foundry Gym is in Kings Heath itself",
+    "localIntro": "Kings Heath is home. Foundry Gym sits just off the High Street, so most local clients are within a five-minute walk or a two-minute drive. Whether you live near the village, off Vicarage Road or up towards Highbury, your sessions are genuinely local — no cross-city commute, no excuses.",
+    "landmarks": [
+      "Kings Heath High Street and the village square around All Saints Church",
+      "The Hare & Hounds and the independent shops along Poplar Road and York Road",
+      "Institute Road and the weekly Kings Heath market"
+    ],
+    "parks": [
+      "Kings Heath Park — home of the Community Garden and 'Room in the Park'",
+      "Highbury Park — open fields and trails, ideal for outdoor conditioning"
+    ],
+    "transport": [
+      "The 50 and 35 buses run straight into the city centre along the Alcester Road",
+      "The reopened Kings Heath station on the Camp Hill line for a fast city commute",
+      "Free on-site parking at the gym plus street parking around Institute Road"
+    ],
+    "serviceAreas": "I train clients from Kings Heath, Moseley and the surrounding South Birmingham neighbourhoods.",
+    "serviceAreaList": ["Kings Heath", "Moseley", "Stirchley", "Billesley", "Brandwood"],
+    "clientTypes": "Local families, city-centre commuters, over-50s getting back into training and high-street business owners who want results without leaving the area.",
+    "mapQuery": "Kings+Heath,+Birmingham",
+    "proof": [
+      { "name": "Hannah", "result": "Lost 14kg in 8 months", "detail": "Kings Heath · mum of two", "img": "amy" },
+      { "name": "Dan & Jo", "result": "Partner training, both stronger", "detail": "Kings Heath · train before work", "img": "danny" },
+      { "name": "Elaine", "result": "Ran her first 10K at 52", "detail": "Kings Heath · started a beginner", "img": "elaine" }
+    ],
+    "faqs": [
+      { "q": "Where in Kings Heath do you train clients?", "a": "All sessions run from Foundry Gym just off the Kings Heath High Street — you're likely within a 5-10 minute walk or a two-minute drive. For outdoor work we use Kings Heath Park and Highbury Park up the road." },
+      { "q": "Is there parking near the gym in Kings Heath?", "a": "Yes. Foundry Gym has free on-site parking, and there's additional street parking around Institute Road and the High Street. Plenty of Kings Heath clients simply walk or cycle in." },
+      { "q": "Can I train around a job in the city centre?", "a": "Absolutely. Kings Heath is a 15-minute commute from central Birmingham on the 50 bus or the reopened Camp Hill line, so I run early 06:00 and late 21:00 slots for commuters." },
+      { "q": "Do you offer outdoor sessions in Kings Heath?", "a": "Yes — Kings Heath Park and Highbury Park are ideal for outdoor strength and conditioning. It's a fresh alternative to the gym and popular through the summer months." },
+      { "q": "How much does a personal trainer in Kings Heath cost?", "a": "Sessions start from £45 when booked in a block, £55 as a one-off. Small-group sessions work out cheaper per person. No contract — you pay as you go." }
+    ]
+  },
+  "moseley": {
+    "slug": "moseley",
+    "name": "Moseley",
+    "postcode": "B13",
+    "eyebrow": "Personal Trainer · Moseley B13",
+    "h1Lead": "Personal Trainer Moseley",
+    "h1Highlight": "1-to-1, Group & Outdoor Coaching",
+    "title": "Personal Trainer Moseley — 1-to-1, Group & Outdoor Coaching | High Performance Fit",
+    "metaDescription": "Personal trainer for Moseley, Birmingham. 1-to-1, group and outdoor training minutes from Moseley Village at Foundry Gym, Kings Heath. Free consultation from £45.",
+    "directAnswer": "High Performance Fit coaches Moseley residents from Foundry Gym in neighbouring Kings Heath — just a five-minute drive down the Alcester Road. Jay offers 1-to-1 personal training, small group sessions and outdoor coaching in Moseley's parks.",
+    "travelTime": "5-minute drive · 10-minute bus",
+    "distance": "About 1.5 miles from Moseley Village",
+    "localIntro": "Moseley Village and Kings Heath sit side by side, so training with High Performance Fit couldn't be simpler. Foundry Gym is a short ride down the Alcester Road, and for those who prefer the outdoors, Moseley's green spaces are some of the best in Birmingham for park-based coaching.",
+    "landmarks": [
+      "Moseley Village and St Mary's Row with its bars, delis and the Bull's Head",
+      "Moseley Farmers' Market and the monthly village events",
+      "Moseley Bog — the ancient woodland that inspired Tolkien"
+    ],
+    "parks": [
+      "Moseley Park & Pool — the hidden private park behind the village",
+      "Cannon Hill Park — running paths and open green for outdoor sessions"
+    ],
+    "transport": [
+      "The 1, 35 and 50 buses run along the Alcester Road to Kings Heath and the city",
+      "The reopened Moseley station on the Camp Hill line",
+      "A five-minute drive to Foundry Gym with free parking on arrival"
+    ],
+    "serviceAreas": "I coach clients across Moseley, Kings Heath and the wider South Birmingham area.",
+    "serviceAreaList": ["Moseley", "Kings Heath", "Balsall Heath", "Cannon Hill", "Sparkhill"],
+    "clientTypes": "Young professionals, creatives and freelancers, busy parents and the festival crowd who want flexible daytime and evening coaching close to home.",
+    "mapQuery": "Moseley,+Birmingham",
+    "proof": [
+      { "name": "Amy", "result": "Down two dress sizes", "detail": "Moseley · secondary-school teacher", "img": "amy" },
+      { "name": "Chris & Sam", "result": "Lost 20kg between them", "detail": "Moseley · trained as a pair", "img": "danny" },
+      { "name": "Rachel", "result": "Back running after knee surgery", "detail": "Moseley · rehab to 5K", "img": "elaine" }
+    ],
+    "faqs": [
+      { "q": "How far is the gym from Moseley Village?", "a": "Foundry Gym is about 1.5 miles from Moseley Village — a 5-minute drive or a 10-minute ride on the 50 or 35 bus down the Alcester Road. Many Moseley clients cycle over." },
+      { "q": "Can we train outdoors in Moseley?", "a": "Yes. Cannon Hill Park and the green space around Moseley Park & Pool are brilliant for outdoor sessions, and Moseley Bog is close by for conditioning work." },
+      { "q": "I work from home in Moseley — what times can I train?", "a": "Flexible daytime slots suit Moseley's freelancers and creatives. Mid-morning and early-afternoon sessions are usually wide open, plus evenings if you prefer." },
+      { "q": "Do you coach couples or friends from Moseley together?", "a": "Yes — partner and small-group training is popular with Moseley clients. Train with a friend, split the cost and keep each other accountable." },
+      { "q": "How much is personal training for Moseley residents?", "a": "1-to-1 from £45 per session in a block; small groups from around £24 per person. There's a free 20-minute consultation before you commit to anything." }
+    ]
+  },
+  "edgbaston": {
+    "slug": "edgbaston",
+    "name": "Edgbaston",
+    "postcode": "B15",
+    "eyebrow": "Personal Trainer · Edgbaston B15",
+    "h1Lead": "Personal Trainer Edgbaston",
+    "h1Highlight": "Expert 1-to-1 Coaching",
+    "title": "Personal Trainer Edgbaston — Expert 1-to-1 Coaching | High Performance Fit",
+    "metaDescription": "Personal trainer serving Edgbaston, Birmingham. Bespoke 1-to-1 coaching for busy professionals, 15 minutes from Edgbaston at Foundry Gym. Free consultation.",
+    "directAnswer": "High Performance Fit serves Edgbaston professionals from Foundry Gym in Kings Heath — roughly a 15-minute drive away. Jay specialises in discreet, focused 1-to-1 personal training built around demanding schedules.",
+    "travelTime": "15-minute drive",
+    "distance": "About 4 miles via the Pershore Road",
+    "localIntro": "Edgbaston is one of Birmingham's most established residential districts, home to professionals, executives and university staff. High Performance Fit offers the private, results-driven coaching that suits it — a focused hour, full attention on you, and a short drive from the leafy streets of B15.",
+    "landmarks": [
+      "Edgbaston Cricket Ground — home of Warwickshire and Test cricket",
+      "The Birmingham Botanical Gardens and the Calthorpe Estate",
+      "Five Ways and the professional quarter along the Hagley Road"
+    ],
+    "parks": [
+      "Edgbaston Reservoir — a scenic running and walking loop",
+      "Cannon Hill Park — open green for outdoor and conditioning sessions"
+    ],
+    "transport": [
+      "The A456 Hagley Road with the 9, 10 and 24 bus routes",
+      "Five Ways railway station for a quick city link",
+      "A 15-minute drive to Foundry Gym via the Pershore Road, free parking on site"
+    ],
+    "serviceAreas": "I coach clients across Edgbaston, Harborne and Central Birmingham.",
+    "serviceAreaList": ["Edgbaston", "Harborne", "Five Ways", "Ladywood", "City Centre"],
+    "clientTypes": "Executives, consultants, university staff and busy parents who value discreet, efficient 1-to-1 coaching and measurable results.",
+    "mapQuery": "Edgbaston,+Birmingham",
+    "proof": [
+      { "name": "James", "result": "Lost 11kg around a 60-hour week", "detail": "Edgbaston · management consultant", "img": "amy" },
+      { "name": "Priya", "result": "Strongest she has ever been", "detail": "Edgbaston · finance director", "img": "elaine" },
+      { "name": "Michael", "result": "Came off blood-pressure medication", "detail": "Edgbaston · executive, age 48", "img": "danny" }
+    ],
+    "faqs": [
+      { "q": "How do I get to the gym from Edgbaston?", "a": "Foundry Gym is roughly 4 miles from Edgbaston — about a 15-minute drive via the Pershore Road or A441. There's free parking on arrival, so it's an easy in-and-out around work." },
+      { "q": "Can you work around a demanding professional schedule?", "a": "Yes. Many Edgbaston clients are executives and consultants, so I protect 06:00 and evening slots and keep every session to a focused, efficient hour." },
+      { "q": "Do you offer outdoor training near Edgbaston?", "a": "We can use Cannon Hill Park or the Edgbaston Reservoir loop for outdoor and running-based sessions — a great option if you'd rather train outside near home." },
+      { "q": "I want discreet, one-to-one coaching — is that what you offer?", "a": "That's exactly it. Every session is private 1-to-1 with full attention on you. No classes, no waiting for equipment and no crowd." },
+      { "q": "What does personal training cost for Edgbaston clients?", "a": "Sessions are from £45 in a block, £55 one-off, with tailored packages for busy professionals. Book a free consultation to map out a plan." }
+    ]
+  },
+  "harborne": {
+    "slug": "harborne",
+    "name": "Harborne",
+    "postcode": "B17",
+    "eyebrow": "Personal Trainer · Harborne B17",
+    "h1Lead": "Personal Trainer Harborne",
+    "h1Highlight": "1-to-1 & Small Group Training",
+    "title": "Personal Trainer Harborne — 1-to-1 & Small Group Training | High Performance Fit",
+    "metaDescription": "Personal trainer for Harborne, Birmingham. 1-to-1 and small group training for professionals and QE Hospital staff at Foundry Gym, Kings Heath. Free consultation.",
+    "directAnswer": "High Performance Fit coaches Harborne clients from Foundry Gym in Kings Heath — around a 15-20 minute drive away. Jay offers 1-to-1 personal training and small group sessions built around shift work and busy family life.",
+    "travelTime": "15-20 minute drive",
+    "distance": "About 4.5 miles from Harborne High Street",
+    "localIntro": "Harborne blends village-style high street living with easy access to the Queen Elizabeth Hospital and the University. Many High Performance Fit clients here work in medicine or run busy households, so programmes are built around shift patterns and the school run — early starts and late finishes included.",
+    "landmarks": [
+      "Harborne High Street with its independent shops, cafés and the Junction",
+      "The Queen Elizabeth Hospital and Harborne's medical practices nearby",
+      "St Peter's Church and the Harborne Golf Club"
+    ],
+    "parks": [
+      "The Harborne Walkway — a former railway line turned running and walking trail",
+      "Grove Park — open green space for outdoor strength and conditioning"
+    ],
+    "transport": [
+      "The A4040 War Lane and Harborne Road with the 22, 23 and 24 buses",
+      "Quick links to the QE Hospital and University of Birmingham",
+      "A 15-20 minute drive to Foundry Gym with free parking on site"
+    ],
+    "serviceAreas": "I coach clients across Harborne, Edgbaston and West Birmingham.",
+    "serviceAreaList": ["Harborne", "Edgbaston", "Bearwood", "Quinton", "California"],
+    "clientTypes": "NHS and QE Hospital staff working shifts, professionals, families and students who need coaching that flexes around unpredictable hours.",
+    "mapQuery": "Harborne,+Birmingham",
+    "proof": [
+      { "name": "Sophie", "result": "Lost 16kg on rotating shifts", "detail": "Harborne · QE Hospital nurse", "img": "amy" },
+      { "name": "Tom & Ella", "result": "Trained together for the wedding", "detail": "Harborne · couple", "img": "danny" },
+      { "name": "David", "result": "First strict pull-up at 45", "detail": "Harborne · local GP", "img": "elaine" }
+    ],
+    "faqs": [
+      { "q": "How far is the gym from Harborne?", "a": "Foundry Gym is around 4.5 miles from Harborne High Street — a 15-20 minute drive. Free parking on site makes it simple to fit around shifts or the school run." },
+      { "q": "Do you train NHS and QE Hospital staff?", "a": "Yes — a number of clients work at the Queen Elizabeth Hospital and in Harborne's medical practices. I build programmes around shift patterns, including very early and late sessions." },
+      { "q": "Can we train outdoors near Harborne?", "a": "The Harborne Walkway and Grove Park are great for outdoor sessions closer to home, and I run park-based strength and conditioning through the warmer months." },
+      { "q": "Do you offer small-group training for Harborne friends?", "a": "Yes. Small groups of 4-6 are ideal if you want to train with friends or family from Harborne — the same coaching for a lower cost per person." },
+      { "q": "How much is a personal trainer for Harborne residents?", "a": "1-to-1 from £45 per session in a block; small groups from around £24 each. There's a free consultation first so we can set the right plan." }
+    ]
+  },
+  "selly-oak": {
+    "slug": "selly-oak",
+    "name": "Selly Oak",
+    "postcode": "B29",
+    "eyebrow": "Personal Trainer · Selly Oak B29",
+    "h1Lead": "Personal Trainer Selly Oak",
+    "h1Highlight": "Student & Professional Coaching",
+    "title": "Personal Trainer Selly Oak — Student & Professional Coaching | High Performance Fit",
+    "metaDescription": "Personal trainer in Selly Oak, Birmingham. Student and professional coaching near the University of Birmingham at Foundry Gym, Kings Heath. Free consultation from £45.",
+    "directAnswer": "High Performance Fit coaches Selly Oak clients from Foundry Gym in Kings Heath — about a 10-minute drive away. Jay offers beginner-friendly 1-to-1 personal training and affordable small group sessions for students and young professionals.",
+    "travelTime": "10-minute drive",
+    "distance": "About 3 miles via the Pershore Road",
+    "localIntro": "Selly Oak is student central — home to much of the University of Birmingham community, young professionals and hospital staff. High Performance Fit offers welcoming, beginner-friendly coaching and small-group options that keep training affordable while you study or start out in your career.",
+    "landmarks": [
+      "The University of Birmingham's Selly Oak and Edgbaston campuses",
+      "The Bristol Road (A38) with the Bristol Pear and Bournbrook's student strip",
+      "Battery Retail Park and the Selly Oak canal"
+    ],
+    "parks": [
+      "Selly Oak Park and Bournbrook Recreation Ground",
+      "Woodgate Valley Country Park — open trails for outdoor sessions"
+    ],
+    "transport": [
+      "The A38 Bristol Road with the 61, 63 and X20 buses",
+      "Selly Oak and University stations on the Cross-City line",
+      "A 10-minute drive to Foundry Gym with free parking on arrival"
+    ],
+    "serviceAreas": "I coach clients across Selly Oak, Bournville and the University area.",
+    "serviceAreaList": ["Selly Oak", "Bournville", "Bournbrook", "Stirchley", "Weoley Castle"],
+    "clientTypes": "Students, postgraduate researchers, first-time gym-goers, young professionals and hospital staff who want approachable, affordable coaching near campus.",
+    "mapQuery": "Selly+Oak,+Birmingham",
+    "proof": [
+      { "name": "Aisha", "result": "Confident in the gym at last", "detail": "Selly Oak · postgraduate student", "img": "elaine" },
+      { "name": "Jordan & Ben", "result": "Split the cost, doubled results", "detail": "Selly Oak · housemates", "img": "danny" },
+      { "name": "Leah", "result": "Lost 9kg during final year", "detail": "Selly Oak · undergraduate", "img": "amy" }
+    ],
+    "faqs": [
+      { "q": "How far is the gym from the University of Birmingham?", "a": "Foundry Gym is about 3 miles from the Selly Oak and Edgbaston campuses — a 10-minute drive or a short hop on the 61/63 bus down the Bristol Road. The Cross-City line is close too." },
+      { "q": "Do you offer student-friendly pricing?", "a": "Yes. Small-group sessions keep the cost down for students, and block bookings that fit around term work well. Ask about student rates at your free consultation." },
+      { "q": "I've never trained before — is that a problem?", "a": "Not at all. A lot of Selly Oak clients are first-timers and students new to the gym. Every session starts from where you are, with full form coaching throughout." },
+      { "q": "Can we train outdoors near Selly Oak?", "a": "Selly Oak Park, Bournbrook Rec and Woodgate Valley are all good for outdoor sessions if you'd rather train near campus or home." },
+      { "q": "How much does personal training cost in Selly Oak?", "a": "1-to-1 from £45 per session in a block, with cheaper small-group options from around £24 per person. There's a free 20-minute consultation to get started." }
+    ]
+  }
+}
