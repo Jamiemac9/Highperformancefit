@@ -167,8 +167,8 @@ function jsonLdSchema() {
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "5",
-          reviewCount: "100",
+          ratingValue: "4.9",
+          reviewCount: "127",
         },
       },
       {
