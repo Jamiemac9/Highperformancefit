@@ -1,0 +1,2 @@
+- [SSR/prerender pipeline for Vite React](ssr-prerender.md) — JSDOM-based SSR without Puppeteer; vite build → vite SSR build → node prerender script that injects rendered markup into index.html.
+- [JSON-LD structured data for fitness business](jsonld-schema.md) — Multi-type @graph schema (WebSite, Organization, Person, LocalBusiness, Service, FAQPage, HowTo) injected during prerendering for Google rich results.
