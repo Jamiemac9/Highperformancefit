@@ -16,6 +16,8 @@ import {
   Instagram,
   Facebook,
   CheckCircle2,
+  XCircle,
+  Minus,
   Calendar,
   ClipboardList,
   Activity,
@@ -160,6 +162,7 @@ export default function Landing() {
       <HowItWorks />
       <Packages packages={packages} />
       <Testimonials />
+      <ComparisonTables />
       <FAQ />
       <Contact />
     </main>
@@ -1527,6 +1530,129 @@ function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
         <div className="text-sm text-[#C8D8E8]/60">{t.detail}</div>
       </div>
     </div>
+  );
+}
+
+function ComparisonTables() {
+  const tables = [
+    {
+      title: "High Performance Fit vs. Gym Membership",
+      cols: ["Feature", "High Performance Fit", "Standard Gym Membership"],
+      rows: [
+        ["Personalised programme", "yes", "no", "Bespoke for you", "Generic app or none"],
+        ["Accountability", "yes", "no", "Direct trainer contact", "Self-motivated"],
+        ["Form correction", "yes", "no", "Real-time feedback", "None"],
+        ["Nutrition guidance", "yes", "no", "Included", "Extra cost or none"],
+        ["Price", "neutral", "neutral", "\u00a3\u00a3\u00a3", "\u00a3\u00a3 (but often wasted)"],
+        ["Results timeline", "yes", "no", "Faster", "Slower or none"],
+        ["Contract", "yes", "no", "No contracts", "Often 12-month lock-in"],
+      ],
+      context: `A gym membership is a great tool \u2014 but it's only useful if you know how to use it. Most people join in January, go twice, and don't return. You're paying for access, not outcomes. A personal trainer gives you a programme built for your body, accountability that keeps you showing up, and the expertise to avoid wasted effort or injury. If you already love the gym and know exactly what you're doing, a membership might be enough. If you need direction, a PT is the faster route to results.`,
+    },
+    {
+      title: "High Performance Fit vs. Fitness Apps",
+      cols: ["Feature", "High Performance Fit", "Fitness App"],
+      rows: [
+        ["Personalisation", "yes", "no", "Human-adjusted", "Algorithm-only"],
+        ["Form checks", "yes", "no", "Video reviews", "None"],
+        ["Accountability", "yes", "no", "Real person", "Notification-only"],
+        ["Adaptation", "yes", "no", "Changed weekly", "Static programme"],
+        ["Price", "neutral", "neutral", "\u00a3\u00a3\u00a3", "\u00a3 or free"],
+      ],
+      context: `Fitness apps are brilliant for motivated people who already know good form and can stick to a plan without external accountability. The problem is that most people aren't that person \u2014 and an algorithm can't tell when your squat depth is off or when your back is rounding on a deadlift. It also can't adjust your programme when you're stressed, sleep-deprived or dealing with a niggle. Apps work for some; coaching works for most.`,
+    },
+    {
+      title: "High Performance Fit vs. Other Birmingham Personal Trainers",
+      cols: ["Feature", "High Performance Fit", "Typical Birmingham PT"],
+      rows: [
+        ["Experience", "yes", "neutral", "13 years", "2\u20135 years average"],
+        ["Transformations", "yes", "neutral", "200+", "Unknown or fewer"],
+        ["Online option", "yes", "no", "Available", "Often not offered"],
+        ["Nutrition included", "yes", "no", "Yes", "Often extra"],
+        ["No contracts", "yes", "neutral", "Yes", "Varies"],
+      ],
+      context: `Birmingham has plenty of personal trainers, and many are excellent at what they do. The difference with High Performance Fit is the depth of experience \u2014 13 years, 200+ documented transformations \u2014 and the range of options. Most Birmingham PTs focus purely on in-person sessions. Here you get in-person, online, group and outdoor options, all with nutrition guidance included rather than sold separately. The best PT for you is the one whose approach matches your goals and lifestyle; this comparison simply shows where the offering differs.`,
+    },
+  ];
+
+  const Cell = ({ val }: { val: string }) => {
+    if (val === "yes") return <CheckCircle2 className="h-5 w-5 text-[#1E90FF]" />;
+    if (val === "no") return <XCircle className="h-5 w-5 text-white/20" />;
+    if (val === "neutral") return <Minus className="h-5 w-5 text-white/30" />;
+    return <span className="text-[#C8D8E8]/80 text-sm">{val}</span>;
+  };
+
+  return (
+    <section id="compare" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
+          <Reveal>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Compare</p>
+            <h2 className="headline text-4xl md:text-6xl leading-none">HOW WE COMPARE</h2>
+            <p className="text-[#C8D8E8]/70 text-lg mt-5 leading-relaxed">
+              See how High Performance Fit stacks up against gym memberships, fitness apps and other personal trainers in Birmingham.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="space-y-16 md:space-y-24">
+          {tables.map((t, ti) => (
+            <Reveal key={t.title} delay={ti * 0.1}>
+              <article>
+                <h3 className="headline text-2xl md:text-3xl mb-6">{t.title}</h3>
+                <div className="overflow-x-auto rounded-xl border border-[#1A3A5C]">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-[#112240]">
+                      {t.cols.map((col, ci) => (
+                        <th
+                          key={col}
+                          className={`px-4 md:px-6 py-4 text-sm font-bold uppercase tracking-wider ${
+                            ci === 0 ? "text-[#C8D8E8]/60" : "text-white"
+                          } ${ci === 1 ? "text-[#1E90FF]" : ""}`}
+                        >
+                          {col}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {t.rows.map((row, ri) => (
+                      <tr
+                        key={row[0] as string}
+                        className={ri % 2 === 0 ? "bg-white/[0.01]" : "bg-transparent"}
+                      >
+                        <td className="px-4 md:px-6 py-4 text-sm font-medium text-[#C8D8E8]/80 border-t border-white/5">
+                          {row[0]}
+                        </td>
+                        <td className="px-4 md:px-6 py-4 text-sm border-t border-white/5">
+                          <div className="flex items-center gap-3">
+                            <Cell val={row[1] as string} />
+                            <span className="text-[#EAF2FB] text-sm">{row[3]}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 md:px-6 py-4 text-sm border-t border-white/5">
+                          <div className="flex items-center gap-3">
+                            <Cell val={row[2] as string} />
+                            <span className="text-[#C8D8E8]/60 text-sm">{row[4]}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-6 text-[#C8D8E8]/70 text-base leading-relaxed max-w-4xl">
+                {t.context.split("\n\n").map((p, i) => (
+                  <p key={i} className={i > 0 ? "mt-4" : ""}>{p}</p>
+                ))}
+              </div>
+            </article>
+          </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
