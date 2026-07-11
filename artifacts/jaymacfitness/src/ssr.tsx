@@ -4,6 +4,7 @@
  */
 import React from "react";
 import { renderToString } from "react-dom/server";
+import { Routes, Route } from "react-router-dom";
 import { StaticRouter } from "react-router-dom/server";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -28,6 +29,7 @@ import PersonalTrainerMoseley from "./pages/personal-trainer-moseley";
 import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
 import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
 import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
+import BlogPost from "./pages/blog-post";
 
 const h = React.createElement;
 
@@ -61,6 +63,15 @@ export function render(url: string): string {
   else if (url === "/personal-trainer-edgbaston") Page = () => h(MarketingLayout, null, h(PersonalTrainerEdgbaston));
   else if (url === "/personal-trainer-harborne") Page = () => h(MarketingLayout, null, h(PersonalTrainerHarborne));
   else if (url === "/personal-trainer-selly-oak") Page = () => h(MarketingLayout, null, h(PersonalTrainerSellyOak));
+  else if (url.startsWith("/blog/"))
+    // Render through Routes so useParams() resolves the :slug during SSR.
+    Page = () =>
+      h(Routes, null,
+        h(Route, {
+          path: "/blog/:slug",
+          element: h(MarketingLayout, null, h(BlogPost)),
+        })
+      );
   else Page = () => null;
 
   return renderToString(

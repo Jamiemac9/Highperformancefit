@@ -26,6 +26,7 @@ import PersonalTrainerMoseley from "./pages/personal-trainer-moseley";
 import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
 import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
 import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
+import BlogPost from "./pages/blog-post";
 import Dashboard from "./pages/dashboard";
 import Clients from "./pages/clients";
 import ClientDetail from "./pages/client-detail";
@@ -87,6 +88,7 @@ function App() {
               <Route path="/faq" element={<MarketingLayout><Faq /></MarketingLayout>} />
               <Route path="/contact" element={<MarketingLayout><Contact /></MarketingLayout>} />
               <Route path="/blog" element={<MarketingLayout><Blog /></MarketingLayout>} />
+              <Route path="/blog/:slug" element={<MarketingLayout><BlogPost /></MarketingLayout>} />
 
               {/* Hyperlocal area landing pages */}
               <Route path="/personal-trainer-kings-heath" element={<MarketingLayout><PersonalTrainerKingsHeath /></MarketingLayout>} />
