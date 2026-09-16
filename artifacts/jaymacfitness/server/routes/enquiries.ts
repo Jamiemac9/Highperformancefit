@@ -45,13 +45,36 @@ async function sendWelcomeEmail(email: string, tempPassword: string, firstName: 
   console.log(`[email] welcome email queued for ${email}`, info.messageId);
 }
 
+async function sendEnquiryNotification(enquiry: {
+  name: string;
+  phone: string | null;
+  message: string;
+}) {
+  const transport = process.env.GMAIL_APP_PASSWORD
+    ? nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.GMAIL_USER || "hello@highperformancefit.co.uk",
+          pass: process.env.GMAIL_APP_PASSWORD,
+        },
+      })
+    : nodemailer.createTransport({ jsonTransport: true });
+  const info = await transport.sendMail({
+    from: '"High Performance Fit" <hello@highperformancefit.co.uk>',
+    to: "hello@highperformancefit.co.uk",
+    subject: `New website enquiry from ${enquiry.name}`,
+    text: `Name: ${enquiry.name}\nWhatsApp: ${enquiry.phone || "Not supplied"}\n\n${enquiry.message || "No message supplied"}`,
+  });
+  console.log(`[email] enquiry notification queued for ${enquiry.name}`, info.messageId);
+}
+
 enquiriesRouter.post(
   "/",
   enquiryRateLimiter,
   body("name").isString().trim().isLength({ min: 1, max: 200 }).withMessage("Name is required"),
-  body("email").isEmail().normalizeEmail().withMessage("Valid email is required"),
+   body("email").optional({ nullable: true, checkFalsy: true }).isEmail().normalizeEmail(),
   body("phone").optional({ nullable: true, checkFalsy: true }).isString().trim().isLength({ max: 50 }),
-  body("message").isString().trim().isLength({ min: 1, max: 5000 }).withMessage("Message is required"),
+   body("message").optional({ nullable: true, checkFalsy: true }).isString().trim().isLength({ max: 5000 }),
   body("source").optional({ nullable: true, checkFalsy: true }).isString().trim().isLength({ max: 100 }),
   async (req, res, next) => {
     if (handleValidation(req, res)) return;
@@ -60,11 +83,19 @@ enquiriesRouter.post(
       const created = await prisma.leadEnquiry.create({
         data: {
           name,
-          email,
+          email: email || null,
           phone: phone || null,
-          message,
+          message: message || "",
           source: source || "website",
         },
+      });
+      try {
+        await sendEnquiryNotification(created);
+      } catch (mailErr) {
+        console.error("[email] failed to send enquiry notification", mailErr);
+      }
+      await prisma.eventLog.create({
+        data: { event: "enquiry_created", payload: { enquiryId: created.id, source: source || "website" } },
       });
       res.status(201).json(created);
     } catch (err) {
@@ -172,6 +203,7 @@ enquiriesRouter.post(
     try {
       const lead = await prisma.leadEnquiry.findUnique({ where: { id: req.params.id } });
       if (!lead) return res.status(404).json({ error: "Enquiry not found" });
+      if (!lead.email) return res.status(400).json({ error: "Add an email address before converting this enquiry" });
       if (lead.status === "CONVERTED" && lead.convertedClientId) {
         const existing = await prisma.clientProfile.findUnique({
           where: { id: lead.convertedClientId },

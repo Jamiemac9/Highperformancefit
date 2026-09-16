@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiGet, apiPost } from "../lib/api";
+import { SITE_CONFIG } from "../config";
+import { trackBookingClick } from "../lib/tracking";
 import { Footer } from "../components/Footer";
 import amyTransformation from "@assets/amy_trasnformation_1777814405343.jpg";
 import dannyJenTransformation from "@assets/dannyandjen_progress_pic_1777814405345.jpg";
@@ -51,37 +53,36 @@ const STEPS = [
   { icon: Calendar, title: "Free Consultation", desc: "Tell me your goals, training history and what's held you back. No pressure, just a conversation." },
   { icon: ClipboardList, title: "Personalised Plan", desc: "Get a programme built for your body, your schedule and the result you actually want." },
   { icon: Activity, title: "Train & Track", desc: "We train, we measure, we adjust. Every session has a purpose. Every week you progress." },
-  { icon: Trophy, title: "Get Results", desc: "Stronger, fitter, leaner — and the habits to keep it that way long after we're done." },
+  { icon: Trophy, title: "Keep the results", desc: "Stronger, fitter, leaner — and the habits to hold it long after we're done. That's the whole point." },
 ];
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "Jay completely changed my relationship with training. I dropped 18kg in 9 months and I've never felt stronger. He pushes you, but he meets you where you are.",
-    name: "Sarah W.",
-    detail: "Client since 2024",
-  },
-  {
-    quote:
-      "I'd tried every gym and every plan going. Within 6 weeks with Jay I was lifting weights I didn't think were possible. The man knows his stuff.",
-    name: "Marcus T.",
-    detail: "Online coaching",
-  },
-  {
-    quote:
-      "Honest, structured, and actually fun. The accountability is what made it stick for me. Worth every penny.",
-    name: "Priya K.",
-    detail: "1-2-1 client",
-  },
-];
+type Review = {
+  name: string;
+  photo: string | null;
+  text: string;
+  relativePublishTimeDescription: string;
+  rating: number;
+};
+
+type ReviewsResponse = {
+  rating: number;
+  userRatingCount: number;
+  reviews: Review[];
+  live: boolean;
+};
 
 const FAQS = [
   { q: "What areas do you cover?", a: "I'm based at Foundry Gym in Kings Heath and primarily coach clients across South and Central Birmingham. Online coaching is available worldwide." },
-  { q: "Do you offer online training?", a: "Yes. Online clients get a fully bespoke training programme, weekly check-ins, video form reviews and direct WhatsApp access between sessions." },
-  { q: "How do I get started?", a: "Fill in the enquiry form below or book a free consultation. We'll have a 20-minute chat about your goals and figure out the right plan for you." },
+  { q: "I'm really unfit. Will I embarrass myself?", a: "The first session's the hardest part — after that it's just progress. Meeting you where you are is literally the job." },
+  { q: "Do you offer online training?", a: "Yes. Online clients get a fully bespoke training programme, weekly video check-ins and direct WhatsApp access to me between sessions." },
+  { q: "How do I get started?", a: "Book a free chat or send me an enquiry. We'll talk through your goals, training history and what has held you back, then choose a sensible starting point." },
   { q: "What should I bring to a session?", a: "Comfortable training kit, indoor trainers, a water bottle and a towel. That's it — everything else is provided at the gym." },
-  { q: "Are nutrition plans included?", a: "Every package includes nutrition guidance. Full bespoke meal plans are available as an add-on if you want extra structure." },
-  { q: "How do I pay?", a: "Packages can be paid up-front by bank transfer or split into monthly direct debits. Everything is set up after your free consultation." },
+  { q: "Are nutrition plans included?", a: "Monthly 1-2-1 coaching includes bespoke nutrition guidance. Every other option gets practical guidance that fits your day-to-day life." },
+  { q: "How do I pay?", a: "Fresh Start and blocks are paid up-front. Monthly coaching is direct debit, with no contract and 14 days' notice to pause." },
+  { q: "What if I'm on holiday or miss a session?", a: "Life happens. Reschedule with notice, pause the direct debit, shift your sessions. It's training, not a subscription trap." },
+  { q: "Do I need a Foundry Gym membership?", a: "[Jay to confirm: add the Foundry Gym membership requirement here before publishing.]" },
+  { q: "I've got an old injury.", a: "Rehab-aware programming is a big part of what I do — happy to work alongside your physio. We'll cover it properly in your free chat." },
+  { q: "What happens when a block ends?", a: "Carry on monthly, drop to maintenance, or take the habits and fly. Either way the results are yours to keep." },
 ];
 
 export default function Landing() {
@@ -156,12 +157,14 @@ export default function Landing() {
       <Hero />
       <SocialProof />
       <Results />
+      <AboutJaySection />
       <Services />
+      <BootcampWaitlist />
       {/* Anchor target for the nav "About" link — points at the process section */}
       <div id="about" aria-hidden="true" />
       <HowItWorks />
       <Packages packages={packages} />
-      <Testimonials />
+      <ReviewsWall />
       <ComparisonTables />
       <FAQ />
       <Contact />
@@ -222,9 +225,9 @@ function Nav() {
         <a href="#top" className="flex items-center gap-2 shrink-0" aria-label="High Performance Fit — Home">
           {!logoFailed ? (
             <img
-              src="/images/logo.png"
+              src="/images/hpf-logo.png"
               alt="High Performance Fit"
-              style={{ height: "36px", width: "auto" }}
+              style={{ height: "44px", width: "66px", objectFit: "contain" }}
               onError={() => setLogoFailed(true)}
             />
           ) : (
@@ -260,8 +263,8 @@ function Nav() {
           >
             Login
           </Link>
-          <a href="#contact" className="btn-primary" style={{ padding: "12px 24px", fontSize: "13px" }}>
-            Free Consultation
+          <a href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick("Free consultation", "navigation")} className="btn-primary" style={{ padding: "12px 24px", fontSize: "13px" }}>
+            Book a free chat
           </a>
         </div>
 
@@ -317,12 +320,15 @@ function Nav() {
             Login
           </Link>
           <a
-            href="#contact"
-            onClick={() => setOpen(false)}
+            href={SITE_CONFIG.BOOKING_URL}
+            onClick={() => {
+              trackBookingClick("Book a free chat", "mobile-navigation");
+              setOpen(false);
+            }}
             className="btn-primary mt-4 mb-4 w-full text-center"
             style={{ padding: "14px 24px" }}
           >
-            Book Free Consult
+            Book a free chat
           </a>
         </nav>
       </div>
@@ -331,9 +337,14 @@ function Nav() {
 }
 
 function Hero() {
-  const [heroImgFailed, setHeroImgFailed] = useState(false);
-  // Fallback to the existing portrait image if hero-training.jpg isn't uploaded yet
-  const heroImgSrc = heroImgFailed ? "/images/jay-portrait.jpeg" : "/images/hero-training.jpg";
+  const { data: reviewData } = useQuery<ReviewsResponse>({
+    queryKey: ["reviews", "public"],
+    queryFn: () => apiGet("/api/reviews") as Promise<ReviewsResponse>,
+    staleTime: 12 * 60 * 60 * 1000,
+  });
+  const rating = reviewData?.rating ?? SITE_CONFIG.GOOGLE_RATING_FALLBACK;
+  const reviewCount = reviewData?.userRatingCount ?? SITE_CONFIG.GOOGLE_REVIEW_COUNT_FALLBACK;
+  const heroImgSrc = "/images/hero-coaching.jpg";
 
   return (
     <section
@@ -348,7 +359,6 @@ function Hero() {
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover opacity-40"
-          onError={() => !heroImgFailed && setHeroImgFailed(true)}
         />
         <div
           className="absolute inset-0"
@@ -375,7 +385,7 @@ function Hero() {
               color: "var(--brand-blue, #1E90FF)",
             }}
           >
-            Personal Training · UK &amp; Worldwide
+            Personal training in Kings Heath · online worldwide
           </p>
 
           <h1
@@ -390,10 +400,10 @@ function Hero() {
               textTransform: "uppercase",
             }}
           >
-            The person<br />
-            you want<br />
-            to become<br />
-            <span style={{ color: "var(--brand-blue, #1E90FF)" }}>exists.</span>
+            Tried it all<br />
+            before? Good.<br />
+            You're exactly<br />
+            <span style={{ color: "var(--brand-blue, #1E90FF)" }}>who I train.</span>
           </h1>
 
           <p
@@ -406,26 +416,31 @@ function Hero() {
               maxWidth: "480px",
             }}
           >
-            13 years. 200+ transformations. One trainer who actually gives a damn about your results — in the gym, online, or anywhere in the world.
+            Diets, apps, gym guilt — most people who train with me have been let down by all three. Real coaching, built round your life, and results that don't reverse the moment things get busy. 13 years. 200+ locals trained. Rated {rating.toFixed(1)}★ from {reviewCount}+ Google reviews.
           </p>
 
           <div className="fade-up delay-3 mt-8 flex flex-wrap items-center" style={{ gap: "16px" }}>
             <a
-              href="#contact"
+              href={SITE_CONFIG.BOOKING_URL}
+              onClick={() => trackBookingClick("Book a free chat", "hero")}
               className="btn-primary inline-flex items-center justify-center"
               style={{ padding: "16px 32px", fontSize: "15px" }}
             >
-              Start Your Transformation
+              Book a free chat
             </a>
             <a
-              href="#results"
+              href="#reviews"
               className="btn-ghost inline-flex items-center justify-center gap-2"
               style={{ padding: "16px 28px", fontSize: "15px" }}
             >
-              See Real Results
+              Read the Google reviews
               <ChevronDown className="h-4 w-4" />
             </a>
           </div>
+
+          <p className="fade-up delay-4 mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", color: "#C8D8E8" }}>
+            30 minutes at Foundry Gym or on the phone. No contract, no hard sell.
+          </p>
 
           <ul
             className="fade-up delay-4 mt-8 flex flex-wrap items-center"
@@ -441,7 +456,7 @@ function Hero() {
             {[
               "Free first consultation",
               "No contracts",
-              "100+ five-star reviews",
+              `${reviewCount}+ Google reviews`,
             ].map((item) => (
               <li key={item} className="inline-flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4" style={{ color: "var(--brand-blue, #1E90FF)" }} />
@@ -478,30 +493,12 @@ function Hero() {
                 zIndex: 1,
               }}
             >
-              {!heroImgFailed || heroImgSrc !== "/images/hero-training.jpg" ? (
-                <img
-                  src={heroImgSrc}
-                  alt="Personal training session"
-                  className="w-full h-full object-cover"
-                  style={{ borderRadius: "4px" }}
-                  onError={() => !heroImgFailed && setHeroImgFailed(true)}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-center px-6">
-                  <span
-                    style={{
-                      fontFamily: "'Barlow', sans-serif",
-                      fontWeight: 600,
-                      fontSize: "13px",
-                      letterSpacing: "0.18em",
-                      color: "rgba(200,216,232,0.6)",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Hero image — upload /images/hero-training.jpg
-                  </span>
-                </div>
-              )}
+              <img
+                src={heroImgSrc}
+                alt="Jay coaching a 1-2-1 personal training session at Foundry Gym, Kings Heath, Birmingham."
+                className="w-full h-full object-cover"
+                style={{ borderRadius: "4px" }}
+              />
             </div>
           </div>
         </div>
@@ -615,7 +612,7 @@ function SocialProof() {
     { target: 13, suffix: "+", label: "Years Experience" },
     { target: 200, suffix: "+", label: "Clients Transformed" },
     { target: 100, suffix: "+", label: "Five-Star Reviews" },
-    { target: 3, suffix: "", label: "Training Formats" },
+    { target: 4, suffix: "", label: "Ways to Train" },
   ];
   return (
     <section
@@ -635,7 +632,13 @@ function SocialProof() {
               className={i > 0 ? "lg:border-l" : ""}
               style={i > 0 ? { borderColor: "rgba(30,144,255,0.3)" } : undefined}
             >
-              <ProofStat target={s.target} suffix={s.suffix} label={s.label} />
+              {s.label === "Five-Star Reviews" ? (
+                <a href="#reviews" className="block hover:opacity-80 transition-opacity" aria-label="Read Google reviews">
+                  <ProofStat target={s.target} suffix={s.suffix} label={s.label} />
+                </a>
+              ) : (
+                <ProofStat target={s.target} suffix={s.suffix} label={s.label} />
+              )}
             </div>
           ))}
         </div>
@@ -657,27 +660,19 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 const WHAT_I_DO = [
   {
     title: "1-2-1 Personal Training",
-    body:
-      "You get my full attention. Every session is built around you — your body, your pace, your goals. No programme pulled from a shelf. If it doesn't challenge you, it changes.",
-    href: "/personal-training-birmingham",
+    body: "The fastest route. Every session built around your body, your schedule, your goal.",
   },
   {
-    title: "Group Training",
-    body:
-      "Accountability multiplied. My small-group sessions bring the intensity of personal training with the energy of a team around you. Cheaper than 1-2-1. More powerful than a gym class.",
-    href: "/group-training",
+    title: "Small Group (max 4)",
+    body: "PT-level programming with people who notice when you don't show up.",
   },
   {
     title: "Outdoor Training",
-    body:
-      "Fresh air, no machines, zero excuses. Outdoor sessions use your environment as the gym. It's harder, it's different, and it works when the walls of a gym start feeling like a cage.",
-    href: "/outdoor-training",
+    body: "Kings Heath Park, Cannon Hill Park, or your local green space. No machines, no hiding.",
   },
   {
     title: "Online Coaching",
-    body:
-      "Time zones don't matter. If you have a phone and 45 minutes, I can train you. Custom plans, video check-ins, and a WhatsApp line to me directly. I've transformed clients in five countries.",
-    href: "/online-coaching",
+    body: "Same coach, same standards. If you've got a phone and 45 minutes, I can train you.",
   },
 ];
 
@@ -989,12 +984,48 @@ function Results() {
               </p>
             </div>
             <a
-              href="#contact"
+              href={SITE_CONFIG.BOOKING_URL}
+              onClick={() => trackBookingClick("I'm ready — let's go", "results")}
               className="btn-primary"
               style={{ whiteSpace: "nowrap", fontSize: "15px", padding: "16px 36px" }}
             >
-              I'm Ready — Let's Go
+              Book a free chat
             </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AboutJaySection() {
+  const moments = [
+    { src: "/images/jay-programming.jpg", caption: "Planning the next block.", alt: "Jay planning a client programme" },
+    { src: "/images/jay-session.jpg", caption: "Tuesday 6am, Kings Heath Park.", alt: "Jay mid-session with a client" },
+    { src: "/images/jay-outdoors.jpg", caption: "Small group. Proper coaching.", alt: "Jay with a small group outdoors" },
+  ];
+  return (
+    <section id="about-jay" className="py-20 md:py-28 bg-[#0D1B2A] border-t border-white/5">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-start max-w-6xl mx-auto">
+          <Reveal>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">The person behind the plan</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none mb-6">WHO'S ACTUALLY COACHING YOU?</h2>
+            <p className="text-[#C8D8E8]/80 text-lg leading-relaxed">
+              Fair question. I'm Jay. I've been training people round here for 13 years — post-injury comebacks in Kings Heath, online clients who've never met me in person. There's no sales team, no junior PTs, no app you get lost in. You train with me. I'll push you harder than you'd push alone — and I'll meet you exactly where you are on day one. Both, always.
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {moments.map((moment, index) => (
+              <Reveal key={moment.alt} delay={index * 0.08}>
+                <figure>
+                  <div className="aspect-[4/5] overflow-hidden border border-white/10 bg-[#112240]">
+                    <img src={moment.src} alt={moment.alt} loading="lazy" className="w-full h-full object-cover" />
+                  </div>
+                  <figcaption className="text-[#C8D8E8]/65 text-sm leading-relaxed mt-3">{moment.caption}</figcaption>
+                </figure>
+              </Reveal>
+            ))}
           </div>
         </div>
       </div>
@@ -1036,7 +1067,7 @@ function Services() {
               textTransform: "uppercase",
             }}
           >
-            How We Train Together
+            Four ways to train. One standard.
           </h2>
           <p
             className="mt-5 mx-auto"
@@ -1048,7 +1079,7 @@ function Services() {
               maxWidth: "560px",
             }}
           >
-            In the gym. Outside. Online. No matter where you are — there's no excuse not to start.
+            Where we train is your choice. How we train never changes: a plan built around your life, coached hard, adjusted every week.
           </p>
         </div>
 
@@ -1057,9 +1088,8 @@ function Services() {
           {WHAT_I_DO.map((s, i) => {
             const num = String(i + 1).padStart(2, "0");
             return (
-              <a
+              <div
                 key={s.title}
-                href={s.href}
                 className="service-card reveal block h-full"
                 style={{
                   transitionDelay: `${i * 0.08}s`,
@@ -1120,12 +1150,91 @@ function Services() {
                     textTransform: "uppercase",
                   }}
                 >
-                  Find Out More
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                   {s.title}
                 </span>
-              </a>
+              </div>
             );
           })}
+        </div>
+        <div className="text-center mt-10">
+          <a href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick("Book a free chat", "services")} className="btn-primary">
+            Book a free chat
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BootcampWaitlist() {
+  const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    const form = new FormData(e.currentTarget);
+    try {
+      await apiPost("/api/waitlist", {
+        firstName: String(form.get("firstName") || ""),
+        email: String(form.get("waitlistEmail") || ""),
+        whatsapp: String(form.get("whatsapp") || ""),
+      });
+      setSubmitted(true);
+      e.currentTarget.reset();
+    } catch (err: any) {
+      setError(err?.message || "I couldn't add you just now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <section id="waitlist" className="py-20 md:py-28 bg-[#0A1628] border-t border-white/5">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-[#1E90FF]/35 bg-gradient-to-br from-[#112240] to-[#0D1B2A]">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="p-7 md:p-12">
+              <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Marvel The Studio</p>
+              <h2 className="headline text-5xl md:text-7xl leading-none mb-5">BOOTCAMPS ARE COMING SOON.</h2>
+              <p className="text-[#C8D8E8]/80 text-lg leading-relaxed max-w-2xl">
+                Small-group bootcamps, proper coaching, capped numbers so nobody gets lost in the crowd. Doors open soon — join the founding list and you get first pick of spaces and the founding rate, locked for as long as you stay.
+              </p>
+              <p className="text-[#C8D8E8]/60 text-sm mt-5">20 founding spaces. No payment now, just first dibs.</p>
+              <a href={SITE_CONFIG.MARVEL_URL} target="_blank" rel="noopener noreferrer" className="inline-flex text-[#4DAAFF] text-sm mt-4 hover:text-white transition-colors">
+                Visit Marvel The Studio <ArrowRight className="h-4 w-4 ml-2" />
+              </a>
+            </div>
+            <div className="p-7 md:p-12 bg-black/15 border-t lg:border-t-0 lg:border-l border-white/10">
+              {submitted ? (
+                <div className="h-full flex flex-col justify-center">
+                  <CheckCircle2 className="h-10 w-10 text-[#1E90FF] mb-5" />
+                  <h3 className="headline text-4xl mb-3">YOU'RE ON THE LIST.</h3>
+                  <p className="text-[#C8D8E8]/75">I'll WhatsApp you the moment spaces open — Jay.</p>
+                </div>
+              ) : !open ? (
+                <div className="h-full flex flex-col justify-center">
+                  <p className="text-white text-xl font-bold mb-5">Want first pick of the founding spaces?</p>
+                  <button type="button" onClick={() => setOpen(true)} className="btn-primary w-full">Join the founding list</button>
+                </div>
+              ) : (
+                <form onSubmit={submit} className="space-y-4">
+                  <h3 className="headline text-3xl mb-4">COUNT ME IN.</h3>
+                  <input name="firstName" required maxLength={100} placeholder="First name" className="site-input" />
+                  <input name="waitlistEmail" required type="email" placeholder="Email" className="site-input" />
+                  <input name="whatsapp" required type="tel" placeholder="Best number for WhatsApp" className="site-input" />
+                  {error && <p className="text-red-300 text-sm">{error}</p>}
+                  <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-60">
+                    {submitting ? "Saving your spot…" : "Count me in"}
+                  </button>
+                  <p className="text-xs text-white/45 text-center">No payment now. I’ll only message you about the bootcamp.</p>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1171,235 +1280,50 @@ function HowItWorks() {
   );
 }
 
-function formatGbp(value: string | number | null | undefined): string {
-  if (value === null || value === undefined || value === "") return "—";
-  const n = Number(value);
-  if (!Number.isFinite(n)) return "—";
-  return Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`;
-}
-
-function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
-  const featured = !!pkg.featured;
-  const [buying, setBuying] = useState(false);
-
-  async function handleBuy() {
-    if (buying) return;
-    try {
-      setBuying(true);
-      const data = await apiPost("/api/checkout/create-session", {
-        packageId: pkg.id,
-      });
-      if (data?.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Sorry — could not start checkout. Please try again.");
-        setBuying(false);
-      }
-    } catch (err: any) {
-      const msg = err?.message || "Could not start checkout.";
-      alert(msg);
-      setBuying(false);
-    }
-  }
-  const typeLabel = pkg.type ? PACKAGE_TYPE_LABEL[pkg.type] : "In-Person";
-  const highlights =
-    pkg.highlights && pkg.highlights.length > 0
-      ? pkg.highlights
-      : [`${pkg.sessions} x 60-minute sessions`, "Personalised training plan", "Nutrition guidance included"];
-  const perSession = pkg.pricePerSession ?? (pkg.sessions > 0 ? Number(pkg.price) / pkg.sessions : null);
-
-  return (
-    <Reveal delay={index * 0.08}>
-      <div
-        className="relative h-full flex flex-col"
-        style={{
-          background: featured
-            ? "linear-gradient(160deg, #112240 0%, #1A3A5C 100%)"
-            : "#112240",
-          border: featured ? "2px solid #1E90FF" : "1px solid #1A3A5C",
-          borderRadius: "4px",
-          padding: "28px",
-          boxShadow: featured
-            ? "0 0 40px rgba(30,144,255,0.25), inset 0 0 0 1px rgba(30,144,255,0.15)"
-            : "none",
-          transition: "transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
-        }}
-      >
-        {featured && (
-          <div
-            className="absolute"
-            style={{
-              top: "-14px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "#1E90FF",
-              color: "#fff",
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 700,
-              fontSize: "11px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "6px 14px",
-              borderRadius: "2px",
-              boxShadow: "0 4px 16px rgba(30,144,255,0.45)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Most Popular
-          </div>
-        )}
-
-        {/* Header: name + type pill */}
-        <div className="flex items-start justify-between gap-3 mb-5">
-          <h3
-            style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 700,
-              fontSize: "20px",
-              lineHeight: 1.2,
-              color: "#fff",
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
-            }}
-          >
-            {pkg.name}
-          </h3>
-          <span
-            style={{
-              fontFamily: "'Barlow', sans-serif",
-              fontWeight: 700,
-              fontSize: "11px",
-              color: "#1E90FF",
-              border: "1px solid rgba(30,144,255,0.5)",
-              padding: "4px 10px",
-              borderRadius: "2px",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {typeLabel}
-          </span>
-        </div>
-
-        {/* Price block */}
-        <div className="mb-2">
-          <span
-            className="headline"
-            style={{
-              fontSize: featured ? "60px" : "52px",
-              lineHeight: 1,
-              color: featured ? "#1E90FF" : "#fff",
-              display: "inline-block",
-            }}
-          >
-            {formatGbp(pkg.price)}
-          </span>
-        </div>
-        <div
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "13px",
-            color: "#C8D8E8",
-            opacity: 0.85,
-            marginBottom: "4px",
-          }}
-        >
-          {perSession != null ? `${formatGbp(perSession)} per session` : "\u00A0"}
-        </div>
-        <div
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "13px",
-            color: "#C8D8E8",
-            opacity: 0.7,
-            marginBottom: "20px",
-          }}
-        >
-          {pkg.sessions} {pkg.sessions === 1 ? "session" : "sessions"}
-        </div>
-
-        <div
-          style={{
-            height: "1px",
-            background: "rgba(30,144,255,0.18)",
-            marginBottom: "20px",
-          }}
-        />
-
-        {/* Highlights */}
-        <ul className="space-y-3 mb-8 flex-1">
-          {highlights.map((h) => (
-            <li key={h} className="flex items-start gap-3">
-              <CheckCircle2
-                className="h-4 w-4 flex-shrink-0"
-                style={{ color: "#1E90FF", marginTop: "3px" }}
-                aria-hidden="true"
-              />
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "14px",
-                  lineHeight: 1.55,
-                  color: "#C8D8E8",
-                }}
-              >
-                {h}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA — kicks off a Stripe Checkout session */}
-        <button
-          type="button"
-          onClick={handleBuy}
-          disabled={buying}
-          className={featured ? "btn-primary" : "btn-ghost"}
-          style={{
-            display: "block",
-            width: "100%",
-            textAlign: "center",
-            cursor: buying ? "wait" : "pointer",
-            opacity: buying ? 0.7 : 1,
-          }}
-          aria-label={`Pay for the ${pkg.name} package securely via Stripe`}
-        >
-          {buying
-            ? "Redirecting to Stripe…"
-            : featured
-              ? "Buy Now — Start Transforming"
-              : "Buy Now"}
-        </button>
-
-        {featured && (
-          <div
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "12px",
-              color: "#4DAAFF",
-              textAlign: "center",
-              marginTop: "12px",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Next available slot: this week
-          </div>
-        )}
-      </div>
-    </Reveal>
-  );
-}
-
-function Packages({ packages }: { packages: Pkg[] }) {
-  // Featured first, then by session count. Cap to 4 cards per the brief.
-  const ordered = [...packages]
-    .sort((a, b) => {
-      if (!!b.featured !== !!a.featured) return b.featured ? 1 : -1;
-      return a.sessions - b.sessions;
-    })
-    .slice(0, 4);
-
+function Packages({ packages: _packages }: { packages: Pkg[] }) {
+  const pricing = [
+    {
+      name: "Marvel Bootcamp",
+      badge: "Founding rate",
+      price: "£50",
+      cadence: "/ month",
+      label: "Capped spaces at Marvel The Studio.",
+      body: "Small-group bootcamps with proper coaching and the founding rate locked while you stay.",
+      waitlist: true,
+    },
+    {
+      name: "Fresh Start",
+      badge: "Best for testing the water",
+      price: "£250",
+      cadence: "one-off",
+      label: "5 × 1-2-1 sessions · £50/session",
+      body: "Movement and posture assessment, a personalised plan and WhatsApp support. Use within 8 weeks.",
+    },
+    {
+      name: "1-2-1 Monthly",
+      badge: "Most popular",
+      price: "£280",
+      cadence: "/ month",
+      label: "8 sessions · £35/session",
+      body: "Fresh Start plus bespoke nutrition guidance, monthly body composition tracking and direct WhatsApp access 7 days.",
+    },
+    {
+      name: "Small Group Block",
+      badge: "Accountability on a budget",
+      price: "£200",
+      cadence: "one-off",
+      label: "8 sessions · £25/session",
+      body: "Max 4 people per session, mixed abilities and weekly programmed sessions.",
+    },
+    {
+      name: "Online Coaching",
+      badge: "Rolling monthly",
+      price: "£120",
+      cadence: "/ month",
+      label: "Train anywhere in the world.",
+      body: "App-delivered programme, weekly video check-ins and a WhatsApp line direct to me.",
+    },
+  ];
   return (
     <section id="packages" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5 relative">
       <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
@@ -1425,15 +1349,27 @@ function Packages({ packages }: { packages: Pkg[] }) {
           </div>
         </Reveal>
 
-        {ordered.length === 0 ? (
-          <p className="text-center text-[#C8D8E8]/60">Packages coming soon.</p>
-        ) : (
-          <div className="grid gap-6 md:gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto items-stretch">
-            {ordered.map((pkg, i) => (
-              <PackageCard key={pkg.id} pkg={pkg} index={i} />
-            ))}
-          </div>
-        )}
+        <div className="grid gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 max-w-7xl mx-auto items-stretch">
+          {pricing.map((item, index) => (
+            <Reveal key={item.name} delay={index * 0.06}>
+              <article className={`relative h-full flex flex-col p-6 border ${item.badge === "Most popular" ? "border-[#1E90FF] shadow-[0_0_32px_rgba(30,144,255,0.18)]" : "border-white/10"} bg-[#112240]`}>
+                <span className="text-[#4DAAFF] text-[11px] font-bold uppercase tracking-[0.12em] mb-4">{item.badge}</span>
+                <h3 className="text-white text-xl font-bold leading-tight mb-5">{item.name}</h3>
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="headline text-5xl text-white">{item.price}</span>
+                  <span className="text-[#C8D8E8]/60 text-sm">{item.cadence}</span>
+                </div>
+                <p className="text-[#4DAAFF] text-sm mb-4">{item.label}</p>
+                <p className="text-[#C8D8E8]/70 text-sm leading-relaxed flex-1 mb-7">{item.body}</p>
+                {item.waitlist ? (
+                  <a href="#waitlist" className="btn-ghost text-center text-sm">Join the founding list</a>
+                ) : (
+                  <a href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick(`Claim your slot: ${item.name}`, "packages")} className="btn-ghost text-center text-sm">Claim your slot</a>
+                )}
+              </article>
+            </Reveal>
+          ))}
+        </div>
 
         <Reveal delay={0.2}>
           <div className="text-center mt-14 md:mt-20 max-w-2xl mx-auto">
@@ -1445,9 +1381,12 @@ function Packages({ packages }: { packages: Pkg[] }) {
                 opacity: 0.85,
               }}
             >
-              Not sure which is right for you?{" "}
+              Most people start with a Fresh Start block, then move onto monthly once we've found our feet. That's the plan — no membership until you know it's for you.
+            </p>
+            <p className="mt-5 text-[#C8D8E8]/75 text-sm">
               <a
-                href="#contact"
+                href={SITE_CONFIG.BOOKING_URL}
+                onClick={() => trackBookingClick("Book a free chat", "pricing")}
                 style={{
                   color: "#1E90FF",
                   fontWeight: 600,
@@ -1455,8 +1394,9 @@ function Packages({ packages }: { packages: Pkg[] }) {
                   textUnderlineOffset: "3px",
                 }}
               >
-                Book a free consultation first — zero pressure, zero commitment.
+                Book a free chat
               </a>
+              <span className="text-[#C8D8E8]/60"> — worst case, you get 30 minutes of honest advice and a brew.</span>
             </p>
           </div>
         </Reveal>
@@ -1465,71 +1405,62 @@ function Packages({ packages }: { packages: Pkg[] }) {
   );
 }
 
-function Testimonials() {
-  const [active, setActive] = useState(0);
+function ReviewsWall() {
+  const { data, isLoading } = useQuery<ReviewsResponse>({
+    queryKey: ["reviews", "public"],
+    queryFn: () => apiGet("/api/reviews") as Promise<ReviewsResponse>,
+    staleTime: 12 * 60 * 60 * 1000,
+  });
+  const reviews = data?.reviews || [];
   return (
-    <section className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
+    <section id="reviews" className="py-20 md:py-32 bg-[#0D1B2A] border-t border-white/5">
       <div className="container mx-auto px-4 md:px-6">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Real People. Real Results.</p>
-            <h2 className="headline text-5xl md:text-7xl leading-none">WHAT CLIENTS SAY</h2>
+            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Google reviews</p>
+            <h2 className="headline text-5xl md:text-7xl leading-none">
+              <a href={SITE_CONFIG.GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#4DAAFF] transition-colors">
+                STRAIGHT FROM GOOGLE. UNEDITED. LIVE.
+              </a>
+            </h2>
+            <p className="text-[#C8D8E8]/70 text-lg leading-relaxed mt-6">
+              I don't hand-pick quotes. This pulls from my Google reviews as they land — the gushing ones and the honest ones.
+            </p>
           </div>
         </Reveal>
-
-        {/* Desktop grid */}
-        <div className="hidden md:grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.1}>
-              <TestimonialCard t={t} />
+        {isLoading && <p className="text-center text-[#C8D8E8]/60">Loading the latest reviews…</p>}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+          {reviews.map((review, index) => (
+            <Reveal key={`${review.name}-${index}`} delay={index * 0.06}>
+              <article className="h-full border border-white/10 p-6 bg-white/[0.02]">
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    {review.photo ? (
+                      <img src={review.photo} alt="" className="h-10 w-10 rounded-full object-cover" loading="lazy" />
+                    ) : (
+                      <div className="h-10 w-10 rounded-full bg-[#1E90FF]/15 flex items-center justify-center text-[#4DAAFF] font-bold">
+                        {review.name.charAt(0)}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-bold text-white truncate">{review.name}</p>
+                      <p className="text-white/45 text-xs">{review.relativePublishTimeDescription}</p>
+                    </div>
+                  </div>
+                  <span className="text-[#4DAAFF] text-xs font-bold shrink-0">via Google</span>
+                </div>
+                <div className="flex gap-1 mb-4" aria-label={`${review.rating} out of 5 stars`}>
+                  {[...Array(Math.round(review.rating))].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-[#1E90FF] text-[#1E90FF]" />
+                  ))}
+                </div>
+                <p className="text-[#C8D8E8]/80 leading-relaxed">“{review.text}”</p>
+              </article>
             </Reveal>
           ))}
         </div>
-
-        {/* Mobile carousel */}
-        <div className="md:hidden">
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${active * 100}%)` }}
-            >
-              {TESTIMONIALS.map((t) => (
-                <div key={t.name} className="w-full flex-shrink-0 px-1">
-                  <TestimonialCard t={t} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex justify-center gap-2 mt-6">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-                className={`h-2 rounded-full transition-all ${active === i ? "bg-[#1E90FF] w-8" : "bg-white/20 w-2"}`}
-              />
-            ))}
-          </div>
-        </div>
       </div>
     </section>
-  );
-}
-
-function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
-  return (
-    <div className="h-full border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:border-[#1E90FF]/30 transition-colors">
-      <div className="flex gap-1 mb-6">
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} className="h-5 w-5 fill-[#1E90FF] text-[#1E90FF]" />
-        ))}
-      </div>
-      <p className="text-white/85 leading-relaxed mb-6 text-lg">&ldquo;{t.quote}&rdquo;</p>
-      <div className="border-t border-white/10 pt-4">
-        <div className="font-bold text-white">{t.name}</div>
-        <div className="text-sm text-[#C8D8E8]/60">{t.detail}</div>
-      </div>
-    </div>
   );
 }
 
@@ -1714,7 +1645,6 @@ function Contact() {
     const fd = new FormData(e.currentTarget);
     const payload = {
       name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
       phone: String(fd.get("phone") || ""),
       message: `Goal: ${String(fd.get("goal") || "Not specified")}\n\n${String(fd.get("message") || "")}`,
       source: "landing",
@@ -1742,28 +1672,39 @@ function Contact() {
                 <br />
                 <span className="text-[#1E90FF]">START?</span>
               </h2>
+              <h2 className="headline text-5xl md:text-7xl leading-none mb-6">
+                RIGHT, ENOUGH
+                <br />
+                <span className="text-[#1E90FF]">READING.</span>
+              </h2>
               <p className="text-[#C8D8E8]/75 text-lg leading-relaxed mb-8">
-                Send a message and I'll reply within 24 hours to book your free consultation. No pressure, no spam.
+                The free chat costs 30 minutes and could save you years of starting over. Grab a slot or WhatsApp me — I reply between sessions, usually same day.
               </p>
 
               <div className="space-y-4 mb-8">
-                <a href="mailto:hello@highperformancefit.co.uk" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
+                <a href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick("Book a free chat", "contact")} className="btn-primary inline-flex">
+                  Book a free chat
+                </a>
+                <a href={SITE_CONFIG.WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex">
+                  WhatsApp me
+                </a>
+                <a href={`mailto:${SITE_CONFIG.EMAIL}`} className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-[#1E90FF]" />
                   </div>
-                  <span>hello@highperformancefit.co.uk</span>
+                  <span>{SITE_CONFIG.EMAIL}</span>
                 </a>
                 <a href="tel:+447753226214" className="flex items-center gap-4 text-white/80 hover:text-[#1E90FF] transition-colors">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <Phone className="h-5 w-5 text-[#1E90FF]" />
                   </div>
-                  <span>07753 226 214</span>
+                  <span>{SITE_CONFIG.PHONE}</span>
                 </a>
                 <div className="flex items-center gap-4 text-white/80">
                   <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                     <MapPin className="h-5 w-5 text-[#1E90FF]" />
                   </div>
-                  <span>Foundry Gym, Kings Heath, Birmingham</span>
+                  <span>{SITE_CONFIG.ADDRESS}</span>
                 </div>
               </div>
 
@@ -1790,7 +1731,7 @@ function Contact() {
                   </div>
                   <h3 className="headline text-3xl md:text-4xl mb-3">MESSAGE SENT</h3>
                   <p className="text-[#C8D8E8]/75 mb-6">
-                    Thanks for reaching out. I'll be in touch within 24 hours to book your free consultation.
+                     Thanks for reaching out. I’ll reply personally, usually within a couple of hours.
                   </p>
                   <button
                     type="button"
@@ -1814,32 +1755,18 @@ function Contact() {
                       className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
                     />
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="c-email" className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-2">
-                        Email
-                      </label>
-                      <input
-                        id="c-email"
-                        name="email"
-                        type="email"
-                        required
-                        placeholder="you@example.com"
-                        className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
-                      />
-                    </div>
-                    <div>
+                  <div>
                       <label htmlFor="c-phone" className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-2">
-                        Phone
+                        Best number for WhatsApp
                       </label>
                       <input
                         id="c-phone"
                         name="phone"
                         type="tel"
+                        required
                         placeholder="+44 ..."
-                        className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors min-h-[44px]"
+                        className="site-input"
                       />
-                    </div>
                   </div>
                   <div>
                     <label htmlFor="c-goal" className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-2">
@@ -1872,10 +1799,9 @@ function Contact() {
                     <textarea
                       id="c-message"
                       name="message"
-                      required
                       rows={4}
                       placeholder="Tell me a bit about where you are now and what you want to achieve..."
-                      className="w-full bg-[#0A1628]/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#1E90FF] transition-colors resize-none"
+                      className="site-input resize-none"
                     />
                   </div>
                   {error && (
@@ -1886,10 +1812,10 @@ function Contact() {
                     disabled={submitting}
                     className="w-full bg-[#1E90FF] text-white font-bold uppercase tracking-wider py-4 rounded-full hover:bg-[#4DAAFF] hover:shadow-[0_8px_32px_rgba(30,144,255,0.35)] transition-all disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
                   >
-                    {submitting ? "Sending..." : "Send Message"}
+                    {submitting ? "Sending…" : "Send it"}
                     {!submitting && <ArrowRight className="h-4 w-4" />}
                   </button>
-                  <p className="text-xs text-white/40 text-center">By submitting, you agree to be contacted by High Performance Fit about your enquiry.</p>
+                  <p className="text-xs text-white/40 text-center">Goes straight to my phone. I’ll reply personally — usually within a couple of hours.</p>
                 </>
               )}
             </form>

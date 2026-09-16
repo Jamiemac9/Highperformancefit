@@ -506,6 +506,20 @@ body {
   color: #fff;
 }
 
+.site-input {
+  width: 100%;
+  min-height: 44px;
+  background: rgba(10, 22, 40, 0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+.site-input::placeholder { color: rgba(255,255,255,0.3); }
+.site-input:focus { border-color: var(--brand-blue); }
+
 /* IntersectionObserver scroll reveal */
 .reveal {
   opacity: 0;

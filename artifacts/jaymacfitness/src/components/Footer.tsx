@@ -1,4 +1,5 @@
 import { Instagram, Facebook, MapPin, Phone, Mail } from "lucide-react";
+import { SITE_CONFIG } from "../config";
 
 const AREA_LINKS: [string, string][] = [
   ["/personal-trainer-kings-heath", "Kings Heath"],
@@ -14,8 +15,8 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           <div>
-            <a href="/" className="headline text-2xl tracking-wider text-white inline-block mb-4">
-              HP<span className="text-[#1E90FF]">FIT</span>
+            <a href="/" className="inline-block mb-4" aria-label="High Performance Fit — home">
+              <img src="/images/hpf-logo.png" alt="High Performance Fit" className="h-12 w-[78px] object-contain" />
             </a>
             <p className="text-[#C8D8E8]/55 text-sm leading-relaxed mb-5">
               Personal training in Birmingham — online and in-person. Built for results that last.
@@ -23,15 +24,15 @@ export function Footer() {
             <address className="not-italic space-y-2 text-sm text-[#C8D8E8]/65">
               <p className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-[#1E90FF] flex-shrink-0 mt-0.5" />
-                <span>Foundry Gym, Kings Heath,<br />Birmingham, West Midlands B14 7JZ</span>
+                <span>{SITE_CONFIG.ADDRESS},<br />West Midlands B14 7JZ</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-[#1E90FF] flex-shrink-0" />
-                <a href="tel:+447753226214" className="hover:text-[#1E90FF] transition-colors">07753 226 214</a>
+                <a href="tel:+447753226214" className="hover:text-[#1E90FF] transition-colors">{SITE_CONFIG.PHONE}</a>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-[#1E90FF] flex-shrink-0" />
-                <a href="mailto:hello@highperformancefit.co.uk" className="hover:text-[#1E90FF] transition-colors">hello@highperformancefit.co.uk</a>
+                <a href={`mailto:${SITE_CONFIG.EMAIL}`} className="hover:text-[#1E90FF] transition-colors">{SITE_CONFIG.EMAIL}</a>
               </p>
             </address>
           </div>

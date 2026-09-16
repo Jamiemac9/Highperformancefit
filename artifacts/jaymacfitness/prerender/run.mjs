@@ -61,7 +61,7 @@ function jsonLdSchema() {
         url: BASE_URL + "/",
         name: "High Performance Fit",
         description:
-          "Personal training in Birmingham and worldwide. 13 years experience, 200+ transformations. 1-to-1 in-person and online coaching.",
+          "Real coaching in Kings Heath for people who've tried everything else. 1-2-1, small group, outdoor and online personal training across South Birmingham.",
         publisher: { "@id": `${BASE_URL}/#organization` },
       },
       {
@@ -71,7 +71,7 @@ function jsonLdSchema() {
         url: BASE_URL + "/",
         logo: {
           "@type": "ImageObject",
-          url: `${BASE_URL}/opengraph.jpg`,
+          url: `${BASE_URL}/images/hpf-logo.png`,
           width: 1200,
           height: 630,
         },
@@ -164,11 +164,6 @@ function jsonLdSchema() {
           "@type": "OfferCatalog",
           name: "Personal Training Packages",
           url: `${BASE_URL}/#packages`,
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "127",
         },
       },
       {
@@ -345,8 +340,8 @@ function jsonLdSchema() {
           {
             "@type": "HowToStep",
             position: 4,
-            name: "Get Results",
-            text: "Stronger, fitter, leaner — and the habits to keep it that way long after we're done.",
+          name: "Keep the results",
+          text: "Stronger, fitter, leaner — and the habits to hold it long after we're done. That's the whole point.",
           },
         ],
       },
@@ -382,11 +377,6 @@ function ptSchema() {
           "priceValidUntil": "2027-12-31",
           "availability": "https://schema.org/InStock",
           "url": `${BASE_URL}/personal-training-birmingham`,
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "127",
         },
       },
       {
@@ -825,7 +815,7 @@ const routes = [
   {
     route: "/",
     title: "High Performance Fit — Personal Training Birmingham & Online",
-    description: "High Performance Fit — Personal training in Birmingham and worldwide. 1-to-1 in-person and online coaching. Book your free consultation.",
+    description: "Real coaching in Kings Heath for people who've tried everything else. 1-2-1, small group, outdoor and online personal training across South Birmingham. 200+ clients, 5-star Google rated. Book a free chat.",
     schema: true,
   },
   {
