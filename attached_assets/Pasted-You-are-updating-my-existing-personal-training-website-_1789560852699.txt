@@ -1,0 +1,127 @@
+You are updating my existing personal training website (High Performance Fit / "HPFIT" — trainer: Jay, based at Foundry Gym, Kings Heath, Birmingham). It is currently a generic brochure. I need it rebuilt into a conversion-focused funnel with live Google reviews, a bootcamp waitlist, new pricing, and a human, UK-English voice throughout.
+
+DO NOT change the overall brand colours/fonts or delete the existing transformation stories (Amy K., Danny & Jen, Elaine T.) — they stay as-is with their before/after images.
+
+═══════════════════════════
+1. SITE CONFIG
+═══════════════════════════
+Create a single config file (e.g. src/config.ts) holding these values, referenced everywhere:
+- BOOKING_URL = "[PASTE CAL.COM OR BOOKING LINK]"
+- WHATSAPP_URL = "https://wa.me/447753226214"
+- EMAIL = "hello@highperformancefit.co.uk"
+- PHONE = "07753 226 214"
+- ADDRESS = "Foundry Gym, Kings Heath, Birmingham"
+- MARVEL_URL = "https://marvelthestudio.co.uk"
+- GOOGLE_PLACE_ID = "[PASTE PLACE ID]"
+- GOOGLE_API_KEY read from Replit Secrets as GOOGLE_KEY
+
+Every CTA button on the site links to BOOKING_URL, except where stated below. No dead "Find Out More" links anywhere — remove them all.
+
+═══════════════════════════
+2. GLOBAL VOICE RULES (apply to all copy, existing and new)
+═══════════════════════════
+- UK English throughout (personalised, organise, colour, "gotten" never appears).
+- First person for Jay ("I push you hard, I meet you where you are"). Warm but no-nonsense. No corporate fluff, no hype-bro.
+- Fix the stats bar: currently says "3 Training Formats" — the site offers FOUR. Change to: 13+ Years · 200+ Clients Transformed · 100+ Five-Star Reviews · 4 Ways to Train. Hyperlink the reviews stat to the Google reviews section.
+
+═══════════════════════════
+3. HERO — replace copy exactly
+═══════════════════════════
+Eyebrow: "Personal training in Kings Heath · online worldwide"
+H1: "Tried it all before? Good. You're exactly who I train."
+Sub: "Diets, apps, gym guilt — most people who train with me have been let down by all three. Real coaching, built round your life, and results that don't reverse the moment things get busy. 13 years. 200+ locals trained. Rated {live rating}★ from {live total}+ Google reviews."
+Buttons: primary "Book a free chat" → BOOKING_URL. Secondary "Read the Google reviews" → scroll to reviews section.
+Microcopy under buttons: "30 minutes at Foundry Gym or on the phone. No contract, no hard sell."
+Hero image slot: Jay coaching a real client mid-lift, both in frame. Alt text: "Jay coaching a 1-2-1 personal training session at Foundry Gym, Kings Heath, Birmingham."
+
+═══════════════════════════
+4. GOOGLE REVIEWS (live, server-side)
+═══════════════════════════
+Build a server endpoint /api/reviews:
+- Calls Google Places API (v1) with GOOGLE_PLACE_ID, field mask: rating, userRatingCount, reviews.
+- Cache the response in memory for 12 hours so we don't burn quota.
+- Map each review to: name, photo (authorAttribution.photoUri), text, relativePublishTimeDescription.
+- On any API failure, serve a saved fallback JSON of 5 static reviews (I'll paste them in — create fallback-reviews.json with placeholder entries I can edit).
+Front end — a "Reviews wall" section, replacing the current static "What clients say" testimonial section:
+H2: "Straight from Google. Unedited. Live."
+Sub: "I don't hand-pick quotes. This pulls from my Google reviews as they land — the gushing ones and the honest ones."
+Render review cards with the reviewer's real Google photo, star rating, text, and "via Google" attribution. Link the section header to my Google Business Profile reviews page. Keep the current Transformations section (Amy/Danny & Jen/Elaine) untouched above this.
+
+═══════════════════════════
+5. NEW SECTION — "Who's actually coaching you?" (place after Transformations)
+═══════════════════════════
+Copy: "Fair question. I'm Jay. I've been training people round here for 13 years — post-injury comebacks in Kings Heath, online clients who've never met me in person. There's no sales team, no junior PTs, no app you get lost in. You train with me. I'll push you harder than you'd push alone — and I'll meet you exactly where you are on day one. Both, always."
+Three image slots with captions in this style: "Tuesday 6am, Kings Heath Park." Use placeholder images I'll replace; alt texts: "Jay planning a client programme", "Jay mid-session with a client", "Jay with a small group outdoors".
+
+═══════════════════════════
+6. SERVICES — trim to two lines each, one shared CTA
+═══════════════════════════
+Section H2: "Four ways to train. One standard."
+Sub: "Where we train is your choice. How we train never changes: a plan built around your life, coached hard, adjusted every week."
+- 1-2-1 Personal Training: "The fastest route. Every session built around your body, your schedule, your goal."
+- Small Group (max 4): "PT-level programming with people who notice when you don't show up."
+- Outdoor Training: "Kings Heath Park, Cannon Hill Park, or your local green space. No machines, no hiding."
+- Online Coaching: "Same coach, same standards. If you've got a phone and 45 minutes, I can train you."
+One button under all four: "Book a free chat" → BOOKING_URL.
+
+═══════════════════════════
+7. BOOTCAMP WAITLIST — Marvel The Studio (new section, high visual priority)
+═══════════════════════════
+H2: "Bootcamps at Marvel The Studio — coming soon"
+Body: "Small-group bootcamps, proper coaching, capped numbers so nobody gets lost in the crowd. Doors open soon — join the founding list and you get first pick of spaces and the founding rate, locked for as long as you stay."
+Button: "Join the founding list" (opens inline form, not external link)
+Form fields: First name, Email, "Best number for WhatsApp". Button: "Count me in".
+Microcopy: "20 founding spaces. No payment now, just first dibs."
+Back end: store signups in the database (table: bootcamp_waitlist: name, email, whatsapp, created_at, status='waitlist'). Show success state: "You're on the list. I'll WhatsApp you the moment spaces open — Jay."
+
+═══════════════════════════
+8. PRICING — replace the entire packages section
+═══════════════════════════
+H2: "Choose your starting point." Sub: "Real coaching. Real plans. Real results — pick the package that fits where you are right now."
+Order and content:
+1. Marvel Bootcamp (badge: "Founding rate") — £50/month — Small-group bootcamps at Marvel The Studio, capped spaces, founding rate locked while you stay. CTA: "Join the founding list" → waitlist form.
+2. Fresh Start — £250 one-off (5 × 1-2-1 sessions, £50/session) — Full movement & posture assessment, personalised training plan, WhatsApp support between sessions, use within 8 weeks. Label: "Best for testing the water."
+3. 1-2-1 Monthly (badge: "Most popular") — £280/month (8 sessions/mo, £35/session) — Everything in Fresh Start, bespoke nutrition guidance, monthly body composition tracking, direct WhatsApp access 7 days, pause anytime with 14 days' notice. Label: "Direct debit. No contract."
+4. Small Group Block — £200 one-off (8 sessions, £25/session) — Max 4 people per session, tailored to mixed abilities, weekly programmed sessions. Label: "Accountability on a budget."
+5. Online Coaching — £120/month — App-delivered programme, weekly video check-ins, WhatsApp line direct to me, train anywhere in the world. Label: "Rolling monthly."
+Below the table: "Most people start with a Fresh Start block, then move onto monthly once we've found our feet. That's the plan — no membership until you know it's for you."
+CTA: "Book a free chat" + "worst case, you get 30 minutes of honest advice and a brew."
+Remove the old "Commitment" package entirely. "Buy Now" buttons become "Claim your slot" and all point to BOOKING_URL.
+
+═══════════════════════════
+9. PROCESS — keep 4 steps, rename step 4
+═══════════════════════════
+Step 4 title: "Keep the results." Copy: "Stronger, fitter, leaner — and the habits to hold it long after we're done. That's the whole point."
+
+═══════════════════════════
+10. FAQ — add these answers to the existing accordion
+═══════════════════════════
+- "I'm really unfit. Will I embarrass myself?" → "The first session's the hardest part — after that it's just progress. Meeting you where you are is literally the job."
+- "What if I'm on holiday or miss a session?" → "Life happens. Reschedule with notice, pause the direct debit, shift your sessions. It's training, not a subscription trap."
+- "Do I need a Foundry Gym membership?" → "[ANSWER TO CONFIRM — placeholder marked clearly for Jay to edit]"
+- "I've got an old injury." → "Rehab-aware programming is a big part of what I do — happy to work alongside your physio. We'll cover it properly in your free chat."
+- "What happens when a block ends?" → "Carry on monthly, drop to maintenance, or take the habits and fly. Either way the results are yours to keep."
+Also answer the currently empty questions (online training, getting started, what to bring, nutrition, payment).
+
+═══════════════════════════
+11. FINAL CTA + CONTACT FORM
+═══════════════════════════
+H2: "Right, enough reading."
+Body: "The free chat costs 30 minutes and could save you years of starting over. Grab a slot or WhatsApp me — I reply between sessions, usually same day."
+Buttons: "Book a free chat" → BOOKING_URL. Secondary: "WhatsApp me" → WHATSAPP_URL.
+Contact form — cut to 4 fields: Name, "Best number for WhatsApp", Primary Goal (dropdown), Message (optional). Button text: "Send it". Microcopy: "Goes straight to my phone. I'll reply personally — usually within a couple of hours."
+Back end: save submissions to DB (table: enquiries) AND send an instant notification email to hello@highperformancefit.co.uk via Resend (or similar) with the enquiry contents. Create an /api/webhook/events endpoint that logs key events (enquiry_created, waitlist_joined, booking_clicked) to a DB table — I'll wire AI automation to this later, so keep event payloads clean.
+
+═══════════════════════════
+12. SEO + TRACKING
+═══════════════════════════
+- Title tag: "Personal Trainer Kings Heath, Birmingham | High Performance Fit — Jay"
+- Meta description: "Real coaching in Kings Heath for people who've tried everything else. 1-2-1, small group, outdoor and online personal training across South Birmingham. 200+ clients, 5-star Google rated. Book a free chat."
+- Add LocalBusiness schema (name, address, geo, phone, sameAs social links). Do NOT add AggregateRating schema.
+- Fire a trackable click event (console + /api/webhook/events) every time a CTA with BOOKING_URL is clicked.
+- All new images: compress to WebP, lazy-load below the fold, mobile-first layout throughout.
+
+═══════════════════════════
+13. WHAT NOT TO TOUCH
+═══════════════════════════
+Keep: the three transformation stories and before/after sliders, the "Your Name Could Be Here" block, footer social links, existing brand colours/fonts. UK spelling everywhere. No emoji in the body copy except the ⭐ on pricing badge if needed.

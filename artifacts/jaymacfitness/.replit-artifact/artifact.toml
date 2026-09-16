@@ -63,6 +63,30 @@ from = "/personal-trainer-selly-oak"
 to = "/personal-trainer-selly-oak/index.html"
 
 [[services.production.rewrites]]
+from = "/blog/best-personal-trainer-birmingham"
+to = "/blog/best-personal-trainer-birmingham/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/online-personal-training-cost-uk"
+to = "/blog/online-personal-training-cost-uk/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/benefits-of-small-group-training"
+to = "/blog/benefits-of-small-group-training/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/outdoor-personal-training-birmingham-guide"
+to = "/blog/outdoor-personal-training-birmingham-guide/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/personal-training-vs-online-coaching"
+to = "/blog/personal-training-vs-online-coaching/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/how-many-personal-training-sessions-per-week"
+to = "/blog/how-many-personal-training-sessions-per-week/index.html"
+
+[[services.production.rewrites]]
 from = "/about-jay"
 to = "/about-jay/index.html"
 

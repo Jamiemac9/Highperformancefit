@@ -647,6 +647,102 @@ function areaSchema(area) {
 }
 
 // --------------------------------------------------------------------------
+// Blog posts — metadata + BlogPosting schema
+// (Full post content lives in src/data/blog-posts.ts. This mirror is kept in
+//  sync for prerendering the <head>, structured data and route list.)
+// --------------------------------------------------------------------------
+const BLOG_POSTS = [
+  {
+    slug: "best-personal-trainer-birmingham",
+    title: "How to Find the Best Personal Trainer in Birmingham",
+    metaTitle: "How to Find the Best Personal Trainer in Birmingham | High Performance Fit",
+    description: "Looking for the best personal trainer in Birmingham? Learn what qualifications, experience and questions actually matter before you book — from a coach with 13 years in the industry.",
+    datePublished: "2026-06-20",
+    dateModified: "2026-06-20",
+    keywords: ["best personal trainer Birmingham", "personal trainer Birmingham", "how to choose a personal trainer"],
+  },
+  {
+    slug: "online-personal-training-cost-uk",
+    title: "How Much Does Online Personal Training Cost in the UK?",
+    metaTitle: "How Much Does Online Personal Training Cost in the UK? | High Performance Fit",
+    description: "A clear breakdown of online personal training cost in the UK in 2026 — typical monthly prices, what's included, and how to tell if a coach is worth it.",
+    datePublished: "2026-06-10",
+    dateModified: "2026-06-10",
+    keywords: ["online personal training cost UK", "online coaching price", "online personal trainer cost"],
+  },
+  {
+    slug: "benefits-of-small-group-training",
+    title: "Is Group Fitness Training Worth It? The Case for Small Group PT",
+    metaTitle: "Is Group Fitness Training Worth It? Small Group PT Explained | High Performance Fit",
+    description: "Small group personal training in Birmingham blends affordability, accountability and expert coaching. Learn how it works, what it costs and who it suits best.",
+    datePublished: "2026-05-28",
+    dateModified: "2026-05-28",
+    keywords: ["small group personal training Birmingham", "group fitness training", "is group training worth it"],
+  },
+  {
+    slug: "outdoor-personal-training-birmingham-guide",
+    title: "Outdoor Personal Training in Birmingham: A Complete Guide",
+    metaTitle: "Outdoor Personal Training in Birmingham: Complete Guide | High Performance Fit",
+    description: "A complete guide to outdoor personal training in Birmingham — the best parks, what to expect, what to wear and why training in fresh air gets results.",
+    datePublished: "2026-05-14",
+    dateModified: "2026-05-14",
+    keywords: ["outdoor personal training Birmingham", "outdoor training Birmingham parks", "park workouts Birmingham"],
+  },
+  {
+    slug: "personal-training-vs-online-coaching",
+    title: "Personal Training vs Online Coaching: Which Is Right for You?",
+    metaTitle: "Personal Training vs Online Coaching: Which Is Right for You? | High Performance Fit",
+    description: "Personal training vs online coaching compared honestly — cost, accountability, flexibility and results — so you can choose the right option for your goals.",
+    datePublished: "2026-04-30",
+    dateModified: "2026-04-30",
+    keywords: ["personal training vs online coaching", "in-person vs online personal training", "online coaching or personal trainer"],
+  },
+  {
+    slug: "how-many-personal-training-sessions-per-week",
+    title: "How Many Personal Training Sessions Do You Really Need Per Week?",
+    metaTitle: "How Many Personal Training Sessions Per Week Do You Need? | High Performance Fit",
+    description: "How many personal training sessions per week do you actually need? A practical guide to training frequency for beginners, weight loss and strength goals.",
+    datePublished: "2026-04-16",
+    dateModified: "2026-04-16",
+    keywords: ["how many personal training sessions per week", "personal training frequency", "how often should I train"],
+  },
+];
+
+function blogPostSchema(post) {
+  const url = `${BASE_URL}/blog/${post.slug}`;
+  return wrapSchema({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}/#blogposting`,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+    "headline": post.title,
+    "description": post.description,
+    "url": url,
+    "datePublished": post.datePublished,
+    "dateModified": post.dateModified || post.datePublished,
+    "keywords": post.keywords.join(", "),
+    "image": `${BASE_URL}/opengraph.jpg`,
+    "inLanguage": "en-GB",
+    "author": {
+      "@type": "Person",
+      "name": "Jay Macdonald",
+      "url": `${BASE_URL}/about-jay`,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "High Performance Fit",
+      "@id": `${BASE_URL}/#organization`,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${BASE_URL}/opengraph.jpg`,
+        "width": 1200,
+        "height": 630,
+      },
+    },
+  });
+}
+
+// --------------------------------------------------------------------------
 // 3. Load the SSR bundle and render each route
 // --------------------------------------------------------------------------
 const ssrBundle = path.resolve(__dirname, "../dist/ssr/ssr.js");
@@ -762,6 +858,12 @@ const routes = [
     description: "Training tips, insights and advice from Birmingham personal trainer Jay Macdonald. No clickbait — just what actually works.",
     schema: false,
   },
+  ...BLOG_POSTS.map((post) => ({
+    route: `/blog/${post.slug}`,
+    title: post.metaTitle,
+    description: post.description,
+    schema: blogPostSchema(post),
+  })),
   {
     route: "/personal-trainer-kings-heath",
     title: areas["kings-heath"].title,

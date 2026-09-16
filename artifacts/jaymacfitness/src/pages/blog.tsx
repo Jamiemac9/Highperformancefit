@@ -1,56 +1,7 @@
 import { useEffect } from "react";
-import { Phone, Mail, ArrowRight, Clock, Tag } from "lucide-react";
-
-const POSTS = [
-  {
-    title: "5 Habits That Actually Lead to Consistent Weight Loss",
-    excerpt: "Forget crash diets and 30-day challenges. These five habits are what my most successful clients have in common — and they work long-term.",
-    date: "2026-06-15",
-    readTime: "5 min read",
-    tags: ["Weight Loss", "Habits"],
-    slug: "5-habits-weight-loss",
-  },
-  {
-    title: "How to Build Strength When You're Starting from Zero",
-    excerpt: "You don't need a gym membership or expensive equipment to get stronger. Here's a progressive approach for complete beginners that actually works.",
-    date: "2026-06-01",
-    readTime: "7 min read",
-    tags: ["Strength Training", "Beginners"],
-    slug: "build-strength-from-zero",
-  },
-  {
-    title: "Why Group Training Works: The Science of Accountability",
-    excerpt: "Training with others isn't just more fun — the research shows it makes you show up more often, work harder and stick with it longer.",
-    date: "2026-05-20",
-    readTime: "4 min read",
-    tags: ["Group Training", "Psychology"],
-    slug: "group-training-accountability",
-  },
-  {
-    title: "Online Coaching vs In-Person PT: Which Is Right for You?",
-    excerpt: "Both work — but they work for different people. Here's how to decide based on your personality, goals and lifestyle.",
-    date: "2026-05-05",
-    readTime: "6 min read",
-    tags: ["Online Coaching", "Comparison"],
-    slug: "online-vs-in-person",
-  },
-  {
-    title: "The Birmingham Fitness Guide: Best Outdoor Training Spots",
-    excerpt: "From Cannon Hill Park to Kings Heath — my top picks for outdoor workouts in Birmingham, with routes, equipment spots and parking info.",
-    date: "2026-04-22",
-    readTime: "8 min read",
-    tags: ["Outdoor Training", "Birmingham"],
-    slug: "birmingham-outdoor-training-spots",
-  },
-  {
-    title: "Nutrition for Busy People: A Practical Guide",
-    excerpt: "You don't need to meal prep for three hours on a Sunday. Here's a realistic approach to nutrition that fits a demanding schedule.",
-    date: "2026-04-08",
-    readTime: "6 min read",
-    tags: ["Nutrition", "Lifestyle"],
-    slug: "nutrition-busy-people",
-  },
-];
+import { Link } from "react-router-dom";
+import { Phone, ArrowRight, Clock, Tag } from "lucide-react";
+import { BLOG_POSTS as POSTS } from "../data/blog-posts";
 
 export default function Blog() {
   useEffect(() => {
@@ -78,23 +29,32 @@ export default function Blog() {
         <div className="container mx-auto px-4 md:px-6 max-w-4xl mx-auto">
           <div className="space-y-6">
             {POSTS.map((post) => (
-              <article key={post.slug} className="bg-[#112240] border border-[#1A3A5C] rounded-xl p-6 md:p-8 hover:border-[#1E90FF]/40 transition-colors">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="inline-flex items-center gap-1 text-xs bg-[#1E90FF]/10 border border-[#1E90FF]/20 text-[#1E90FF] rounded px-2 py-1">
-                      <Tag className="h-3 w-3" /> {tag}
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="block group bg-[#112240] border border-[#1A3A5C] rounded-xl p-6 md:p-8 hover:border-[#1E90FF]/40 transition-colors"
+              >
+                <article>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {post.tags.map((tag) => (
+                      <span key={tag} className="inline-flex items-center gap-1 text-xs bg-[#1E90FF]/10 border border-[#1E90FF]/20 text-[#1E90FF] rounded px-2 py-1">
+                        <Tag className="h-3 w-3" /> {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h2 className="headline text-2xl md:text-3xl mb-3 group-hover:text-[#1E90FF] transition-colors">{post.title}</h2>
+                  <p className="text-[#C8D8E8]/70 leading-relaxed mb-4">{post.excerpt}</p>
+                  <div className="flex items-center gap-4 text-sm text-[#C8D8E8]/50">
+                    <span>{post.date}</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5" /> {post.readTime}
                     </span>
-                  ))}
-                </div>
-                <h2 className="headline text-2xl md:text-3xl mb-3 hover:text-[#1E90FF] transition-colors cursor-pointer">{post.title}</h2>
-                <p className="text-[#C8D8E8]/70 leading-relaxed mb-4">{post.excerpt}</p>
-                <div className="flex items-center gap-4 text-sm text-[#C8D8E8]/50">
-                  <span>{post.date}</span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" /> {post.readTime}
-                  </span>
-                </div>
-              </article>
+                    <span className="flex items-center gap-1 text-[#1E90FF] font-semibold ml-auto">
+                      Read more <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                </article>
+              </Link>
             ))}
           </div>
         </div>
