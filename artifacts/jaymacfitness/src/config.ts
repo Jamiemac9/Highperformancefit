@@ -10,12 +10,15 @@ export const SITE_CONFIG = {
   WHATSAPP_URL: "https://wa.me/447753226214",
   EMAIL: "hello@highperformancefit.co.uk",
   PHONE: "07753 226 214",
+  PHONE_TEL: "+447753226214",
   ADDRESS: "Foundry Gym, Kings Heath, Birmingham",
   MARVEL_URL: "https://marvelthestudio.co.uk",
-  GOOGLE_REVIEWS_URL: "https://share.google/FpcS0UmHf4KwbiH86",
+  GOOGLE_REVIEWS_URL: "https://maps.app.goo.gl/nHyUxxnLaPp1FoME8",
   GOOGLE_PLACE_ID: import.meta.env.VITE_GOOGLE_PLACE_ID || "",
-  GOOGLE_RATING_FALLBACK: 4.9,
-  GOOGLE_REVIEW_COUNT_FALLBACK: 127,
+  // What the Google profile actually shows today. Only used until the live
+  // /api/reviews call answers — never inflate these.
+  GOOGLE_RATING_FALLBACK: 5.0,
+  GOOGLE_REVIEW_COUNT_FALLBACK: 3,
 } as const;
 
 export type BookingClickEvent = {

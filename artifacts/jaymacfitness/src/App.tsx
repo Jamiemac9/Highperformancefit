@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -6,9 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "./contexts/AuthContext";
 import { initScrollReveal } from "./utils/scrollReveal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { Layout } from "./components/layout";
-import { DashboardLayout } from "./components/dashboard-layout";
-import { PortalLayout } from "./components/portal-layout";
 
 import Landing from "./pages/landing";
 import Login from "./pages/login";
@@ -27,20 +24,25 @@ import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
 import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
 import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
 import BlogPost from "./pages/blog-post";
-import Dashboard from "./pages/dashboard";
-import Clients from "./pages/clients";
-import ClientDetail from "./pages/client-detail";
-import Sessions from "./pages/sessions";
-import Packages from "./pages/packages";
-import Bookings from "./pages/bookings";
-import DashboardLeads from "./pages/dashboard-leads";
-import PortalDashboard from "./pages/portal-dashboard";
-import PortalSessions from "./pages/portal-sessions";
-import PortalBook from "./pages/portal-book";
-import PortalPackages from "./pages/portal-packages";
-import PortalProfile from "./pages/portal-profile";
 import NotFound from "./pages/not-found";
 import { MarketingLayout } from "./components/MarketingLayout";
+
+// Trainer dashboard + client portal load on demand, so public visitors
+// (mostly on phones) don't download the CRM code with the homepage.
+const DashboardLayout = lazy(() => import("./components/dashboard-layout").then((m) => ({ default: m.DashboardLayout })));
+const PortalLayout = lazy(() => import("./components/portal-layout").then((m) => ({ default: m.PortalLayout })));
+const Dashboard = lazy(() => import("./pages/dashboard"));
+const Clients = lazy(() => import("./pages/clients"));
+const ClientDetail = lazy(() => import("./pages/client-detail"));
+const Sessions = lazy(() => import("./pages/sessions"));
+const Packages = lazy(() => import("./pages/packages"));
+const Bookings = lazy(() => import("./pages/bookings"));
+const DashboardLeads = lazy(() => import("./pages/dashboard-leads"));
+const PortalDashboard = lazy(() => import("./pages/portal-dashboard"));
+const PortalSessions = lazy(() => import("./pages/portal-sessions"));
+const PortalBook = lazy(() => import("./pages/portal-book"));
+const PortalPackages = lazy(() => import("./pages/portal-packages"));
+const PortalProfile = lazy(() => import("./pages/portal-profile"));
 
 function LegacyClientRedirect() {
   const { id } = useParams();
@@ -76,6 +78,7 @@ function App() {
       <AuthProvider>
         <TooltipProvider>
           <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Landing />} />
 
@@ -137,6 +140,7 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </BrowserRouter>
           <Toaster />
         </TooltipProvider>

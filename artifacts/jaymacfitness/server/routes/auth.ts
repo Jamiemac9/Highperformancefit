@@ -13,7 +13,7 @@ import {
 import { sendMail, welcomeEmail, loginNoticeEmail } from "../lib/mailer.js";
 
 function siteOrigin(req: { headers: Record<string, any>; protocol?: string }): string {
-  const replitDomain = (process.env.REPLIT_DOMAINS || "").split(",")[0]?.trim();
+  const replitDomain = (process.env.PUBLIC_DOMAIN || process.env.REPLIT_DOMAINS || "").split(",")[0]?.trim();
   if (replitDomain) return `https://${replitDomain}`;
   const proto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0] || req.protocol || "https";
   const host = req.headers.host;

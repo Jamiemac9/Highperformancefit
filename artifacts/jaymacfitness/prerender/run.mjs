@@ -11,7 +11,7 @@
 import { JSDOM } from "jsdom";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import areas from "../src/data/areas.json" with { type: "json" };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -71,9 +71,9 @@ function jsonLdSchema() {
         url: BASE_URL + "/",
         logo: {
           "@type": "ImageObject",
-          url: `${BASE_URL}/images/hpf-logo.png`,
-          width: 1200,
-          height: 630,
+          url: `${BASE_URL}/images/site/hpf-logo-192.png`,
+          width: 189,
+          height: 192,
         },
         sameAs: [
           "https://www.instagram.com/jaymacjm/",
@@ -117,7 +117,7 @@ function jsonLdSchema() {
         telephone: "+447753226214",
         email: "hello@highperformancefit.co.uk",
         priceRange: "\u00a3\u00a3",
-        image: `${BASE_URL}/opengraph.jpg`,
+        image: `${BASE_URL}/og-coaching.jpg`,
         address: {
           "@type": "PostalAddress",
           streetAddress: "Foundry Gym, Kings Heath",
@@ -383,7 +383,7 @@ function ptSchema() {
         "@type": "LocalBusiness",
         "@id": `${BASE_URL}/#localbusiness`,
         "name": "High Performance Fit",
-        "image": `${BASE_URL}/opengraph.jpg`,
+        "image": `${BASE_URL}/og-coaching.jpg`,
         "url": BASE_URL + "/",
         "telephone": "+447753226214",
         "email": "hello@highperformancefit.co.uk",
@@ -585,7 +585,7 @@ function areaSchema(area) {
         "@type": "LocalBusiness",
         "@id": `${BASE_URL}/#localbusiness`,
         "name": "High Performance Fit",
-        "image": `${BASE_URL}/opengraph.jpg`,
+        "image": `${BASE_URL}/og-coaching.jpg`,
         "url": BASE_URL + "/",
         "telephone": "+447753226214",
         "email": "hello@highperformancefit.co.uk",
@@ -711,7 +711,7 @@ function blogPostSchema(post) {
     "datePublished": post.datePublished,
     "dateModified": post.dateModified || post.datePublished,
     "keywords": post.keywords.join(", "),
-    "image": `${BASE_URL}/opengraph.jpg`,
+    "image": `${BASE_URL}/og-coaching.jpg`,
     "inLanguage": "en-GB",
     "author": {
       "@type": "Person",
@@ -724,9 +724,9 @@ function blogPostSchema(post) {
       "@id": `${BASE_URL}/#organization`,
       "logo": {
         "@type": "ImageObject",
-        "url": `${BASE_URL}/opengraph.jpg`,
-        "width": 1200,
-        "height": 630,
+        "url": `${BASE_URL}/images/site/hpf-logo-192.png`,
+        "width": 189,
+        "height": 192,
       },
     },
   });
@@ -740,7 +740,8 @@ const ssrBundle = path.resolve(__dirname, "../dist/ssr/ssr.js");
 async function prerenderRoute({ route, title, description }) {
   let render;
   try {
-    const mod = await import(ssrBundle);
+    // file:// URL so the import also works on Windows drive paths.
+    const mod = await import(pathToFileURL(ssrBundle).href);
     render = mod.render;
   } catch (e) {
     console.error(`[prerender] Cannot load SSR bundle: ${e.message}`);
@@ -754,8 +755,17 @@ async function prerenderRoute({ route, title, description }) {
 // --------------------------------------------------------------------------
 // 4. Build the final HTML files
 // --------------------------------------------------------------------------
+// Use the *built* shell (hashed JS/CSS from `vite build`), not the source
+// index.html — the source one points at /src/main.tsx, which doesn't exist in
+// production. Read once, before "/" overwrites dist/public/index.html.
+const BUILT_SHELL = fs.readFileSync(path.join(OUT_DIR, "index.html"), "utf-8");
+if (!BUILT_SHELL.includes('<div id="root"></div>') || BUILT_SHELL.includes("/src/main.tsx")) {
+  console.error("[prerender] dist/public/index.html is not a fresh client build. Run `vite build` first.");
+  process.exit(1);
+}
+
 function buildHtml(route, rendered, schema = false) {
-  const baseHtml = fs.readFileSync(path.resolve(__dirname, "../index.html"), "utf-8");
+  const baseHtml = BUILT_SHELL;
 
   const injected = baseHtml.replace(
     /<div id="root"><\/div>/,
@@ -785,16 +795,16 @@ function buildHtml(route, rendered, schema = false) {
 
   const noscript = `
 <noscript>
-  <div style="background:#0D1B2A;color:#fff;padding:48px 24px;text-align:center;font-family:Arial,sans-serif;">
+  <div style="background:#0F0D0B;color:#F3EEE5;padding:48px 24px;text-align:center;font-family:Georgia,serif;">
     <h1 style="font-size:32px;margin:0 0 16px;">High Performance Fit</h1>
     <p style="font-size:18px;margin:0 0 24px;max-width:600px;margin-left:auto;margin-right:auto;">
       Personal training in Birmingham and worldwide. 13 years, 200+ transformations.
       JavaScript is required to use the booking system, but you can still contact us directly.
     </p>
-    <a href="tel:+447753226214" style="display:inline-block;background:#1E90FF;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin:8px;">
+    <a href="tel:+447753226214" style="display:inline-block;background:#C9A45C;color:#1A1610;padding:14px 28px;border-radius:2px;text-decoration:none;font-weight:bold;margin:8px;">
       Call 07753 226 214
     </a>
-    <a href="mailto:hello@highperformancefit.co.uk" style="display:inline-block;background:transparent;color:#1E90FF;border:2px solid #1E90FF;padding:12px 26px;border-radius:8px;text-decoration:none;font-weight:bold;margin:8px;">
+    <a href="mailto:hello@highperformancefit.co.uk" style="display:inline-block;background:transparent;color:#E3C88F;border:1px solid #C9A45C;padding:13px 27px;border-radius:2px;text-decoration:none;font-weight:bold;margin:8px;">
       Email hello@highperformancefit.co.uk
     </a>
   </div>

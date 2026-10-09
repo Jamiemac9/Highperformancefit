@@ -2,44 +2,32 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
-
-const port = Number(rawPort);
-
+// PORT / BASE_PATH used to be mandatory (Replit injected them). They now
+// default so the same config builds on Render, locally, or anywhere else.
+const port = Number(process.env.PORT || 5173);
 if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
+  throw new Error(`Invalid PORT value: "${process.env.PORT}"`);
 }
-
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
+const basePath = process.env.BASE_PATH || "/";
+const onReplit = process.env.REPL_ID !== undefined;
 
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
+    // Replit-only dev tooling: never loaded on Render or local builds.
+    ...(onReplit
       ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer({
-              root: path.resolve(import.meta.dirname, ".."),
-            }),
-          ),
+          await import("@replit/vite-plugin-runtime-error-modal").then((m) => m.default()),
+          ...(process.env.NODE_ENV !== "production"
+            ? [
+                await import("@replit/vite-plugin-cartographer").then((m) =>
+                  m.cartographer({ root: path.resolve(import.meta.dirname, "..") }),
+                ),
+              ]
+            : []),
         ]
       : []),
   ],
@@ -63,6 +51,10 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    // Outside Replit the API runs as its own process (pnpm run server:dev, port 5050).
+    proxy: onReplit
+      ? undefined
+      : { "/api": { target: `http://localhost:${process.env.API_PORT || 5050}`, changeOrigin: true } },
   },
   preview: {
     port,

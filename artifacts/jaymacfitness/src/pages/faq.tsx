@@ -151,7 +151,7 @@ function CategorySection({ label, items }: { label: string; items: FAQItem[] }) 
 
   return (
     <div className="mb-12 md:mb-16">
-      <h2 className="headline text-2xl md:text-3xl mb-6 text-[#1E90FF]">{label}</h2>
+      <h2 className="headline text-2xl md:text-3xl mb-6 text-[#C9A45C]">{label}</h2>
       <div className="space-y-3">
         {items.map((f, i) => {
           const isOpen = open === i;
@@ -159,7 +159,7 @@ function CategorySection({ label, items }: { label: string; items: FAQItem[] }) 
             <div
               key={f.q}
               className={`border rounded-xl overflow-hidden bg-white/[0.02] transition-colors ${
-                isOpen ? "border-[#1E90FF]/40" : "border-white/10"
+                isOpen ? "border-[#C9A45C]/40" : "border-white/10"
               }`}
             >
               <button
@@ -169,7 +169,7 @@ function CategorySection({ label, items }: { label: string; items: FAQItem[] }) 
               >
                 <span className="font-bold text-base md:text-lg">{f.q}</span>
                 <ChevronDown
-                  className={`h-5 w-5 text-[#1E90FF] flex-shrink-0 transition-transform duration-300 ${
+                  className={`h-5 w-5 text-[#C9A45C] flex-shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -180,10 +180,10 @@ function CategorySection({ label, items }: { label: string; items: FAQItem[] }) 
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="px-5 md:px-6 pt-0 pb-1 text-[#EAF2FB] font-medium leading-relaxed">
+                  <p className="px-5 md:px-6 pt-0 pb-1 text-[#F3EEE5] font-medium leading-relaxed">
                     {f.direct}
                   </p>
-                  <p className="px-5 md:px-6 pb-5 md:pb-6 text-[#C8D8E8]/75 leading-relaxed">
+                  <p className="px-5 md:px-6 pb-5 md:pb-6 text-[#E6DFD2]/75 leading-relaxed">
                     {f.detail}
                   </p>
                 </div>
@@ -203,20 +203,20 @@ export default function Faq() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#0A1628] text-white">
+    <main className="min-h-screen bg-[#100E0C] text-white">
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative pt-32 pb-20 md:pt-40 md:pb-28">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">
+            <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">
               Questions
             </p>
             <h1 className="headline text-5xl md:text-7xl leading-none mb-6">
               FREQUENTLY ASKED
               <br />
-              <span className="text-[#1E90FF]">QUESTIONS</span>
+              <span className="text-[#C9A45C]">QUESTIONS</span>
             </h1>
-            <p className="text-[#C8D8E8]/75 text-lg leading-relaxed">
+            <p className="text-[#E6DFD2]/75 text-lg leading-relaxed">
               Everything you need to know before starting your training journey
               with High Performance Fit.
             </p>
@@ -225,7 +225,7 @@ export default function Faq() {
       </section>
 
       {/* FAQ List */}
-      <section className="py-12 md:py-20 bg-[#0D1B2A] border-t border-white/5">
+      <section className="py-12 md:py-20 bg-[#0F0D0B] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl mx-auto">
           {CATEGORIES.map((cat) => (
             <CategorySection key={cat.label} label={cat.label} items={cat.items} />
@@ -234,12 +234,12 @@ export default function Faq() {
       </section>
 
       {/* Still have questions */}
-      <section className="py-20 md:py-28 bg-[#0A1628] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#100E0C] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-3xl">
           <h2 className="headline text-4xl md:text-5xl leading-none mb-6">
-            STILL HAVE <span className="text-[#1E90FF]">QUESTIONS?</span>
+            STILL HAVE <span className="text-[#C9A45C]">QUESTIONS?</span>
           </h2>
-          <p className="text-[#C8D8E8]/75 text-lg leading-relaxed mb-8">
+          <p className="text-[#E6DFD2]/75 text-lg leading-relaxed mb-8">
             No problem. Call, text or email \u2014 I'll get back to you within 24
             hours. Or book a free consultation and we can talk it through in
             person.
@@ -247,7 +247,7 @@ export default function Faq() {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="tel:+447753226214"
-              className="bg-[#1E90FF] text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#4DAAFF] transition-all inline-flex items-center gap-2"
+              className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"
             >
               <Phone className="h-4 w-4" /> Call 07753 226 214
             </a>
@@ -259,7 +259,7 @@ export default function Faq() {
             </a>
             <a
               href="/contact"
-              className="border border-[#1E90FF]/40 text-[#1E90FF] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#1E90FF]/10 transition-all inline-flex items-center gap-2"
+              className="border border-[#C9A45C]/40 text-[#C9A45C] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#C9A45C]/10 transition-all inline-flex items-center gap-2"
             >
               <ArrowRight className="h-4 w-4" /> Book Free Consultation
             </a>

@@ -59,9 +59,10 @@ reviewsRouter.get("/", async (_req, res) => {
         authorAttribution?: { displayName?: string; photoUri?: string };
       }>;
     };
+    const fb = fallback();
     const value: ReviewsResponse = {
-      rating: data.rating ?? 4.9,
-      userRatingCount: data.userRatingCount ?? 127,
+      rating: data.rating ?? fb.rating,
+      userRatingCount: data.userRatingCount ?? fb.userRatingCount,
       reviews: (data.reviews || []).map((review) => ({
         name: review.authorAttribution?.displayName || "Google reviewer",
         photo: review.authorAttribution?.photoUri || null,

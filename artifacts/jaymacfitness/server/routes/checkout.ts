@@ -53,10 +53,11 @@ checkoutRouter.post("/create-session", async (req, res, next) => {
       return res.json({ url: pkg.stripeLink });
     }
 
-    // Build origin. Prefer the canonical published domain from REPLIT_DOMAINS so
-    // an attacker can't spoof X-Forwarded-Host to redirect victims to a malicious
-    // site after Stripe payment. Falls back to the request host in dev.
-    const replitDomain = (process.env.REPLIT_DOMAINS || "")
+    // Build origin. Prefer the canonical published domain (PUBLIC_DOMAIN on Render,
+    // REPLIT_DOMAINS on Replit) so an attacker can't spoof X-Forwarded-Host to
+    // redirect victims to a malicious site after Stripe payment. Falls back to the
+    // request host in dev.
+    const replitDomain = (process.env.PUBLIC_DOMAIN || process.env.REPLIT_DOMAINS || "")
       .split(",")[0]
       ?.trim();
     let origin: string;

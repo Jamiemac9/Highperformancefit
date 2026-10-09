@@ -8,18 +8,18 @@ export default function AboutJay() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#0A1628] text-white">
+    <main className="min-h-screen bg-[#100E0C] text-white">
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative pt-32 pb-20 md:pt-40 md:pb-28">
           <div className="max-w-3xl">
-            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">About Your Coach</p>
-            <h1 className="headline text-5xl md:text-7xl leading-none mb-6">MEET <span className="text-[#1E90FF]">JAY</span></h1>
-            <p className="text-[#C8D8E8]/75 text-lg md:text-xl leading-relaxed max-w-xl mb-8">
+            <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">About Your Coach</p>
+            <h1 className="headline text-5xl md:text-7xl leading-none mb-6">MEET <span className="text-[#C9A45C]">JAY</span></h1>
+            <p className="text-[#E6DFD2]/75 text-lg md:text-xl leading-relaxed max-w-xl mb-8">
               I'm Jay — a personal trainer based in Birmingham with one goal: getting you results that actually last. No gimmicks, no shortcuts, just smart training and honest accountability.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:+447753226214" className="bg-[#1E90FF] text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#4DAAFF] transition-all inline-flex items-center gap-2">
+              <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2">
                 <Phone className="h-4 w-4" /> Call Jay
               </a>
               <a href="https://instagram.com/jaymacjm" target="_blank" rel="noopener noreferrer" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2">
@@ -31,13 +31,13 @@ export default function AboutJay() {
       </section>
 
       {/* Bio + Photo */}
-      <section className="py-20 md:py-28 bg-[#0D1B2A] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
             <div>
-              <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Background</p>
-              <h2 className="headline text-4xl md:text-5xl leading-none mb-6">THE COACH BEHIND<br /><span className="text-[#1E90FF]">HIGH PERFORMANCE FIT</span></h2>
-              <div className="space-y-4 text-[#C8D8E8]/75 leading-relaxed">
+              <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Background</p>
+              <h2 className="headline text-4xl md:text-5xl leading-none mb-6">THE COACH BEHIND<br /><span className="text-[#C9A45C]">HIGH PERFORMANCE FIT</span></h2>
+              <div className="space-y-4 text-[#E6DFD2]/75 leading-relaxed">
                 <p>
                   I started High Performance Fit because I was tired of seeing people waste money on programmes that don't work. Generic plans, unqualified coaches, and gyms that care more about membership numbers than actual results.
                 </p>
@@ -64,10 +64,10 @@ export default function AboutJay() {
       </section>
 
       {/* Credentials */}
-      <section className="py-20 md:py-28 bg-[#0A1628] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#100E0C] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Qualifications</p>
+            <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Qualifications</p>
             <h2 className="headline text-4xl md:text-6xl leading-none">CREDENTIALS &<br />EXPERIENCE</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -77,10 +77,10 @@ export default function AboutJay() {
               { icon: Users, title: "500+ Clients", desc: "Clients coached across Birmingham and online, from beginners to competitive athletes." },
               { icon: Trophy, title: "Results First", desc: "Every programme is built around measurable outcomes — not just activity." },
             ].map((item) => (
-              <div key={item.title} className="bg-[#112240] border border-[#1A3A5C] rounded p-6 text-center">
-                <item.icon className="h-10 w-10 text-[#1E90FF] mx-auto mb-4" />
+              <div key={item.title} className="bg-[#17140F] border border-[#2C261C] rounded p-6 text-center">
+                <item.icon className="h-10 w-10 text-[#C9A45C] mx-auto mb-4" />
                 <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Barlow', sans-serif" }}>{item.title}</h3>
-                <p className="text-[#C8D8E8]/60 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-[#E6DFD2]/60 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -88,9 +88,9 @@ export default function AboutJay() {
       </section>
 
       {/* Philosophy */}
-      <section className="py-20 md:py-28 bg-[#0D1B2A] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl mx-auto text-center">
-          <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Philosophy</p>
+          <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Philosophy</p>
           <h2 className="headline text-4xl md:text-5xl leading-none mb-8">WHAT I BELIEVE</h2>
           <div className="grid md:grid-cols-3 gap-8 text-left">
             {[
@@ -99,8 +99,8 @@ export default function AboutJay() {
               { title: "Results Over Hype", desc: "No 30-day challenges, no detox teas, no magic pills. Just progressive training, honest nutrition, and the patience to see it through." },
             ].map((item) => (
               <div key={item.title}>
-                <h3 className="font-bold text-xl mb-3 text-[#1E90FF]" style={{ fontFamily: "'Barlow', sans-serif" }}>{item.title}</h3>
-                <p className="text-[#C8D8E8]/70 leading-relaxed">{item.desc}</p>
+                <h3 className="font-bold text-xl mb-3 text-[#C9A45C]" style={{ fontFamily: "'Barlow', sans-serif" }}>{item.title}</h3>
+                <p className="text-[#E6DFD2]/70 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -108,27 +108,27 @@ export default function AboutJay() {
       </section>
 
       {/* Location */}
-      <section className="py-20 md:py-28 bg-[#0A1628] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#100E0C] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
             <div>
-              <p className="text-[#1E90FF] font-bold uppercase tracking-[0.2em] text-sm mb-4">Location</p>
+              <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Location</p>
               <h2 className="headline text-4xl md:text-5xl leading-none mb-6">WHERE I COACH</h2>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 text-[#C8D8E8]/70">
-                  <MapPin className="h-5 w-5 text-[#1E90FF]" />
+                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
+                  <MapPin className="h-5 w-5 text-[#C9A45C]" />
                   <span>Foundry Gym, Kings Heath, Birmingham B14 7JZ</span>
                 </div>
-                <div className="flex items-center gap-3 text-[#C8D8E8]/70">
-                  <Star className="h-5 w-5 text-[#1E90FF]" />
+                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
+                  <Star className="h-5 w-5 text-[#C9A45C]" />
                   <span>Outdoor sessions: Kings Heath Park, Cannon Hill Park, Moseley Park</span>
                 </div>
-                <div className="flex items-center gap-3 text-[#C8D8E8]/70">
-                  <Phone className="h-5 w-5 text-[#1E90FF]" />
+                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
+                  <Phone className="h-5 w-5 text-[#C9A45C]" />
                   <span>07753 226 214 — call or text anytime</span>
                 </div>
-                <div className="flex items-center gap-3 text-[#C8D8E8]/70">
-                  <Mail className="h-5 w-5 text-[#1E90FF]" />
+                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
+                  <Mail className="h-5 w-5 text-[#C9A45C]" />
                   <span>hello@highperformancefit.co.uk</span>
                 </div>
               </div>
@@ -146,14 +146,14 @@ export default function AboutJay() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 md:py-28 bg-[#0D1B2A] border-t border-white/5">
+      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-3xl">
-          <h2 className="headline text-4xl md:text-5xl leading-none mb-6">WORK WITH <span className="text-[#1E90FF]">JAY</span></h2>
-          <p className="text-[#C8D8E8]/75 text-lg leading-relaxed mb-8">
+          <h2 className="headline text-4xl md:text-5xl leading-none mb-6">WORK WITH <span className="text-[#C9A45C]">JAY</span></h2>
+          <p className="text-[#E6DFD2]/75 text-lg leading-relaxed mb-8">
             Ready to train with a coach who actually cares? Book your free consultation and let's talk about what you want to achieve.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:+447753226214" className="bg-[#1E90FF] text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#4DAAFF] transition-all inline-flex items-center gap-2">
+            <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2">
               <Phone className="h-4 w-4" /> Call 07753 226 214
             </a>
             <a href="/?scrollTo=contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2">

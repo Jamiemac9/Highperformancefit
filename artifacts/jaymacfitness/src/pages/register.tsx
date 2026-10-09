@@ -58,15 +58,15 @@ export default function Register() {
     fontWeight: 700,
     fontSize: "11px",
     letterSpacing: "0.18em",
-    color: "rgba(200,216,232,0.75)",
+    color: "rgba(230,223,210,0.75)",
     textTransform: "uppercase",
   };
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 16px",
-    backgroundColor: "rgba(10,22,40,0.6)",
-    border: "1px solid #1A3A5C",
+    backgroundColor: "rgba(16,14,12,0.6)",
+    border: "1px solid #2C261C",
     borderRadius: "4px",
     color: "#FFFFFF",
     fontFamily: "'Inter', sans-serif",
@@ -85,13 +85,13 @@ export default function Register() {
       className="min-h-screen flex items-center justify-center px-4 py-10"
       style={{
         background:
-          "radial-gradient(circle at 20% 0%, rgba(30,144,255,0.12), transparent 55%), #0A1628",
+          "radial-gradient(circle at 20% 0%, rgba(201,164,92,0.12), transparent 55%), #100E0C",
       }}
     >
       <div className="w-full max-w-md">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 mb-6 text-[#C8D8E8]/70 hover:text-[#1E90FF] transition-colors"
+          className="inline-flex items-center gap-2 mb-6 text-[#E6DFD2]/70 hover:text-[#C9A45C] transition-colors"
           style={{
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 600,
@@ -106,11 +106,11 @@ export default function Register() {
 
         <div
           style={{
-            backgroundColor: "#112240",
-            border: "1px solid #1A3A5C",
+            backgroundColor: "#17140F",
+            border: "1px solid #2C261C",
             borderRadius: "6px",
             padding: "36px 32px",
-            boxShadow: "0 0 40px rgba(30,144,255,0.12)",
+            boxShadow: "0 0 40px rgba(201,164,92,0.12)",
           }}
         >
           <div className="text-center mb-8">
@@ -120,24 +120,24 @@ export default function Register() {
                 width: "56px",
                 height: "56px",
                 borderRadius: "50%",
-                backgroundColor: "rgba(30,144,255,0.12)",
-                border: "1px solid rgba(30,144,255,0.4)",
+                backgroundColor: "rgba(201,164,92,0.12)",
+                border: "1px solid rgba(201,164,92,0.4)",
               }}
             >
-              <Dumbbell className="h-7 w-7" style={{ color: "#1E90FF" }} />
+              <Dumbbell className="h-7 w-7" style={{ color: "#C9A45C" }} />
             </div>
             <h1
               className="headline"
               style={{ fontSize: "40px", lineHeight: 1, color: "#FFFFFF" }}
             >
-              JOIN <span style={{ color: "#1E90FF" }}>HP FIT.</span>
+              JOIN <span style={{ color: "#C9A45C" }}>HP FIT.</span>
             </h1>
             <p
               className="mt-3"
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: "14px",
-                color: "#C8D8E8",
+                color: "#E6DFD2",
                 opacity: 0.75,
               }}
             >
@@ -238,20 +238,20 @@ export default function Register() {
 
           <div
             className="mt-6 pt-5 text-center"
-            style={{ borderTop: "1px solid rgba(30,144,255,0.18)" }}
+            style={{ borderTop: "1px solid rgba(201,164,92,0.18)" }}
           >
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: "13px",
-                color: "#C8D8E8",
+                color: "#E6DFD2",
                 opacity: 0.7,
               }}
             >
               Already have an account?{" "}
               <Link
                 to="/login"
-                style={{ color: "#1E90FF", fontWeight: 600 }}
+                style={{ color: "#C9A45C", fontWeight: 600 }}
                 className="hover:underline"
               >
                 Sign in
