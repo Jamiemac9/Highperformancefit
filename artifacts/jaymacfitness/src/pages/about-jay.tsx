@@ -1,164 +1,217 @@
 import { useEffect } from "react";
-import { Phone, Mail, ArrowRight, Instagram, Facebook, Award, MapPin, GraduationCap, Users, Trophy, Star } from "lucide-react";
+import { ArrowRight, MapPin, MessageCircle, Phone, Mail, Instagram } from "lucide-react";
+import { SITE_CONFIG } from "../config";
+import { trackBookingClick } from "../lib/tracking";
+import { bookingHref } from "../components/hpf/SiteNav";
+import "../styles/hpf.css";
+
+const CREDENTIALS: [string, string][] = [
+  ["Level 4", "Strength & Conditioning Coach"],
+  ["Level 4", "Advanced Personal Trainer"],
+  ["Level 4", "Certificate in Weight Management through Exercise for obese clients (RQF)"],
+  ["Level 4", "Obesity & Diabetes"],
+  ["Advanced", "Nutrition"],
+  ["REPs", "Registered member"],
+];
+
+const BELIEFS: [string, string][] = [
+  ["No templates", "Your body, your schedule, your goal. If I gave you the same plan as the last person, I’d be doing you a disservice."],
+  ["Consistency beats talent", "The people who get there aren’t the most gifted. They’re the ones who keep turning up. My job is to make turning up easier than giving up."],
+  ["Results over hype", "No 30-day challenges, no detox teas, no magic. Progressive training, honest nutrition and the patience to see it through."],
+];
+
+function srcSet(slug: string, widths: number[]) {
+  return widths.map((w) => `/images/site/${slug}-${w}.webp ${w}w`).join(", ");
+}
 
 export default function AboutJay() {
   useEffect(() => {
-    if (typeof window === "undefined") return;
     window.scrollTo(0, 0);
   }, []);
+  const book = bookingHref(false);
 
   return (
-    <main className="min-h-screen bg-[#100E0C] text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 relative pt-32 pb-20 md:pt-40 md:pb-28">
-          <div className="max-w-3xl">
-            <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">About Your Coach</p>
-            <h1 className="headline text-5xl md:text-7xl leading-none mb-6">MEET <span className="text-[#C9A45C]">JAY</span></h1>
-            <p className="text-[#E6DFD2]/75 text-lg md:text-xl leading-relaxed max-w-xl mb-8">
-              I'm Jay — a personal trainer based in Birmingham with one goal: getting you results that actually last. No gimmicks, no shortcuts, just smart training and honest accountability.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2">
-                <Phone className="h-4 w-4" /> Call Jay
-              </a>
-              <a href="https://instagram.com/jaymacjm" target="_blank" rel="noopener noreferrer" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2">
-                <Instagram className="h-4 w-4" /> @jaymacjm
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bio + Photo */}
-      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
+    <main>
+      <section className="hpf-section" aria-labelledby="about-title" style={{ paddingTop: "var(--space-xl)" }}>
+        <div className="hpf-wrap">
+          <div className="hpf-split" data-motion-split>
             <div>
-              <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Background</p>
-              <h2 className="headline text-4xl md:text-5xl leading-none mb-6">THE COACH BEHIND<br /><span className="text-[#C9A45C]">HIGH PERFORMANCE FIT</span></h2>
-              <div className="space-y-4 text-[#E6DFD2]/75 leading-relaxed">
-                <p>
-                  I started High Performance Fit because I was tired of seeing people waste money on programmes that don't work. Generic plans, unqualified coaches, and gyms that care more about membership numbers than actual results.
-                </p>
-                <p>
-                  I've been a personal trainer for over 8 years, working with everyone from complete beginners to competitive athletes. I've helped clients lose 20kg+, run their first marathons, and build strength they never thought possible.
-                </p>
-                <p>
-                  My approach is simple: assess where you are, build a plan that fits your life, and hold you accountable to it. I don't do crash diets, I don't do 30-day challenges, and I don't promise magic. What I do promise is a programme built around you, consistent support, and a coach who actually gives a damn.
-                </p>
+              <h1 id="about-title" className="hpf-h1" data-motion-title>
+                I’m Jay. I’ll be the one coaching you.
+              </h1>
+              <p className="hpf-lede">
+                I’ve trained myself for 17 years and coached for 13. I work from Foundry Gym in Kings Heath, outdoors in the
+                local parks, and online with clients in five countries.
+              </p>
+              <div className="hpf-hero__cta">
+                <a className="hpf-btn hpf-btn--fill" data-magnetic href={book} onClick={() => trackBookingClick("Book a free chat", "about-hero")}>
+                  Book a free chat
+                </a>
+                <a className="hpf-link" href="https://instagram.com/jaymacjm" target="_blank" rel="noopener noreferrer">
+                  <Instagram aria-hidden="true" strokeWidth={2} />
+                  @jaymacjm
+                </a>
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className="w-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+            <figure className="hpf-figure" data-motion-media>
+              <div className="hpf-figure__frame" style={{ aspectRatio: "1 / 1" }} data-tilt>
                 <img
-                  src="/jay-headshot.jpg"
-                  alt="Jay Macdonald — Personal Trainer Birmingham"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
+                  src="/images/site/jay-portrait-1000.webp"
+                  srcSet={srcSet("jay-portrait", [600, 1000])}
+                  sizes="(min-width: 60rem) 45vw, 100vw"
+                  width={1000}
+                  height={995}
+                  fetchPriority="high"
+                  decoding="async"
+                  alt="Jay in the gym"
                 />
               </div>
-            </div>
+            </figure>
           </div>
         </div>
       </section>
 
-      {/* Credentials */}
-      <section className="py-20 md:py-28 bg-[#100E0C] border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Qualifications</p>
-            <h2 className="headline text-4xl md:text-6xl leading-none">CREDENTIALS &<br />EXPERIENCE</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {[
-              { icon: Award, title: "REPS Level 3", desc: "Fully qualified personal trainer registered with the Register of Exercise Professionals." },
-              { icon: GraduationCap, title: "8+ Years", desc: "Coaching experience across gym, outdoor and online environments since 2017." },
-              { icon: Users, title: "500+ Clients", desc: "Clients coached across Birmingham and online, from beginners to competitive athletes." },
-              { icon: Trophy, title: "Results First", desc: "Every programme is built around measurable outcomes — not just activity." },
-            ].map((item) => (
-              <div key={item.title} className="bg-[#17140F] border border-[#2C261C] rounded p-6 text-center">
-                <item.icon className="h-10 w-10 text-[#C9A45C] mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Barlow', sans-serif" }}>{item.title}</h3>
-                <p className="text-[#E6DFD2]/60 text-sm leading-relaxed">{item.desc}</p>
+      <section className="hpf-section hpf-section--tint" aria-labelledby="why-title">
+        <div className="hpf-wrap">
+          <div className="hpf-split hpf-split--flip" data-motion-split>
+            <figure className="hpf-figure">
+              <div className="hpf-figure__frame" style={{ aspectRatio: "3 / 2" }}>
+                <img
+                  src="/images/site/consultation-phone-800.webp"
+                  srcSet={srcSet("consultation-phone", [800, 1242])}
+                  sizes="(min-width: 60rem) 45vw, 100vw"
+                  width={1242}
+                  height={837}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Jay going through a plan with a client on his phone"
+                />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Philosophy */}
-      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6 max-w-4xl mx-auto text-center">
-          <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Philosophy</p>
-          <h2 className="headline text-4xl md:text-5xl leading-none mb-8">WHAT I BELIEVE</h2>
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            {[
-              { title: "No Templates", desc: "Your body, your schedule, your goals. Every programme is built from scratch. If I gave you the same plan I gave someone else, I'd be doing you a disservice." },
-              { title: "Accountability Works", desc: "The difference between people who succeed and people who don't isn't talent — it's consistency. My job is to make consistency easier than giving up." },
-              { title: "Results Over Hype", desc: "No 30-day challenges, no detox teas, no magic pills. Just progressive training, honest nutrition, and the patience to see it through." },
-            ].map((item) => (
-              <div key={item.title}>
-                <h3 className="font-bold text-xl mb-3 text-[#C9A45C]" style={{ fontFamily: "'Barlow', sans-serif" }}>{item.title}</h3>
-                <p className="text-[#E6DFD2]/70 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Location */}
-      <section className="py-20 md:py-28 bg-[#100E0C] border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
+            </figure>
             <div>
-              <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Location</p>
-              <h2 className="headline text-4xl md:text-5xl leading-none mb-6">WHERE I COACH</h2>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
-                  <MapPin className="h-5 w-5 text-[#C9A45C]" />
-                  <span>Foundry Gym, Kings Heath, Birmingham B14 7JZ</span>
-                </div>
-                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
-                  <Star className="h-5 w-5 text-[#C9A45C]" />
-                  <span>Outdoor sessions: Kings Heath Park, Cannon Hill Park, Moseley Park</span>
-                </div>
-                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
-                  <Phone className="h-5 w-5 text-[#C9A45C]" />
-                  <span>07753 226 214 — call or text anytime</span>
-                </div>
-                <div className="flex items-center gap-3 text-[#E6DFD2]/70">
-                  <Mail className="h-5 w-5 text-[#C9A45C]" />
-                  <span>hello@highperformancefit.co.uk</span>
-                </div>
-              </div>
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-white/10 aspect-video bg-white/5">
-              <iframe
-                title="Foundry Gym Kings Heath"
-                src="https://www.google.com/maps?q=Foundry+Gym+Kings+Heath+Birmingham&output=embed"
-                className="w-full h-full grayscale contrast-125"
-                loading="lazy"
-              />
+              <h2 id="why-title" className="hpf-h2">Why High Performance Fit exists.</h2>
+              <p className="hpf-lede">
+                I started it because I was tired of watching people spend money on plans that were never built for them.
+              </p>
+              <p className="hpf-body">
+                My approach is simple. Find out where you are, build a plan that fits your actual week, and hold you to it.
+                There’s no sales team and no junior trainers. You train with me, and I’ll start from wherever you are on day one.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 bg-[#0F0D0B] border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6 text-center max-w-3xl">
-          <h2 className="headline text-4xl md:text-5xl leading-none mb-6">WORK WITH <span className="text-[#C9A45C]">JAY</span></h2>
-          <p className="text-[#E6DFD2]/75 text-lg leading-relaxed mb-8">
-            Ready to train with a coach who actually cares? Book your free consultation and let's talk about what you want to achieve.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2">
-              <Phone className="h-4 w-4" /> Call 07753 226 214
-            </a>
-            <a href="/?scrollTo=contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2">
-              <ArrowRight className="h-4 w-4" /> Free Consultation
-            </a>
+      <section className="hpf-section" aria-labelledby="creds-title">
+        <div className="hpf-wrap">
+          <div className="hpf-split" data-motion-split>
+            <div>
+              <h2 id="creds-title" className="hpf-h2">Qualifications.</h2>
+              <p className="hpf-lede">Specialist training in weight management, obesity and diabetes, on top of strength and conditioning.</p>
+              <ul className="hpf-creds" aria-label="Qualifications" data-motion-stagger>
+                {CREDENTIALS.map(([level, name]) => (
+                  <li key={name}>
+                    <b>{level}</b>
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <figure className="hpf-figure">
+              <div className="hpf-figure__frame" style={{ aspectRatio: "4 / 5" }} data-tilt>
+                <img
+                  src="/images/site/jay-sandbag-600.webp"
+                  srcSet={srcSet("jay-sandbag", [600, 1000])}
+                  sizes="(min-width: 60rem) 40vw, 100vw"
+                  width={1000}
+                  height={1507}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Jay training with a sandbag across his shoulders"
+                  style={{ objectPosition: "50% 20%" }}
+                />
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section className="hpf-section hpf-section--tint" aria-labelledby="beliefs-title">
+        <div className="hpf-wrap">
+          <div className="hpf-head">
+            <h2 id="beliefs-title" className="hpf-h2">What I believe.</h2>
+          </div>
+          <ul className="hpf-ways" data-motion-stagger>
+            {BELIEFS.map(([title, text]) => (
+              <li key={title} style={{ padding: "var(--space-sm) 0" }}>
+                <strong className="hpf-h3" style={{ display: "block" }}>{title}</strong>
+                <p className="hpf-body">{text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="hpf-section" aria-labelledby="where-title">
+        <div className="hpf-wrap">
+          <div className="hpf-split" data-motion-split>
+            <div>
+              <h2 id="where-title" className="hpf-h2">Where I coach.</h2>
+              <ul className="hpf-contact-lines">
+                <li>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Foundry+Gym+Kings+Heath+Birmingham" target="_blank" rel="noopener noreferrer">
+                    <MapPin aria-hidden="true" strokeWidth={2} />
+                    Foundry Gym, Kings Heath, Birmingham B14 7JZ
+                  </a>
+                </li>
+                <li>
+                  <span>
+                    <MapPin aria-hidden="true" strokeWidth={2} />
+                    Outdoors: Kings Heath Park, Cannon Hill Park or a green space near you
+                  </span>
+                </li>
+                <li>
+                  <a href={SITE_CONFIG.WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle aria-hidden="true" strokeWidth={2} />
+                    WhatsApp {SITE_CONFIG.PHONE}
+                  </a>
+                </li>
+                <li>
+                  <a href={`tel:${SITE_CONFIG.PHONE_TEL}`}>
+                    <Phone aria-hidden="true" strokeWidth={2} />
+                    Call {SITE_CONFIG.PHONE}
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${SITE_CONFIG.EMAIL}`}>
+                    <Mail aria-hidden="true" strokeWidth={2} />
+                    {SITE_CONFIG.EMAIL}
+                  </a>
+                </li>
+              </ul>
+              <div className="hpf-hero__cta">
+                <a className="hpf-btn hpf-btn--fill" data-magnetic href={book} onClick={() => trackBookingClick("Book a free chat", "about-where")}>
+                  Book a free chat
+                </a>
+                <a className="hpf-link" href="/#prices">
+                  See prices <ArrowRight aria-hidden="true" strokeWidth={2} />
+                </a>
+              </div>
+            </div>
+            <figure className="hpf-figure">
+              <div className="hpf-figure__frame" style={{ aspectRatio: "3 / 2" }}>
+                <img
+                  src="/images/site/jay-gym-floor-800.webp"
+                  srcSet={srcSet("jay-gym-floor", [800, 1242])}
+                  sizes="(min-width: 60rem) 45vw, 100vw"
+                  width={1242}
+                  height={837}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Jay on the gym floor"
+                />
+              </div>
+            </figure>
           </div>
         </div>
       </section>

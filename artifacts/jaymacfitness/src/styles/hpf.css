@@ -23,6 +23,8 @@
   --hpf-focus: oklch(85% 0.11 86);
   --hpf-error: oklch(74% 0.13 32);
   --hpf-img-outline: oklch(1 0 0 / 0.1);
+  --hpf-glare: oklch(85% 0.09 85 / 0.16);
+  --hpf-wa: oklch(72% 0.17 150);
   --hpf-scrim: oklch(15.5% 0.006 75 / 0.86);
   --hpf-shadow: oklch(8% 0.01 70 / 0.5);
   --hpf-google-blue: oklch(57% 0.18 258);
@@ -337,8 +339,16 @@ body {
 .hpf-nav__links a:focus-visible {
   outline-color: var(--hpf-focus);
 }
-.hpf-nav__links a[aria-current="page"] {
+.hpf-nav__links a[aria-current="page"],
+.hpf-nav__links a.is-active {
   color: var(--hpf-accent);
+}
+.hpf-nav {
+  transition: box-shadow var(--dur-med) var(--ease-out), background-color var(--dur-med) var(--ease-out);
+}
+.hpf-nav[data-scrolled="true"] {
+  background: oklch(15.5% 0.006 75 / 0.94);
+  box-shadow: 0 18px 40px -18px var(--hpf-shadow);
 }
 .hpf-nav .hpf-btn {
   min-height: 2.75rem;
@@ -449,25 +459,57 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
-  padding: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-sm);
   background: var(--hpf-scrim);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--hpf-rule);
-  border-radius: var(--radius-md);
-  translate: 0 calc(100% + var(--space-lg));
-  transition: translate var(--dur-med) var(--ease-out);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 18px 40px -16px var(--hpf-shadow);
+  translate: 0 calc(100% + var(--space-xl));
+  transition: translate 0.55s var(--ease-out);
 }
 .hpf-bar[data-show="true"] {
   translate: 0 0;
 }
-.hpf-bar .hpf-btn--fill {
-  flex: 1;
+.hpf-bar__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  margin-right: auto;
+  font-size: var(--text-sm);
+  line-height: 1.2;
 }
-.hpf-bar .hpf-btn--line {
+.hpf-bar__text small {
+  font-size: var(--text-xs);
+  color: var(--hpf-ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hpf-bar .hpf-btn {
+  min-height: 2.75rem;
+  border-radius: var(--radius-pill);
+  padding: 0 var(--space-sm);
+}
+.hpf-bar__wa {
+  display: grid;
+  place-items: center;
   flex: none;
-  width: 3.25rem;
-  padding: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--hpf-rule-strong);
+  color: var(--hpf-wa);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.hpf-bar__wa:focus-visible {
+  outline-color: var(--hpf-focus);
+}
+.hpf-bar__wa svg {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 @media (min-width: 64rem) {
   .hpf-bar {
@@ -659,20 +701,255 @@ body {
   }
 }
 
-/* split reveal: halves cross-fade, slightly staggered (only once JS is running) */
-.hpf-js .hpf-reveal > * {
-  opacity: 0;
-  translate: 0 var(--space-sm);
-  transition:
-    opacity var(--dur-long) var(--ease-out),
-    translate var(--dur-long) var(--ease-out);
+/* ───────── motion (Cogent-pattern, HPF palette) ─────────
+ * Everything here is gated on .hpf-js (set by script) and no-preference for
+ * motion, so prerendered/no-JS pages and reduced-motion visitors see content. */
+@media (prefers-reduced-motion: no-preference) {
+  /* focus-pull: split halves come out of a soft blur, staggered */
+  .hpf-js .hpf-reveal > * {
+    transition:
+      filter 1.1s var(--ease-out),
+      opacity 1.1s var(--ease-out),
+      transform 1.1s var(--ease-out);
+  }
+  .hpf-js .hpf-reveal:not([data-in="true"]) > * {
+    filter: blur(10px);
+    opacity: 0.3;
+    transform: translateY(46px) scale(0.97);
+  }
+  .hpf-js .hpf-reveal[data-in="true"] > :nth-child(2) {
+    transition-delay: 0.12s;
+  }
+
+  /* hero intro: masked lines rise, then the rest fades up */
+  .hpf-js .hpf-line > span {
+    transform: translateY(110%);
+  }
+  .hpf-intro .hpf-line > span {
+    transform: none;
+    transition: transform 1.25s var(--ease-out);
+  }
+  .hpf-intro .hpf-line:nth-child(2) > span {
+    transition-delay: 0.09s;
+  }
+  .hpf-intro .hpf-line:nth-child(3) > span {
+    transition-delay: 0.18s;
+  }
+  .hpf-js .hpf-fade {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hpf-intro .hpf-fade {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 1s var(--ease-out),
+      transform 1s var(--ease-out);
+  }
+  .hpf-intro .hpf-fade--1 { transition-delay: 0.35s; }
+  .hpf-intro .hpf-fade--2 { transition-delay: 0.5s; }
+  .hpf-intro .hpf-fade--3 { transition-delay: 0.65s; }
+  .hpf-js .hpf-hero__media {
+    clip-path: inset(0 0 100% 0);
+  }
+  .hpf-intro .hpf-hero__media {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1.5s var(--ease-in-out) 0.1s;
+  }
+
+  /* tilt with a soft champagne glare (mouse only; JS adds the vars) */
+  .hpf-motion [data-tilt] {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.6s var(--ease-out);
+    transform-style: preserve-3d;
+  }
+  .hpf-motion [data-tilt].is-tilting {
+    transition: transform 0.12s linear;
+  }
+  .hpf-motion [data-tilt]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), var(--hpf-glare), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
+  }
+  .hpf-motion [data-tilt].is-tilting::before {
+    opacity: 1;
+  }
+
+  /* magnetic buttons ease back into place */
+  .hpf-motion [data-magnetic] {
+    transition:
+      background-color var(--dur-short) var(--ease-out),
+      border-color var(--dur-short) var(--ease-out),
+      color var(--dur-short) var(--ease-out),
+      scale var(--dur-short) var(--ease-out),
+      translate 0.35s var(--ease-out);
+  }
 }
-.hpf-js .hpf-reveal > :nth-child(2) {
-  transition-delay: 120ms;
+.hpf-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
 }
-.hpf-js .hpf-reveal[data-in="true"] > * {
-  opacity: 1;
-  translate: 0 0;
+.hpf-line > span {
+  display: inline-block;
+}
+
+/* ───────── statement (read-along words) ───────── */
+.hpf-statement {
+  display: grid;
+  align-items: center;
+  min-height: 70svh;
+  padding-block: var(--space-3xl);
+  border-top: 1px solid var(--hpf-rule);
+}
+.hpf-statement__text {
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hpf-statement__text b,
+.hpf-statement__text .hl {
+  font-weight: 400;
+  color: var(--hpf-accent);
+}
+.hpf-statement__after {
+  margin-top: var(--space-lg);
+}
+@media (min-width: 60rem) {
+  .hpf-statement {
+    min-height: 100svh;
+  }
+  .hpf-statement__text {
+    font-size: clamp(2.5rem, 1.4rem + 2.6vw, 4rem);
+  }
+}
+
+/* ───────── results rail (pinned sideways on desktop, swipe on mobile) ───────── */
+.hpf-rail {
+  padding-block: var(--space-3xl) var(--space-2xl);
+  overflow: hidden;
+}
+.hpf-rail__viewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+.hpf-rail__viewport::-webkit-scrollbar {
+  display: none;
+}
+.hpf-rail.is-pinned .hpf-rail__viewport {
+  overflow: visible;
+  scroll-snap-type: none;
+}
+.hpf-rail__track {
+  display: flex;
+  gap: var(--space-sm);
+  width: max-content;
+  will-change: transform;
+}
+.hpf-rcard {
+  position: relative;
+  flex: none;
+  width: min(84vw, 22rem);
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-xs);
+  background: var(--hpf-paper);
+  border: 1px solid var(--hpf-rule);
+  border-radius: var(--radius-md);
+}
+.hpf-rcard .hpf-figure__frame {
+  aspect-ratio: var(--ratio, 1);
+}
+.hpf-rcard__body {
+  padding: 0 var(--space-xs) var(--space-xs);
+}
+.hpf-rcard .hpf-case__result {
+  font-size: var(--text-2xl);
+}
+.hpf-rcard .hpf-quote {
+  font-size: var(--text-base);
+  margin-top: var(--space-sm);
+}
+.hpf-rcard--cta {
+  align-content: center;
+  padding: var(--space-lg) var(--space-md);
+  border-color: var(--hpf-rule-accent);
+}
+.hpf-rail__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+.hpf-rail__progress {
+  display: none;
+  flex: 1;
+  height: 1px;
+  background: var(--hpf-rule);
+  overflow: hidden;
+}
+.hpf-rail__progress i {
+  display: block;
+  height: 100%;
+  background: var(--hpf-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.hpf-rail__hint {
+  font-size: var(--text-sm);
+  color: var(--hpf-ink-3);
+}
+@media (min-width: 60rem) {
+  .hpf-rail {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: calc(var(--nav-h) + var(--space-sm)) var(--space-lg);
+  }
+  .hpf-rail__viewport {
+    padding-inline: max(var(--gutter), calc((100% - 78rem) / 2 + var(--gutter)));
+  }
+  .hpf-rcard {
+    width: 46rem;
+    grid-template-columns: 18rem minmax(0, 1fr);
+    gap: var(--space-lg);
+    align-items: center;
+    padding: var(--space-sm);
+  }
+  .hpf-rcard--cta {
+    width: 30rem;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-xl);
+  }
+  .hpf-rail.is-pinned .hpf-rail__progress {
+    display: block;
+  }
+  .hpf-rail.is-pinned .hpf-rail__hint {
+    display: none;
+  }
+}
+
+/* photo fold frame for parallax */
+.hpf-fold__frame {
+  overflow: hidden;
 }
 
 /* ───────── results / case studies ───────── */

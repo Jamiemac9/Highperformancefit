@@ -41,7 +41,7 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
   const perSession = pkg.pricePerSession ?? (pkg.sessions > 0 ? Number(pkg.price) / pkg.sessions : null);
   return (
     <div className="relative h-full flex flex-col" style={{ background: featured ? "linear-gradient(160deg, #17140F 0%, #2C261C 100%)" : "#17140F", border: featured ? "2px solid #C9A45C" : "1px solid #2C261C", borderRadius: "4px", padding: "28px", boxShadow: featured ? "0 0 40px rgba(201,164,92,0.25), inset 0 0 0 1px rgba(201,164,92,0.15)" : "none" }}>
-      {featured && <div className="absolute" style={{ top: "-14px", left: "50%", transform: "translateX(-50%)", background: "#C9A45C", color: "#fff", fontFamily: "'Barlow', sans-serif", fontWeight: 700, fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", padding: "6px 14px", borderRadius: "2px", boxShadow: "0 4px 16px rgba(201,164,92,0.45)", whiteSpace: "nowrap" }}>Most Popular</div>}
+      {featured && <div className="absolute" style={{ top: "-14px", left: "50%", transform: "translateX(-50%)", background: "#C9A45C", color: "#1A1610", fontFamily: "'Barlow', sans-serif", fontWeight: 700, fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", padding: "6px 14px", borderRadius: "2px", boxShadow: "0 4px 16px rgba(201,164,92,0.45)", whiteSpace: "nowrap" }}>Most Popular</div>}
       <div className="flex items-start justify-between gap-3 mb-5">
         <h3 style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>{pkg.name}</h3>
         <span className="flex-shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider" style={{ background: "rgba(201,164,92,0.15)", border: "1px solid rgba(201,164,92,0.25)", color: "#C9A45C" }}>{pkg.type === "IN_PERSON" ? "In-Person" : pkg.type === "ONLINE" ? "Online" : "Group"}</span>
@@ -63,18 +63,18 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
 }
 
 const FAQS_PT = [
-  { q: "How much does personal training cost in Birmingham?", a: "Sessions start from £45 per hour when bought in a block. Single sessions are £55. I also offer monthly packages with payment plans. There's no contract — you pay as you go." },
-  { q: "Do I need a gym membership at Foundry Gym?", a: "No. Your training fee covers gym access during our sessions. If you want to train independently between sessions, Foundry offers discounted day passes for my clients." },
-  { q: "How many sessions per week do I need?", a: "Most clients train 2–3 times per week with me and do 1–2 independent sessions. Beginners often start with 2 sessions and build up. We find the rhythm that fits your life." },
-  { q: "What if I have an injury or medical condition?", a: "I work with clients post-injury, post-surgery and with conditions like diabetes, hypertension and arthritis. I modify every exercise to your body. If needed, I collaborate with your physio or GP." },
-  { q: "How long until I see results?", a: "Most clients feel stronger and more energetic within 2–3 weeks. Visible body composition changes typically show within 6–8 weeks with consistent training and following the nutrition guidance." },
-  { q: "Can I train with a partner or friend?", a: "Yes — partner training (2 people) is £70 per session total (£35 each). It's a great option if you want accountability without the group dynamic." },
+  { q: "How much does personal training cost in Birmingham?", a: "Fresh Start is £250 for five 1-2-1 sessions (£50 a session). 1-2-1 Monthly is £280 a month for eight sessions (£35 a session) on direct debit, with no contract and 14 days' notice to pause." },
+  { q: "How many sessions per week do I need?", a: "Two a week is a good starting point for most people, and 1-2-1 Monthly is built around that. We'll settle the right rhythm for your life on the free chat." },
+  { q: "What if I have an injury or medical condition?", a: "Rehab-aware programming is a big part of what I do, and I hold Level 4 qualifications in weight management through exercise and in obesity and diabetes. I adapt every exercise to you and I'm happy to work alongside your physio or GP." },
+  { q: "How long until I see results?", a: "It depends on where you start and how consistent the training and food are. As a guide, Amy lost three stone in 14 weeks of 1-2-1 training. We'll set honest expectations on the free chat." },
+  { q: "Can I train with a partner or friend?", a: "Yes. Danny and Jen trained together as a couple and lost six stone between them. Ask about partner sessions on the free chat." },
 ];
 
+// Real clients only, with their own before/after photos.
 const PROOF_PT = [
-  { name: "Sarah W.", result: "Lost 18kg in 9 months", detail: "Client since 2024", image: amyTransformation, swap: false },
-  { name: "Marcus T.", result: "First pull-up at 42", detail: "12-week programme", image: dannyJenTransformation, swap: true },
-  { name: "Priya K.", result: "Ran first 10K after 6 months", detail: "Started as a complete beginner", image: elaineTransformation, swap: false },
+  { name: "Amy K.", result: "Lost 3 stone", detail: "14 weeks of 1-2-1 training", image: amyTransformation, swap: false },
+  { name: "Danny & Jen", result: "6 stone between them", detail: "6 months of couples training", image: dannyJenTransformation, swap: false },
+  { name: "Elaine T.", result: "Back stronger than before", detail: "Post-injury rehab and training", image: elaineTransformation, swap: true },
 ];
 
 export default function PersonalTrainingBirmingham() {
@@ -105,7 +105,7 @@ export default function PersonalTrainingBirmingham() {
             <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">1-to-1 Personal Training</p>
             <h1 className="headline text-4xl md:text-6xl lg:text-7xl leading-none mb-6">Personal Training Birmingham — <span className="text-[#C9A45C]">1-to-1 Coaching That Works</span></h1>
             <p className="text-[#E6DFD2]/80 text-lg md:text-xl leading-relaxed max-w-2xl mb-6">
-              High Performance Fit provides 1-to-1 personal training in Birmingham for people who want real results. Based at Foundry Gym in Kings Heath, Jay has over 8 years experience and 500+ transformations. No contracts. Free first consultation.
+              High Performance Fit provides 1-to-1 personal training in Birmingham for people who want real results. Based at Foundry Gym in Kings Heath, Jay has 13 years of coaching experience and is Level 4 qualified. No contracts. Free first consultation.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"><Phone className="h-4 w-4" /> Call Jay — 07753 226 214</a>
@@ -145,12 +145,12 @@ export default function PersonalTrainingBirmingham() {
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <MapPin className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
               <p className="font-bold">Foundry Gym, Kings Heath</p>
-              <p className="text-[#E6DFD2]/50 text-sm">Free parking, full kit</p>
+              <p className="text-[#E6DFD2]/50 text-sm">Fully equipped gym</p>
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Award className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
-              <p className="font-bold">From £45/session</p>
-              <p className="text-[#E6DFD2]/50 text-sm">Block discounts available</p>
+              <p className="font-bold">From £35/session</p>
+              <p className="text-[#E6DFD2]/50 text-sm">On 1-2-1 Monthly</p>
             </div>
           </div>
         </div>
@@ -223,15 +223,9 @@ export default function PersonalTrainingBirmingham() {
                 </tr>
                 <tr className="border-b border-white/5">
                   <td className="py-3 px-4">Cost per month</td>
-                  <td className="py-3 px-4 text-[#C9A45C]">£180–£540</td>
-                  <td className="py-3 px-4">£25–£60</td>
-                  <td className="py-3 px-4">£0–£15</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-4">Results timeline</td>
-                  <td className="py-3 px-4 text-[#C9A45C]">6–8 weeks visible</td>
-                  <td className="py-3 px-4">3–6 months (if consistent)</td>
-                  <td className="py-3 px-4">Variable</td>
+                  <td className="py-3 px-4 text-[#C9A45C]">£280 (1-2-1 Monthly, 8 sessions)</td>
+                  <td className="py-3 px-4">Varies by gym</td>
+                  <td className="py-3 px-4">Free to low monthly fee</td>
                 </tr>
               </tbody>
             </table>

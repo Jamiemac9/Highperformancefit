@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { Phone, Mail, ArrowRight, Users, Flame, Clock, MapPin, Dumbbell, Target, ChevronDown, Star } from "lucide-react";
 
 const FAQS_GROUP = [
-  { q: "How many people are in a group training session?", a: "Groups are capped at 4–6 people. This is small enough that I can still correct form and give individual attention, but large enough to create real energy and accountability." },
-  { q: "Do I need to be at the same fitness level as everyone else?", a: "No. I match people by general fitness level and goals, but every exercise has progressions and regressions. A beginner and an intermediate can train side by side doing the same session at different intensities." },
-  { q: "How much does group training cost compared to 1-to-1?", a: "Group sessions are roughly 40–50% cheaper per person than 1-to-1. A block of 8 group sessions is £189/month (£23.60/session) compared to £45/session for 1-to-1." },
-  { q: "What times are group sessions available?", a: "Current groups: Tuesday & Thursday 18:30, Saturday 09:00. Morning groups (06:30) forming for early risers. New groups start when 4 people sign up." },
-  { q: "Can I try a session before committing?", a: "Yes — your first group session is free. Come along, meet the group, see how the sessions run and decide if it's the right fit. No pressure to sign up." },
-  { q: "What if I miss a session?", a: "Life happens. If you miss a session, you can join another group running the same week (subject to space). Or you can swap it for a 30-minute 1-to-1 catch-up session at a discounted rate." },
+  { q: "How many people are in a group training session?", a: "A maximum of four. Small enough that I can coach everyone's form properly, big enough that people notice when you don't turn up." },
+  { q: "Do I need to be at the same fitness level as everyone else?", a: "No. Sessions are tailored to mixed abilities, and every exercise has easier and harder versions so everyone works at the right level." },
+  { q: "How much does group training cost?", a: "A Small Group Block is £200 for eight sessions, which works out at £25 a session. 1-2-1 sessions start from £35." },
+  { q: "When do group sessions run?", a: "Sessions are programmed weekly. Ask on the free chat for the current times and whether there's space." },
+  { q: "What about bootcamps?", a: "Small-group bootcamps at Marvel The Studio are coming soon. Join the founding list on the homepage for first pick of spaces." },
 ];
 
+// Real Google reviews. Never add invented group results here.
 const PROOF_GROUP = [
-  { name: "The Tuesday Group", result: "Average 8kg loss in 12 weeks", detail: "4 women, mixed ages 28–45. Combined PT sessions with a private WhatsApp group for accountability." },
-  { name: "The Saturday Morning Crew", result: "3 members ran first 5K", detail: "6 people, mostly beginners. 3-month block focused on building baseline fitness and confidence." },
-  { name: "Corporate Group, Birmingham", result: "Team energy transformed", detail: "5 office workers training together. Reported better focus at work and stronger team bonds." },
+  { name: "876 Collective", result: "“Forceful when needed but supportive.”", detail: "Google review" },
+  { name: "Muhamed Alhariri", result: "“Good atmosphere, no pressure, and the support is spot on.”", detail: "Google review" },
+  { name: "Jack Deen", result: "“Highly recommend.”", detail: "Google review" },
 ];
 
 export default function GroupTraining() {
@@ -42,11 +42,11 @@ export default function GroupTraining() {
             <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Small Group Training</p>
             <h1 className="headline text-4xl md:text-6xl lg:text-7xl leading-none mb-6">Small Group Personal Training Birmingham — <span className="text-[#C9A45C]">Accountability &amp; Energy</span></h1>
             <p className="text-[#E6DFD2]/80 text-lg md:text-xl leading-relaxed max-w-2xl mb-6">
-              Train in a small group of 4–6 people with the intensity of 1-to-1 coaching and the motivation of a team. Based at Foundry Gym in Kings Heath, Birmingham. More affordable than private sessions. Free first session.
+              Train in a small group of up to four people with PT-level programming and people who notice when you don't show up. Based at Foundry Gym in Kings Heath, Birmingham. £25 a session in a block of eight.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"><Phone className="h-4 w-4" /> Call Jay — 07753 226 214</a>
-              <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><Mail className="h-4 w-4" /> Book Free Trial Session</a>
+              <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><Mail className="h-4 w-4" /> Book a free chat</a>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function GroupTraining() {
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { icon: Users, title: "Small Groups", desc: "4–6 people per group. Small enough for individual attention, big enough for real energy." },
+              { icon: Users, title: "Small Groups", desc: "Maximum four people. Small enough for proper coaching, big enough for real energy." },
               { icon: Flame, title: "Team Energy", desc: "The competitive spark of a group pushes everyone further than they'd go alone." },
               { icon: Dumbbell, title: "Structured Sessions", desc: "Every session is programmed by Jay — progressive strength and conditioning, no random classes." },
             ].map((item) => (
@@ -75,8 +75,8 @@ export default function GroupTraining() {
           <div className="grid md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8">
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Users className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
-              <p className="font-bold">4–6 people</p>
-              <p className="text-[#E6DFD2]/50 text-sm">Matched by level</p>
+              <p className="font-bold">Max 4 people</p>
+              <p className="text-[#E6DFD2]/50 text-sm">Mixed abilities</p>
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Clock className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
@@ -90,25 +90,24 @@ export default function GroupTraining() {
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Target className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
-              <p className="font-bold">From £23.60/session</p>
+              <p className="font-bold">£25/session</p>
               <p className="text-[#E6DFD2]/50 text-sm">In a block of 8</p>
             </div>
           </div>
           <div className="max-w-4xl mx-auto mt-8 bg-[#17140F] border border-[#2C261C] rounded-2xl p-6 md:p-8">
-            <h3 className="font-bold text-xl mb-4" style={{ fontFamily: "'Barlow', sans-serif" }}>Group Training Packages</h3>
+            <h3 className="font-bold text-xl mb-4">Group training prices</h3>
             <div className="space-y-3">
               {[
-                { name: "4 Sessions/Month", price: "£99", freq: "1x per week", best: false },
-                { name: "8 Sessions/Month", price: "£189", freq: "2x per week", best: true },
-                { name: "12 Sessions/Month", price: "£279", freq: "3x per week", best: false },
+                { name: "Small Group Block", price: "£200", freq: "8 sessions · £25 a session · max 4 people", unit: "one-off", best: true },
+                { name: "Marvel Bootcamp", price: "£50", freq: "Coming soon · founding rate", unit: "per month", best: false },
               ].map((p) => (
                 <div key={p.name} className={`flex items-center justify-between p-4 rounded ${p.best ? "bg-[#C9A45C]/10 border border-[#C9A45C]/30" : "bg-white/[0.02] border border-white/10"}`}>
                   <div><p className="font-bold">{p.name}</p><p className="text-[#E6DFD2]/60 text-sm">{p.freq}</p></div>
-                  <div className="text-right"><p className="headline text-2xl">{p.price}</p><p className="text-[#E6DFD2]/50 text-xs">per month</p></div>
+                  <div className="text-right"><p className="headline text-2xl">{p.price}</p><p className="text-[#E6DFD2]/50 text-xs">{p.unit}</p></div>
                 </div>
               ))}
             </div>
-            <p className="text-[#E6DFD2]/50 text-xs mt-3">All packages include nutrition guidance. No contract — cancel anytime. First session free.</p>
+            <p className="text-[#E6DFD2]/50 text-xs mt-3">Tailored to mixed abilities, programmed weekly. Start with a free 30-minute chat.</p>
           </div>
         </div>
       </section>
@@ -118,7 +117,7 @@ export default function GroupTraining() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Proof</p>
-            <h2 className="headline text-3xl md:text-5xl leading-none">GROUP CLIENT RESULTS</h2>
+            <h2 className="headline text-3xl md:text-5xl leading-none">What clients say on Google</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {PROOF_GROUP.map((g) => (

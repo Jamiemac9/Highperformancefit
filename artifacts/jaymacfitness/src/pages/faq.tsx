@@ -11,7 +11,7 @@ const PRICING: FAQItem[] = [
   {
     q: "How much does a personal trainer cost in Birmingham?",
     direct: "Sessions start from \u00a345 per hour when bought in a block. Single sessions are \u00a355. Monthly packages with payment plans are also available.",
-    detail: "Pricing in Birmingham varies widely depending on experience, location and whether you're training in a commercial gym or independently. At High Performance Fit, you're paying for 13 years of experience and a programme that's built specifically for you\u2014not a generic template. Online coaching starts from \u00a349 per week, which includes your full training programme, weekly check-ins and unlimited WhatsApp support.",
+    detail: "Pricing in Birmingham varies widely depending on experience, location and whether you're training in a commercial gym or independently. At High Performance Fit, you're paying for 13 years of experience and a programme that's built specifically for you\u2014not a generic template. Fresh Start is \u00a3250 for five 1-2-1 sessions, 1-2-1 Monthly is \u00a3280 a month for eight sessions, and online coaching is \u00a3120 a month.",
   },
   {
     q: "Is online coaching cheaper than in-person training?",
@@ -58,8 +58,8 @@ const SERVICES: FAQItem[] = [
   },
   {
     q: "How long are the sessions?",
-    direct: "Standard sessions are 60 minutes. 90-minute sessions are available for advanced clients or those combining strength and conditioning work.",
-    detail: "A typical hour includes a 5-minute warm-up, 45\u201350 minutes of focused work and 5\u201310 minutes of cool-down and mobility. I don't waste time\u2014every minute has a purpose. For online clients, the \u2018session\u2019 is your workout, but the weekly check-in call is 15 minutes and form reviews are done via video message throughout the week.",
+    direct: "Standard sessions are 60 minutes.",
+    detail: "A typical hour includes a 5-minute warm-up, 45\u201350 minutes of focused work and 5\u201310 minutes of cool-down and mobility. I don't waste time\u2014every minute has a purpose. For online clients, the \u2018session\u2019 is your own workout, with a weekly video check-in and form reviews by video message.",
   },
   {
     q: "Can I train with a partner or friend?",
@@ -77,7 +77,7 @@ const LOGISTICS: FAQItem[] = [
   {
     q: "Where do you train clients in Birmingham?",
     direct: "I'm based at Foundry Gym in Kings Heath and primarily coach clients across South and Central Birmingham. Online coaching is available worldwide.",
-    detail: "Foundry Gym is just off the Kings Heath High Street with free parking, good equipment and a non-intimidating atmosphere. For outdoor sessions we use Kings Heath Park and Cannon Hill Park. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, you're within 10\u201320 minutes by car or bus. I also have specific area pages for each neighbourhood with local travel details.",
+    detail: "Foundry Gym is in Kings Heath, with good equipment and a non-intimidating atmosphere. For outdoor sessions we use Kings Heath Park and Cannon Hill Park. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, Kings Heath is close by. I also have specific area pages for each neighbourhood with local travel details.",
   },
   {
     q: "Do I need a gym membership?",
@@ -92,11 +92,11 @@ const LOGISTICS: FAQItem[] = [
   {
     q: "How do online sessions work?",
     direct: "You complete an intake form, receive a custom programme via our app, and train on your own schedule. I review your form via video, check in weekly by video call, and answer questions on WhatsApp daily.",
-    detail: "The programme updates automatically as you progress\u2014no more guessing what to do at the gym. You film key exercises and send them to me for form feedback, usually within a few hours. The weekly check-in is 15 minutes where we review your week, adjust the plan and troubleshoot any issues. Many online clients say the daily WhatsApp access is the most valuable part\u2014they've never had that level of support before.",
+    detail: "The programme updates automatically as you progress\u2014no more guessing what to do at the gym. You film key exercises and send them to me for form feedback. The weekly video check-in is where we review your week, adjust the plan and sort out anything that's getting in the way, and you have WhatsApp access to me in between.",
   },
   {
     q: "What if I need to cancel or reschedule?",
-    direct: "Give 24 hours notice and we'll reschedule at no charge. Cancellations within 24 hours may be charged at the coach's discretion.",
+    direct: "Life happens. Give me notice and we'll reschedule. Monthly coaching can be paused with 14 days' notice.",
     detail: "I understand that life happens\u2014work meetings run over, kids get ill, trains get cancelled. The 24-hour policy is fair and protects both of us. For regular clients with genuine emergencies, I'm flexible. I also offer a \u2018session bank\u2019 option where you can roll unused sessions into the following month if you're going on holiday or have a busy period at work.",
   },
   {
@@ -114,13 +114,13 @@ const RESULTS: FAQItem[] = [
   },
   {
     q: "What if I've never trained before?",
-    direct: "Absolutely no problem. Most of my clients started as complete beginners. The only requirement is a willingness to show up and work.",
+    direct: "Absolutely no problem. Plenty of people start as complete beginners. The only requirement is a willingness to show up and work.",
     detail: "I teach every exercise from scratch\u2014proper form, breathing, tempo and why we're doing it. Beginners often progress fastest because everything is new stimulus. I start with fundamental movement patterns (squat, hinge, push, pull, carry) and build from there. There's no expectation that you already know how to use gym equipment. In fact, I'd rather teach you correctly from the start than unteach bad habits.",
   },
   {
     q: "Can you help me lose weight?",
     direct: "Yes. Weight loss is one of the most common goals I work with, and I take a sustainable approach that prioritises fat loss while preserving muscle.",
-    detail: "I don't do crash diets or \u20186-week transformations\u2019 that leave you heavier than when you started. The focus is on creating a moderate calorie deficit through nutrition education and increasing your daily energy expenditure through structured training. Most clients lose 0.5\u20131kg per week, which is the safe, sustainable rate that doesn't trigger metabolic adaptation or rebound weight gain. I've helped clients lose anywhere from 5kg to 40kg.",
+    detail: "I don't do crash diets or \u20186-week transformations\u2019 that leave you heavier than when you started. The focus is on creating a moderate calorie deficit through nutrition education and increasing your daily energy expenditure through structured training. Most clients lose 0.5\u20131kg per week, which is the safe, sustainable rate that doesn't trigger metabolic adaptation or rebound weight gain. For example, Amy lost three stone in 14 weeks, and Danny and Jen lost six stone between them in six months.",
   },
   {
     q: "Do you work with clients outside Birmingham?",

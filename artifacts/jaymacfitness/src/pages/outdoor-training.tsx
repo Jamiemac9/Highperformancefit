@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Phone, Mail, ArrowRight, Sun, TreePine, Mountain, Wind, MapPin, Clock, CloudRain, ChevronDown, CheckCircle2 } from "lucide-react";
 
 const FAQS_OUTDOOR = [
-  { q: "What happens if it rains during an outdoor session?", a: "Light rain? We train — it's actually invigorating. Heavy rain or thunderstorms? We move to a covered area or Foundry Gym as a backup. You'll get a text 2 hours before if the location changes. I've never cancelled a session in 3 years." },
-  { q: "What equipment do I need to bring?", a: "Just yourself, comfortable training kit, trainers with grip and a water bottle. I bring all equipment: kettlebells, resistance bands, battle ropes, agility ladders and medicine balls." },
-  { q: "Where exactly do outdoor sessions take place?", a: "Primary locations: Kings Heath Park (main entrance), Cannon Hill Park (near the MAC), Moseley Park and Highbury Park. The exact spot is confirmed 24 hours before each session based on weather and group size." },
-  { q: "How much does outdoor training cost?", a: "Group outdoor sessions (4–6 people) are £25 per session or £85/month for 4 sessions. 1-to-1 outdoor training is £60/session. All equipment provided. No gym membership needed." },
+  { q: "What happens if it rains during an outdoor session?", a: "Light rain, we train. For anything worse we agree a backup plan, and you'll always know in advance if the location changes." },
+  { q: "What equipment do I need to bring?", a: "Comfortable training kit, trainers with grip and a water bottle. I bring the equipment." },
+  { q: "Where exactly do outdoor sessions take place?", a: "Kings Heath Park, Cannon Hill Park or a green space near you. The meeting point is confirmed before each session." },
+  { q: "How much does outdoor training cost?", a: "Outdoor sessions are priced on the free chat, depending on whether you train 1-2-1 or in a small group. Equipment is provided." },
   { q: "Is outdoor training as effective as gym training?", a: "For most goals — yes. Outdoor training builds functional strength, cardiovascular fitness and mental resilience. The natural terrain (hills, stairs, uneven ground) challenges your body in ways gym machines can't replicate." },
-  { q: "What should I wear for outdoor training?", a: "Layer up. In winter: base layer, mid-layer, waterproof jacket, hat and gloves. In summer: breathable top, shorts, sunscreen and a cap. I'll send a kit list when you book." },
+  { q: "What should I wear for outdoor training?", a: "Layer up. In winter: base layer, mid-layer, waterproof jacket, hat and gloves. In summer: breathable top, shorts, sunscreen and a cap." },
 ];
 
 export default function OutdoorTraining() {
@@ -76,14 +76,13 @@ export default function OutdoorTraining() {
                 <h3 className="font-bold text-xl" style={{ fontFamily: "'Barlow', sans-serif" }}>Training Locations</h3>
               </div>
               <p className="text-[#E6DFD2]/70 leading-relaxed mb-4">
-                Sessions run in Birmingham's best outdoor training spots. Location is confirmed 24 hours before each session.
+                Sessions run in Birmingham's best outdoor training spots. The meeting point is confirmed before each session.
               </p>
               <div className="space-y-3">
                 {[
                   { name: "Kings Heath Park", detail: "Flat areas + hill sprints. Main entrance." },
                   { name: "Cannon Hill Park", detail: "Near the MAC. Stairs, open grass, trees." },
-                  { name: "Moseley Park", detail: "Quieter. Good for focused 1-to-1 sessions." },
-                  { name: "Highbury Park", detail: "Hills and woodland trails. Advanced sessions." },
+                  { name: "Your local green space", detail: "If it suits you better, we can train near you." },
                 ].map((loc) => (
                   <div key={loc.name} className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-[#C9A45C] flex-shrink-0 mt-0.5" />
@@ -110,7 +109,7 @@ export default function OutdoorTraining() {
                   <h3 className="font-bold" style={{ fontFamily: "'Barlow', sans-serif" }}>All-Weather Policy</h3>
                 </div>
                 <p className="text-[#E6DFD2]/70 text-sm leading-relaxed">
-                  Light rain — we train. Heavy rain/thunderstorms — we move to Foundry Gym as backup. You'll get a text 2 hours before if location changes. I've never cancelled a session.
+                  Light rain, we train. For anything worse we agree a backup plan in advance.
                 </p>
               </div>
               <div className="bg-[#17140F] border border-[#2C261C] rounded-2xl p-6">
@@ -119,7 +118,7 @@ export default function OutdoorTraining() {
                   <h3 className="font-bold" style={{ fontFamily: "'Barlow', sans-serif" }}>What to Bring</h3>
                 </div>
                 <p className="text-[#E6DFD2]/70 text-sm leading-relaxed">
-                  Comfortable training kit, trainers with grip, water bottle, sunscreen (summer) or layers (winter). I bring all equipment: kettlebells, bands, ropes, ladders.
+                  Comfortable training kit, trainers with grip, water bottle, sunscreen (summer) or layers (winter). I bring the equipment.
                 </p>
               </div>
             </div>
@@ -127,11 +126,11 @@ export default function OutdoorTraining() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-8">
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
-              <p className="font-bold">Group: £25/session</p>
-              <p className="text-[#E6DFD2]/50 text-sm">4–6 people, equipment included</p>
+              <p className="font-bold">Small group or 1-2-1</p>
+              <p className="text-[#E6DFD2]/50 text-sm">Max 4 people in a group</p>
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
-              <p className="font-bold">1-to-1: £60/session</p>
+              <p className="font-bold">Priced on the free chat</p>
               <p className="text-[#E6DFD2]/50 text-sm">Fully customised outdoor session</p>
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
@@ -202,7 +201,7 @@ export default function OutdoorTraining() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"><Phone className="h-4 w-4" /> Call 07753 226 214</a>
-            <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><ArrowRight className="h-4 w-4" /> Book Free Taster</a>
+            <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><ArrowRight className="h-4 w-4" /> Book a free chat</a>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-[#E6DFD2]/50">
             <span>Also available: <a href="/personal-training-birmingham" className="text-[#C9A45C] hover:underline">1-to-1 Birmingham</a></span>

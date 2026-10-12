@@ -97,7 +97,7 @@ function jsonLdSchema() {
         description:
           "Personal trainer with 13 years experience and 200+ client transformations. Specialist in weight loss, strength training, online coaching and injury rehabilitation. Based at Foundry Gym, Kings Heath, Birmingham.",
         alumniOf: [
-          { "@type": "EducationalOrganization", name: "REPS Level 3 Personal Trainer" },
+          { "@type": "EducationalOrganization", name: "Level 4 Advanced Personal Trainer · Level 4 Strength & Conditioning Coach · REPs member" },
           { "@type": "EducationalOrganization", name: "NASM Certified Personal Trainer" },
         ],
         knowsAbout: [
@@ -282,7 +282,7 @@ function jsonLdSchema() {
             name: "How do I get started?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Fill in the enquiry form below or book a free consultation. We'll have a 20-minute chat about your goals and figure out the right plan for you.",
+              text: "Fill in the enquiry form below or book a free consultation. We'll have a 30-minute chat about your goals and figure out the right plan for you.",
             },
           },
           {
@@ -387,7 +387,7 @@ function ptSchema() {
         "url": BASE_URL + "/",
         "telephone": "+447753226214",
         "email": "hello@highperformancefit.co.uk",
-        "priceRange": "£45–£60 per session",
+        "priceRange": "£25–£50 per session",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Foundry Gym, Kings Heath",
@@ -406,12 +406,12 @@ function ptSchema() {
         "@type": "FAQPage",
         "@id": `${BASE_URL}/personal-training-birmingham/#faqpage`,
         "mainEntity": [
-          { "@type": "Question", "name": "How much does personal training cost in Birmingham?", "acceptedAnswer": { "@type": "Answer", "text": "Sessions start from £45 per hour when bought in a block. Single sessions are £55. Monthly packages with payment plans available. No contract." } },
-          { "@type": "Question", "name": "Do I need a gym membership at Foundry Gym?", "acceptedAnswer": { "@type": "Answer", "text": "No. Your training fee covers gym access during our sessions. Discounted day passes available for independent training." } },
-          { "@type": "Question", "name": "How many sessions per week do I need?", "acceptedAnswer": { "@type": "Answer", "text": "Most clients train 2–3 times per week with the coach and do 1–2 independent sessions. Beginners often start with 2 sessions." } },
-          { "@type": "Question", "name": "What if I have an injury or medical condition?", "acceptedAnswer": { "@type": "Answer", "text": "Every exercise is modified to your body. I work with clients post-injury and with conditions like diabetes, hypertension and arthritis." } },
-          { "@type": "Question", "name": "How long until I see results?", "acceptedAnswer": { "@type": "Answer", "text": "Most clients feel stronger within 2–3 weeks. Visible body composition changes typically show within 6–8 weeks with consistency." } },
-          { "@type": "Question", "name": "Can I train with a partner or friend?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — partner training (2 people) is £70 per session total (£35 each). Great for accountability without the group dynamic." } },
+          { "@type": "Question", "name": "How much does personal training cost in Birmingham?", "acceptedAnswer": { "@type": "Answer", "text": "Fresh Start is £250 for five 1-2-1 sessions (£50 a session). 1-2-1 Monthly is £280 a month for eight sessions (£35 a session) on direct debit, with no contract." } },
+          
+          { "@type": "Question", "name": "How many sessions per week do I need?", "acceptedAnswer": { "@type": "Answer", "text": "Two a week is a good starting point for most people, and 1-2-1 Monthly is built around that. The right rhythm is agreed on the free chat." } },
+          { "@type": "Question", "name": "What if I have an injury or medical condition?", "acceptedAnswer": { "@type": "Answer", "text": "Rehab-aware programming is a big part of the coaching, backed by Level 4 qualifications in weight management through exercise and in obesity and diabetes. Happy to work alongside your physio or GP." } },
+          { "@type": "Question", "name": "How long until I see results?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on your starting point and consistency. As a guide, Amy lost three stone in 14 weeks of 1-2-1 training." } },
+          { "@type": "Question", "name": "Can I train with a partner or friend?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Danny and Jen trained together as a couple and lost six stone between them. Ask about partner sessions on the free chat." } },
         ],
       },
     ],
@@ -426,7 +426,7 @@ function onlineSchema() {
         "@type": "Service",
         "@id": `${BASE_URL}/online-coaching/#service`,
         "name": "Online Personal Training UK & Worldwide",
-        "description": "Custom training programmes, weekly video check-ins, form reviews and direct WhatsApp access. Online personal training with Jay Macdonald.",
+        "description": "Custom training programmes, weekly video check-ins, form reviews and direct WhatsApp access. Online personal training with Jay.",
         "provider": { "@type": "Organization", "@id": `${BASE_URL}/#organization` },
         "areaServed": { "@type": "Country", "name": "United Kingdom" },
         "serviceType": "Online Coaching",
@@ -445,9 +445,9 @@ function onlineSchema() {
         "mainEntity": [
           { "@type": "Question", "name": "How does online personal training actually work?", "acceptedAnswer": { "@type": "Answer", "text": "Complete an intake form, receive a custom programme via our app, weekly 15-minute video check-ins, form video reviews and daily WhatsApp access." } },
           { "@type": "Question", "name": "What equipment do I need for online coaching?", "acceptedAnswer": { "@type": "Answer", "text": "Minimum: a phone and open space. Preferred: dumbbells or resistance bands. Programmes are designed around what you have." } },
-          { "@type": "Question", "name": "How much does online coaching cost?", "acceptedAnswer": { "@type": "Answer", "text": "Standard plan from £49/week (£196/month). Premium with weekly video calls and full nutrition planning is £79/week. No contract." } },
-          { "@type": "Question", "name": "What time zones do you cover?", "acceptedAnswer": { "@type": "Answer", "text": "Based in Birmingham (GMT/BST) but coach clients across UK, Europe, US East Coast, Middle East and Asia." } },
-          { "@type": "Question", "name": "How do video form reviews work?", "acceptedAnswer": { "@type": "Answer", "text": "Record exercises on your phone, upload via WhatsApp or app. Reviewed within 24 hours with detailed corrections and cues." } },
+          { "@type": "Question", "name": "How much does online coaching cost?", "acceptedAnswer": { "@type": "Answer", "text": "£120 a month, rolling monthly. No contract." } },
+          { "@type": "Question", "name": "Do you coach people outside the UK?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Jay is based in Birmingham (UK time) and has coached online clients in five countries." } },
+          { "@type": "Question", "name": "How do video form reviews work?", "acceptedAnswer": { "@type": "Answer", "text": "Record your key lifts on your phone and send them over WhatsApp or the app. Jay comes back with corrections and cues." } },
           { "@type": "Question", "name": "Is online coaching as effective as in-person training?", "acceptedAnswer": { "@type": "Answer", "text": "For self-motivated clients, yes — sometimes more so because you train more frequently. Accountability comes from weekly check-ins and daily access." } },
         ],
       },
@@ -463,7 +463,7 @@ function groupSchema() {
         "@type": "Service",
         "@id": `${BASE_URL}/group-training/#service`,
         "name": "Small Group Personal Training Birmingham",
-        "description": "Train in a small group of 4–6 people with the intensity of 1-to-1 coaching and the motivation of a team. Based at Foundry Gym in Kings Heath, Birmingham.",
+        "description": "Train in a small group of up to four people with PT-level programming. Based at Foundry Gym in Kings Heath, Birmingham. £25 a session in a block of eight.",
         "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
         "areaServed": { "@type": "City", "name": "Birmingham" },
         "serviceType": "Group Training",
@@ -480,11 +480,11 @@ function groupSchema() {
         "@type": "FAQPage",
         "@id": `${BASE_URL}/group-training/#faqpage`,
         "mainEntity": [
-          { "@type": "Question", "name": "How many people are in a group training session?", "acceptedAnswer": { "@type": "Answer", "text": "Groups are capped at 4–6 people. Small enough for individual attention, large enough for real energy." } },
+          { "@type": "Question", "name": "How many people are in a group training session?", "acceptedAnswer": { "@type": "Answer", "text": "A maximum of four people, so everyone gets coached properly." } },
           { "@type": "Question", "name": "Do I need to be at the same fitness level as everyone else?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every exercise has progressions and regressions. Beginners and intermediates can train side by side." } },
-          { "@type": "Question", "name": "How much does group training cost compared to 1-to-1?", "acceptedAnswer": { "@type": "Answer", "text": "Group sessions are roughly 40–50% cheaper per person. 8 sessions/month is £189 (£23.60/session) vs £45/session for 1-to-1." } },
-          { "@type": "Question", "name": "What times are group sessions available?", "acceptedAnswer": { "@type": "Answer", "text": "Current groups: Tuesday & Thursday 18:30, Saturday 09:00. Morning groups forming for early risers." } },
-          { "@type": "Question", "name": "Can I try a session before committing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — your first group session is free. Come along, meet the group and see how sessions run. No pressure." } },
+          { "@type": "Question", "name": "How much does group training cost?", "acceptedAnswer": { "@type": "Answer", "text": "A Small Group Block is £200 for eight sessions (£25 a session). 1-2-1 starts from £35 a session." } },
+          { "@type": "Question", "name": "When do group sessions run?", "acceptedAnswer": { "@type": "Answer", "text": "Sessions are programmed weekly. Ask on the free chat for current times and space." } },
+          
           { "@type": "Question", "name": "What if I miss a session?", "acceptedAnswer": { "@type": "Answer", "text": "You can join another group the same week (subject to space) or swap for a discounted 30-minute 1-to-1 catch-up." } },
         ],
       },
@@ -517,11 +517,11 @@ function outdoorSchema() {
         "@type": "FAQPage",
         "@id": `${BASE_URL}/outdoor-training/#faqpage`,
         "mainEntity": [
-          { "@type": "Question", "name": "What happens if it rains during an outdoor session?", "acceptedAnswer": { "@type": "Answer", "text": "Light rain — we train. Heavy rain or thunderstorms — we move to a covered area or Foundry Gym as backup. Text sent 2 hours before if location changes." } },
-          { "@type": "Question", "name": "What equipment do I need to bring?", "acceptedAnswer": { "@type": "Answer", "text": "Comfortable kit, trainers with grip and a water bottle. The coach brings all equipment: kettlebells, bands, ropes, ladders." } },
-          { "@type": "Question", "name": "Where exactly do outdoor sessions take place?", "acceptedAnswer": { "@type": "Answer", "text": "Kings Heath Park, Cannon Hill Park, Moseley Park and Highbury Park. Exact spot confirmed 24 hours before each session." } },
-          { "@type": "Question", "name": "How much does outdoor training cost?", "acceptedAnswer": { "@type": "Answer", "text": "Group outdoor (4–6 people): £25/session or £85/month for 4 sessions. 1-to-1 outdoor: £60/session. All equipment provided." } },
-          { "@type": "Question", "name": "Is outdoor training as effective as gym training?", "acceptedAnswer": { "@type": "Answer", "text": "For most goals, yes. Natural terrain challenges your body in ways gym machines can't. Builds functional strength and mental resilience." } },
+          { "@type": "Question", "name": "What happens if it rains during an outdoor session?", "acceptedAnswer": { "@type": "Answer", "text": "Light rain, we train. For anything worse we agree a backup plan, and you will always know in advance if the location changes." } },
+          { "@type": "Question", "name": "What equipment do I need to bring?", "acceptedAnswer": { "@type": "Answer", "text": "Comfortable kit, trainers with grip and a water bottle. Jay brings the equipment." } },
+          { "@type": "Question", "name": "Where exactly do outdoor sessions take place?", "acceptedAnswer": { "@type": "Answer", "text": "Kings Heath Park, Cannon Hill Park or a green space near you. The meeting point is confirmed before each session." } },
+          { "@type": "Question", "name": "How much does outdoor training cost?", "acceptedAnswer": { "@type": "Answer", "text": "Outdoor sessions are priced on the free chat, depending on whether you train 1-2-1 or in a small group." } },
+          { "@type": "Question", "name": "Is outdoor training as effective as gym training?", "acceptedAnswer": { "@type": "Answer", "text": "For most goals, yes. Hills, steps and open space make a proper workout without machines." } },
           { "@type": "Question", "name": "What should I wear for outdoor training?", "acceptedAnswer": { "@type": "Answer", "text": "Layer up. Winter: base layer, mid-layer, waterproof jacket, hat and gloves. Summer: breathable top, shorts, sunscreen and cap." } },
         ],
       },
@@ -537,7 +537,7 @@ function faqSchema() {
     { q: "Do you offer payment plans?", a: "Yes. Monthly direct debit options are available for all block-booking packages. You can also pay upfront by bank transfer if you prefer. The most popular option is splitting a 10-session block into two monthly payments, or a 24-session transformation package across three months. There's no credit check, no interest and no contract\u2014just a simple standing order that you can cancel with 30 days notice. We set this up during your free consultation so it's one less thing to think about." },
     { q: "What's included in the price?", a: "Every session includes a fully personalised workout, real-time coaching on form and technique, programme adjustments based on your progress, and nutrition guidance. You're not just renting an hour of someone's time. I track your body composition, adjust your programme every 2\u20134 weeks, review your nutrition via WhatsApp, and provide homework exercises for the days we don't train together. Online clients get all of this plus video form reviews and a training app that updates your programme automatically." },
     { q: "Are there any hidden fees or contracts?", a: "No hidden fees and no contracts. You pay for the sessions you book and you can stop at any time. The price you see is the price you pay. There's no joining fee, no admin charge and no cancellation penalty (beyond the 24-hour notice policy for individual sessions). I don't believe in locking people in\u2014if the coaching is working, you'll want to continue. If it's not, you shouldn't be stuck." },
-    { q: "Can I try a session before committing to a package?", a: "Yes. I offer a free 20-minute consultation and a discounted taster session so you can experience the coaching before booking a block. The consultation is no-pressure\u2014we chat about your goals, training history and what's held you back. If you want to try a full session, the taster is priced at \u00a335 (normally \u00a355). About 90% of people who book a taster go on to book a package, but there's never any hard sell." },
+    { q: "Can I try a session before committing to a package?", a: "Yes. Start with a free 30-minute chat, so you know exactly what you are getting before you buy anything." },
     // Services
     { q: "What's the difference between 1-to-1 and group training?", a: "1-to-1 training is fully personalised to you\u2014every exercise, every weight, every rest period is tailored. Group training caps at 4\u20136 people with a shared programme but individual attention where needed. In 1-to-1 sessions we can work around injuries, adjust intensity minute-by-minute, and focus on specific weaknesses. Group training is great for people who thrive on energy and accountability\u2014you'll push harder surrounded by others, and it's significantly cheaper per person. I run groups for friends, couples and colleagues who want to train together." },
     { q: "Can you train me if I have an injury?", a: "Yes. I work with clients recovering from injuries and can liaise with your physio or GP to ensure your programme is safe and effective. I've trained clients post-ACL reconstruction, with chronic lower back pain, shoulder impingement and herniated discs. The key is understanding your limitations and building around them\u2014not ignoring them. I often start with movement screening and refer to a physio if needed before loading heavier weights. Recovery isn't a reason to stop training; it's a reason to train smarter." },
@@ -589,7 +589,7 @@ function areaSchema(area) {
         "url": BASE_URL + "/",
         "telephone": "+447753226214",
         "email": "hello@highperformancefit.co.uk",
-        "priceRange": "£45–£60 per session",
+        "priceRange": "£25–£50 per session",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Foundry Gym, Kings Heath",
@@ -715,7 +715,7 @@ function blogPostSchema(post) {
     "inLanguage": "en-GB",
     "author": {
       "@type": "Person",
-      "name": "Jay Macdonald",
+      "name": "Jay",
       "url": `${BASE_URL}/about-jay`,
     },
     "publisher": {
@@ -831,31 +831,31 @@ const routes = [
   {
     route: "/personal-training-birmingham",
     title: "Personal Training Birmingham — 1-to-1 Coaching That Works | High Performance Fit",
-    description: "1-to-1 personal training in Birmingham at Foundry Gym, Kings Heath. Custom programmes, nutrition support, progress tracking. Free consultation. Sessions from £45.",
+    description: "1-to-1 personal training in Birmingham at Foundry Gym, Kings Heath, with a Level 4 coach. Custom programmes and nutrition guidance. Free 30-minute chat. From £35 a session.",
     schema: ptSchema(),
   },
   {
     route: "/online-coaching",
     title: "Online Personal Training UK & Worldwide — Custom Plans, Real Results | High Performance Fit",
-    description: "Online personal coaching with custom programmes, video form reviews, weekly check-ins and WhatsApp access. Clients in 5+ countries. From £49/week.",
+    description: "Online personal coaching with a bespoke programme, weekly video check-ins and WhatsApp access to Jay. Clients coached in five countries. £120 a month.",
     schema: onlineSchema(),
   },
   {
     route: "/group-training",
     title: "Small Group Personal Training Birmingham — Accountability & Energy | High Performance Fit",
-    description: "Small group training in Birmingham for 4–6 people. Team energy, structured sessions, individual attention. From £23.60/session. Free trial.",
+    description: "Small group training in Kings Heath, Birmingham, max four people. PT-level programming, mixed abilities. £200 for eight sessions.",
     schema: groupSchema(),
   },
   {
     route: "/outdoor-training",
     title: "Outdoor Personal Training Birmingham — Fresh Air, No Machines | High Performance Fit",
-    description: "Outdoor training in Birmingham parks. Bodyweight, kettlebells, natural terrain. Kings Heath Park, Cannon Hill Park. Group £25, 1-to-1 £60. Free taster.",
+    description: "Outdoor personal training in Kings Heath Park, Cannon Hill Park or your local green space. Book a free 30-minute chat.",
     schema: outdoorSchema(),
   },
   {
     route: "/blog",
     title: "Fitness Blog — High Performance Fit",
-    description: "Training tips, insights and advice from Birmingham personal trainer Jay Macdonald. No clickbait — just what actually works.",
+    description: "Training tips, insights and advice from Birmingham personal trainer Jay. No clickbait — just what actually works.",
     schema: false,
   },
   ...BLOG_POSTS.map((post) => ({
@@ -896,8 +896,8 @@ const routes = [
   },
   {
     route: "/about-jay",
-    title: "About Jay Macdonald — High Performance Fit",
-    description: "Meet Jay — REPS Level 3 qualified personal trainer in Birmingham. 8+ years experience, 500+ clients coached. Book a free consultation.",
+    title: "About Jay — High Performance Fit",
+    description: "Meet Jay: Level 4 qualified personal trainer and strength & conditioning coach in Kings Heath, Birmingham. 13 years coaching. Book a free chat.",
     schema: false,
   },
   {
@@ -909,7 +909,7 @@ const routes = [
   {
     route: "/contact",
     title: "Contact — High Performance Fit",
-    description: "Get in touch with High Performance Fit. Call, text or email Jay Macdonald. Free consultation available. Foundry Gym, Kings Heath, Birmingham.",
+    description: "Get in touch with High Performance Fit. Call, text or email Jay. Free consultation available. Foundry Gym, Kings Heath, Birmingham.",
     schema: false,
   },
   {

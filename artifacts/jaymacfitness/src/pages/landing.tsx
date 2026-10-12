@@ -8,6 +8,7 @@ import { Footer } from "../components/Footer";
 import { SiteNav } from "../components/hpf/SiteNav";
 import { GoogleG } from "../components/hpf/GoogleG";
 import { useInView } from "../components/hpf/useInView";
+import { useSiteMotion } from "../components/hpf/motion";
 import "../styles/hpf.css";
 
 /* ───────── data ───────── */
@@ -189,7 +190,7 @@ function Split({
 
 function BookButton({ where, label = "Book a free chat" }: { where: string; label?: string }) {
   return (
-    <a className="hpf-btn hpf-btn--fill" href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick(label, where)}>
+    <a className="hpf-btn hpf-btn--fill" data-magnetic href={SITE_CONFIG.BOOKING_URL} onClick={() => trackBookingClick(label, where)}>
       {label}
     </a>
   );
@@ -210,6 +211,7 @@ function useReviews() {
 /* ───────── page ───────── */
 
 export default function Landing() {
+  useSiteMotion("home");
   const [paid, setPaid] = useState<string | null>(null);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -235,19 +237,23 @@ export default function Landing() {
         )}
         <main>
           <Hero />
+          <Statement />
           <Results />
           <Coach />
           <figure className="hpf-fold">
-            <img
-              src="/images/site/pad-work-1280.webp"
-              srcSet={srcSet("pad-work", [800, 1280, 1600])}
-              sizes="100vw"
-              width={1600}
-              height={900}
-              loading="lazy"
-              decoding="async"
-              alt="Jay holding pads for a client during a boxing drill"
-            />
+            <div className="hpf-fold__frame">
+              <img
+                src="/images/site/pad-work-1280.webp"
+                srcSet={srcSet("pad-work", [800, 1280, 1600])}
+                sizes="100vw"
+                width={1600}
+                height={900}
+                loading="lazy"
+                decoding="async"
+                data-parallax-img
+                alt="Jay holding pads for a client during a boxing drill"
+              />
+            </div>
             <figcaption>Pad work during a 1-2-1 session.</figcaption>
           </figure>
           <Coaching />
@@ -268,26 +274,35 @@ export default function Landing() {
 
 function Hero() {
   const { rating, count } = useReviews();
-  const { ref, inView } = useInView<HTMLElement>(0);
   return (
-    <section ref={ref} data-in={inView} className="hpf-hero hpf-reveal" aria-labelledby="hero-title">
+    <section className="hpf-hero" aria-labelledby="hero-title">
       <div className="hpf-hero__text">
         <h1 id="hero-title" className="hpf-h1">
-          Tried it all before? <span className="hpf-accent">Good.</span> You’re exactly who I train.
+          <span className="hpf-line">
+            <span>Tried it all before?</span>
+          </span>
+          <span className="hpf-line">
+            <span>
+              <span className="hpf-accent">Good.</span> You’re exactly
+            </span>
+          </span>
+          <span className="hpf-line">
+            <span>who I train.</span>
+          </span>
         </h1>
-        <p className="hpf-lede">
+        <p className="hpf-lede hpf-fade hpf-fade--1">
           Diets, apps, a gym membership that quietly stopped getting used. Most people who come to me have been through all
           three. I’m Jay, and I build the plan around the week you actually have.
         </p>
-        <div className="hpf-hero__cta">
+        <div className="hpf-hero__cta hpf-fade hpf-fade--2">
           <BookButton where="hero" />
           <a className="hpf-link" href={SITE_CONFIG.WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
             <MessageCircle aria-hidden="true" strokeWidth={2} />
             WhatsApp me
           </a>
         </div>
-        <p className="hpf-small hpf-hero__micro">30 minutes at Foundry Gym or on the phone. No contract, no hard sell.</p>
-        <ul className="hpf-proof">
+        <p className="hpf-small hpf-hero__micro hpf-fade hpf-fade--2">30 minutes at Foundry Gym or on the phone. No contract, no hard sell.</p>
+        <ul className="hpf-proof hpf-fade hpf-fade--3">
           <li>
             <a href="#reviews">
               <GoogleG />
@@ -317,40 +332,75 @@ function Hero() {
   );
 }
 
+function Statement() {
+  return (
+    <section className="hpf-statement" data-statement aria-label="How I coach, in one line">
+      <div className="hpf-wrap">
+        <p className="hpf-statement__text" data-words>
+          Most people don’t need more motivation. They need a <b>plan</b> that fits the week they actually have, and someone
+          who <b>notices</b> when they start to drift.
+        </p>
+        <p className="hpf-body hpf-statement__after" data-statement-after>
+          That’s the job. Training, food and the habits that hold it together, with me checking in the whole way.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function RailCard({ c }: { c: (typeof CASES)[number] }) {
+  const { ref, inView } = useInView<HTMLElement>(0.25);
+  return (
+    <article ref={ref} data-in={inView} data-rail-card className="hpf-rcard hpf-reveal">
+      <figure className="hpf-figure">
+        <div className="hpf-figure__frame hpf-case__frame" style={{ ["--ratio" as string]: c.ratio }} data-tilt>
+          <img src={`/images/site/${c.img}.webp`} alt={c.alt} loading="lazy" decoding="async" />
+          <div className={`hpf-case__veil ${c.afterOnLeft ? "hpf-case__veil--left" : "hpf-case__veil--right"}`} aria-hidden="true" />
+          <span className={`hpf-tag hpf-tag--l${c.afterOnLeft ? " hpf-tag--after" : ""}`}>{c.afterOnLeft ? "After" : "Before"}</span>
+          <span className={`hpf-tag hpf-tag--r${c.afterOnLeft ? "" : " hpf-tag--after"}`}>{c.afterOnLeft ? "Before" : "After"}</span>
+        </div>
+      </figure>
+      <div className="hpf-rcard__body">
+        <p className="hpf-case__name">{c.name}</p>
+        <h3 className="hpf-h2 hpf-case__result">{c.result}</h3>
+        <p className="hpf-case__meta">{c.meta}</p>
+        <blockquote className="hpf-quote">
+          <p>“{c.quote}”</p>
+        </blockquote>
+      </div>
+    </article>
+  );
+}
+
 function Results() {
   return (
-    <section id="results" className="hpf-section hpf-section--tint" aria-labelledby="results-title">
+    <section id="results" className="hpf-rail hpf-section--tint" data-rail aria-labelledby="results-title">
       <div className="hpf-wrap">
-        <div className="hpf-head">
+        <div className="hpf-head" style={{ marginBottom: "var(--space-lg)" }}>
           <h2 id="results-title" className="hpf-h2">Three people who’d tried it all before.</h2>
           <p className="hpf-lede">Their results, their timelines and their words.</p>
         </div>
-        {CASES.map((c, i) => (
-          <Split key={c.name} flip={i % 2 === 1} className="hpf-case">
-            <figure className="hpf-figure">
-              <div className="hpf-figure__frame hpf-case__frame" style={{ ["--ratio" as string]: c.ratio }}>
-                <img src={`/images/site/${c.img}.webp`} alt={c.alt} loading="lazy" decoding="async" />
-                <div className={`hpf-case__veil ${c.afterOnLeft ? "hpf-case__veil--left" : "hpf-case__veil--right"}`} aria-hidden="true" />
-                <span className={`hpf-tag hpf-tag--l${c.afterOnLeft ? " hpf-tag--after" : ""}`}>{c.afterOnLeft ? "After" : "Before"}</span>
-                <span className={`hpf-tag hpf-tag--r${c.afterOnLeft ? "" : " hpf-tag--after"}`}>{c.afterOnLeft ? "Before" : "After"}</span>
-              </div>
-            </figure>
-            <div>
-              <p className="hpf-case__name">{c.name}</p>
-              <h3 className="hpf-h2 hpf-case__result">{c.result}</h3>
-              <p className="hpf-case__meta">{c.meta}</p>
-              <blockquote className="hpf-quote">
-                <p>“{c.quote}”</p>
-              </blockquote>
+      </div>
+      <div className="hpf-rail__viewport" data-rail-viewport>
+        <div className="hpf-rail__track" data-rail-track>
+          {CASES.map((c) => (
+            <RailCard key={c.name} c={c} />
+          ))}
+          <article className="hpf-rcard hpf-rcard--cta" data-rail-card>
+            <h3 className="hpf-h2">Your name could be here.</h3>
+            <p className="hpf-body">Start with a free 30-minute chat. If it’s not a fit, you’ve lost nothing but half an hour.</p>
+            <div className="hpf-hero__cta">
+              <BookButton where="results" />
             </div>
-          </Split>
-        ))}
-        <div className="hpf-head" style={{ marginTop: "var(--space-3xl)", marginBottom: 0 }}>
-          <h3 className="hpf-h2">Your name could be here.</h3>
-          <p className="hpf-body">Start with a free 30-minute chat. If it’s not a fit, you’ve lost nothing but half an hour.</p>
-          <div className="hpf-hero__cta">
-            <BookButton where="results" />
-          </div>
+          </article>
+        </div>
+      </div>
+      <div className="hpf-wrap">
+        <div className="hpf-rail__foot">
+          <span className="hpf-rail__progress" aria-hidden="true">
+            <i data-rail-progress />
+          </span>
+          <span className="hpf-rail__hint" aria-hidden="true">Swipe for more →</span>
         </div>
       </div>
     </section>
@@ -363,7 +413,7 @@ function Coach() {
       <div className="hpf-wrap">
         <Split flip>
           <figure className="hpf-figure">
-            <div className="hpf-figure__frame hpf-portrait">
+            <div className="hpf-figure__frame hpf-portrait" data-tilt>
               <img
                 src="/images/site/jay-gym-floor-800.webp"
                 srcSet={srcSet("jay-gym-floor", [800, 1242])}
@@ -386,7 +436,7 @@ function Coach() {
               There’s no sales team and no junior trainers. You train with me. I’ll push you harder than you’d push yourself,
               and I’ll start from wherever you are on day one.
             </p>
-            <ul className="hpf-creds" aria-label="Qualifications">
+            <ul className="hpf-creds" aria-label="Qualifications" data-motion-stagger>
               {CREDENTIALS.map(([level, name]) => (
                 <li key={name}>
                   <b>{level}</b>
@@ -431,7 +481,7 @@ function Coaching() {
               We talk through what you’ve tried, what got in the way, and what you want this time. Worst case, you get half an
               hour of straight advice and a brew.
             </p>
-            <ol className="hpf-steps">
+            <ol className="hpf-steps" data-motion-stagger>
               {STEPS.map(([title, text]) => (
                 <li key={title}>
                   <div>
@@ -469,7 +519,7 @@ function Coaching() {
               Most progress happens on the days we don’t train. You get WhatsApp access to me, check-ins on training and food,
               and a plan that changes when your week does.
             </p>
-            <ul className="hpf-list">
+            <ul className="hpf-list" data-motion-stagger>
               <li>Nutrition guidance that fits a normal day, and bespoke guidance on 1-2-1 Monthly.</li>
               <li>Weekly video check-ins if you train online.</li>
               <li>Monthly body composition tracking on 1-2-1 Monthly.</li>
@@ -505,7 +555,7 @@ function Ways() {
           <div>
             <h2 id="ways-title" className="hpf-h2">Four ways to train with me.</h2>
             <p className="hpf-lede">Where we train is up to you. How I coach doesn’t change.</p>
-            <ul className="hpf-ways">
+            <ul className="hpf-ways" data-motion-stagger>
               {WAYS.map((w) => (
                 <li key={w.href}>
                   <a href={w.href}>
@@ -546,7 +596,7 @@ function Prices() {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody data-motion-stagger>
             {PRICES.map((p) => (
               <tr key={p.name} data-popular={p.popular ? "true" : undefined}>
                 <th scope="row">
@@ -612,7 +662,7 @@ function Bootcamp() {
   return (
     <section id="bootcamp" className="hpf-section hpf-section--tint" aria-labelledby="boot-title">
       <div className="hpf-wrap">
-        <div className="hpf-boot">
+        <div className="hpf-boot" data-mcta-hide>
           <Split>
             <div>
               <h2 id="boot-title" className="hpf-h2">Bootcamps at Marvel The Studio, coming soon.</h2>
@@ -676,7 +726,7 @@ function Reviews() {
         </div>
         <div className="hpf-reviews">
           {lead && (
-            <figure className="hpf-pull">
+            <figure className="hpf-pull" data-reveal>
               <blockquote>
                 <p>“{lead.text}”</p>
               </blockquote>
@@ -685,7 +735,7 @@ function Reviews() {
               </figcaption>
             </figure>
           )}
-          <div className="hpf-notes">
+          <div className="hpf-notes" data-motion-stagger>
             {rest.slice(0, 4).map((r, i) => (
               <figure className="hpf-note" key={`${r.name}-${i}`}>
                 <blockquote>
@@ -717,7 +767,7 @@ function Faq() {
         <div className="hpf-head">
           <h2 id="faq-title" className="hpf-h2">Questions people ask first.</h2>
         </div>
-        <div className="hpf-faq">
+        <div className="hpf-faq" data-motion-stagger>
           {FAQS.map(([q, a], i) => (
             <details key={q} open={i === 0}>
               <summary>
@@ -763,11 +813,11 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="hpf-section" aria-labelledby="contact-title">
+    <section id="contact" className="hpf-section" aria-labelledby="contact-title" data-mcta-hide>
       <div className="hpf-wrap">
         <Split>
           <div>
-            <h2 id="contact-title" className="hpf-h2">Right, enough reading.</h2>
+            <h2 id="contact-title" className="hpf-h2" data-final style={{ transformOrigin: "left center" }}>Right, enough reading.</h2>
             <p className="hpf-lede">
               The free chat takes 30 minutes and could save you years of starting over. Fill this in or WhatsApp me. I usually
               reply the same day.

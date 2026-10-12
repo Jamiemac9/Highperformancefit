@@ -145,7 +145,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Why online is cheaper than in-person",
         paragraphs: [
-          "Online coaching removes the biggest cost of in-person training: the coach's time in the room. Instead of paying £45–£60 for a single hour, you pay a flat monthly fee for ongoing programming and support across the whole week.",
+          "Online coaching removes the biggest cost of in-person training: the coach's time in the room. Instead of paying for every hour of a coach's time in the room, you pay a flat monthly fee for ongoing programming and support across the whole week.",
           "For self-motivated people who can train independently, this is often better value — you get more frequent contact and structure for less money.",
         ],
       },
@@ -366,7 +366,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "The realistic starting point for most people",
         paragraphs: [
           [
-            "Most of my clients train with a coach 2–3 times a week and do 1–2 independent sessions on top. For ",
+            "A common pattern is two or three coached sessions a week with one or two independent sessions on top. For ",
             {
               text: "1-to-1 personal training",
               href: "/personal-training-birmingham",

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE_CONFIG } from "../../config";
 import { trackBookingClick } from "../../lib/tracking";
+import { lockScroll } from "./motion";
 
 /** Booking link that works from any page while BOOKING_URL is still the #contact anchor. */
 export function bookingHref(onHome: boolean) {
@@ -20,6 +21,7 @@ type NavProps = {
 export function SiteNav({ onHome = false, stickyBar = false }: NavProps) {
   const [open, setOpen] = useState(false);
   const [showBar, setShowBar] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const home = onHome ? "" : "/";
   const book = bookingHref(onHome);
 
@@ -45,38 +47,37 @@ export function SiteNav({ onHome = false, stickyBar = false }: NavProps) {
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    lockScroll(true);
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
+      lockScroll(false);
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
   useEffect(() => {
-    if (!stickyBar) return;
-    const contact = document.getElementById("contact");
-    let contactVisible = false;
-    const update = () => setShowBar(window.scrollY > window.innerHeight * 0.7 && !contactVisible);
-    const obs =
-      contact && typeof IntersectionObserver !== "undefined"
-        ? new IntersectionObserver((entries) => {
-            contactVisible = entries.some((e) => e.isIntersecting);
-            update();
-          })
-        : null;
-    if (contact && obs) obs.observe(contact);
+    // The bar hides while a form (or anything marked data-mcta-hide) is on screen.
+    const hideAt = Array.from(document.querySelectorAll<HTMLElement>("[data-mcta-hide]"));
+    const update = () => {
+      const y = window.scrollY;
+      setScrolled(y > 30);
+      if (!stickyBar) return;
+      const covered = hideAt.some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top < window.innerHeight * 0.85 && r.bottom > 0;
+      });
+      setShowBar(y > window.innerHeight * 0.7 && !covered);
+    };
     update();
     window.addEventListener("scroll", update, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", update);
-      obs?.disconnect();
-    };
+    return () => window.removeEventListener("scroll", update);
   }, [stickyBar]);
 
   return (
     <>
-      <header className="hpf-nav" aria-label="Site">
+      <header className="hpf-nav" aria-label="Site" data-scrolled={scrolled}>
         <a className="hpf-nav__brand" href={onHome ? "#top" : "/"} aria-label="High Performance Fit, home">
           <img src="/images/site/hpf-logo-96.webp" srcSet="/images/site/hpf-logo-96.webp 1x, /images/site/hpf-logo-192.webp 2x" width={35} height={36} alt="" />
           <span className="hpf-nav__word">High Performance Fit</span>
@@ -90,7 +91,7 @@ export function SiteNav({ onHome = false, stickyBar = false }: NavProps) {
             ))}
           </ul>
         </nav>
-        <a className="hpf-btn hpf-btn--fill hpf-nav__book" href={book} onClick={() => trackBookingClick("Book a free chat", "nav")}>
+        <a className="hpf-btn hpf-btn--fill hpf-nav__book" data-magnetic href={book} onClick={() => trackBookingClick("Book a free chat", "nav")}>
           Book a free chat
         </a>
         <button
@@ -136,16 +137,20 @@ export function SiteNav({ onHome = false, stickyBar = false }: NavProps) {
 
       {stickyBar && (
         <div className="hpf-bar" data-show={showBar && !open} aria-hidden={!showBar}>
+          <span className="hpf-bar__text">
+            Free 30-minute chat
+            <small>No contract · I reply the same day</small>
+          </span>
           <a
             className="hpf-btn hpf-btn--fill"
             href={book}
             tabIndex={showBar ? 0 : -1}
             onClick={() => trackBookingClick("Book a free chat", "sticky-bar")}
           >
-            Book a free chat
+            Book
           </a>
           <a
-            className="hpf-btn hpf-btn--line"
+            className="hpf-bar__wa"
             href={SITE_CONFIG.WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
