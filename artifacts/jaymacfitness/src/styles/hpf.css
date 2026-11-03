@@ -22,6 +22,9 @@
   --hpf-rule-accent: oklch(77% 0.095 82 / 0.45);
   --hpf-focus: oklch(85% 0.11 86);
   --hpf-error: oklch(74% 0.13 32);
+  --hpf-error-wash: oklch(74% 0.13 32 / 0.09);
+  --hpf-error-rule: oklch(74% 0.13 32 / 0.5);
+  --hpf-accent-wash: oklch(77% 0.095 82 / 0.09);
   --hpf-img-outline: oklch(1 0 0 / 0.1);
   --hpf-glare: oklch(85% 0.09 85 / 0.16);
   --hpf-wa: oklch(72% 0.17 150);
@@ -1676,4 +1679,35 @@ textarea.hpf-input {
   .hpf-btn:active {
     scale: 1;
   }
+}
+
+/* contact → assessment link */
+.hpf-assess-link {
+  margin: var(--space-md) 0 0;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--hpf-rule);
+  font-size: var(--text-sm);
+  color: var(--hpf-ink-2);
+}
+.hpf-assess-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  min-height: 2.75rem;
+  color: var(--hpf-accent);
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+  border-radius: var(--radius-sm);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.hpf-assess-link a:hover {
+  color: var(--hpf-accent-hover);
+}
+.hpf-assess-link a:focus-visible {
+  outline-color: var(--hpf-focus);
+}
+.hpf-assess-link svg {
+  width: 1em;
+  height: 1em;
 }

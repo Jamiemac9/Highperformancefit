@@ -16,6 +16,9 @@ import {
   Inbox as InboxIcon,
   Loader2,
   TrendingUp,
+  Send,
+  Link2,
+  MessageCircle,
 } from "lucide-react";
 
 type LeadStatus = "NEW" | "CONTACTED" | "CONVERTED" | "LOST";
@@ -58,6 +61,32 @@ const STATUS_STYLES: Record<LeadStatus, string> = {
 };
 
 const PAGE_SIZE = 20;
+
+/* ── Assessment links Jay can send to prospects ── */
+const ASSESSMENT_URL = "https://highperformancefit.co.uk/assessment";
+
+function assessmentLink(name?: string) {
+  const first = name?.trim().split(/\s+/)[0];
+  return first ? `${ASSESSMENT_URL}?name=${encodeURIComponent(first)}` : ASSESSMENT_URL;
+}
+
+function assessmentMessage(name?: string) {
+  const first = name?.trim().split(/\s+/)[0];
+  return `Hi${first ? ` ${first}` : ""}, here's the quick assessment I mentioned. It takes about four minutes and means our first chat can get straight to the useful stuff: ${assessmentLink(name)}\n\nJay`;
+}
+
+/** UK numbers to WhatsApp's international format: 07… → 447… */
+function waNumber(phone?: string | null) {
+  let d = (phone || "").replace(/\D/g, "");
+  if (d.startsWith("00")) d = d.slice(2);
+  else if (d.startsWith("0")) d = "44" + d.slice(1);
+  return d;
+}
+
+function whatsappHref(phone: string | null | undefined, text: string) {
+  const n = waNumber(phone);
+  return `https://wa.me/${n.length >= 10 ? n : ""}?text=${encodeURIComponent(text)}`;
+}
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
@@ -149,6 +178,8 @@ export default function DashboardLeads() {
 
   return (
     <div className="space-y-8">
+      <SendAssessment />
+
       {/* Stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard label="Total Leads" value={stats.total} icon={InboxIcon} />
@@ -342,6 +373,61 @@ export default function DashboardLeads() {
   );
 }
 
+function SendAssessment() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [copied, setCopied] = useState(false);
+  const message = assessmentMessage(name);
+  const input =
+    "h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#C8FF00]/60";
+  const btn =
+    "inline-flex h-10 items-center justify-center gap-1.5 rounded-md px-3 text-xs font-semibold transition-colors";
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(assessmentLink(name));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.prompt("Copy this link:", assessmentLink(name));
+    }
+  };
+
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <div className="text-sm font-semibold text-white">Send the assessment</div>
+          <div className="text-xs text-white/50 mt-1">
+            A 4-minute questionnaire. Their answers land here as a new lead with source "assessment".
+          </div>
+        </div>
+        <a href={assessmentLink(name)} target="_blank" rel="noopener noreferrer" className="text-xs text-white/50 hover:text-[#C8FF00] whitespace-nowrap">
+          Preview
+        </a>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_auto]">
+        <input className={input} placeholder="Their first name (optional)" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className={input} placeholder="Their mobile (optional)" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <div className="flex gap-2 sm:col-span-2 lg:col-span-1">
+          <a href={whatsappHref(phone, message)} target="_blank" rel="noopener noreferrer" className={`${btn} flex-1 bg-[#C8FF00] text-black hover:bg-[#b8ee00]`}>
+            <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
+          </a>
+          <a
+            href={`mailto:?subject=${encodeURIComponent("Your quick training assessment")}&body=${encodeURIComponent(message)}`}
+            className={`${btn} flex-1 bg-white/5 text-white/80 border border-white/10 hover:bg-white/10`}
+          >
+            <Send className="h-3.5 w-3.5" /> Email
+          </a>
+          <button type="button" onClick={copy} className={`${btn} flex-1 bg-white/5 text-white/80 border border-white/10 hover:bg-white/10`}>
+            <Link2 className="h-3.5 w-3.5" /> {copied ? "Copied" : "Copy link"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function StatCard({
   label,
   value,
@@ -441,11 +527,26 @@ function ActionButtons({
 
   const baseBtn = "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed";
 
+  const canSendAssessment = !!lead.phone && !lead.source?.startsWith("assessment") && !isFinal;
+
   return (
     <div
       onClick={stop}
       className={`${stacked ? "flex flex-col gap-2 w-full" : "flex flex-wrap items-center justify-end gap-2"}`}
     >
+      {canSendAssessment && (
+        <a
+          href={whatsappHref(lead.phone, assessmentMessage(lead.name))}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={stop}
+          title="Send this lead the assessment on WhatsApp"
+          className={`${baseBtn} bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 ${stacked ? "w-full" : ""}`}
+        >
+          <Send className="h-3.5 w-3.5" />
+          Send assessment
+        </a>
+      )}
       <button
         type="button"
         onClick={(e) => { stop(e); onMark("CONTACTED"); }}

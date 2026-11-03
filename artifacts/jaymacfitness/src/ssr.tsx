@@ -30,6 +30,7 @@ import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
 import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
 import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
 import BlogPost from "./pages/blog-post";
+import Assessment from "./pages/assessment";
 
 const h = React.createElement;
 
@@ -50,6 +51,7 @@ export function render(url: string): string {
   if (url === "/" || url === "") Page = Landing;
   else if (url === "/login") Page = Login;
   else if (url === "/register") Page = Register;
+  else if (url === "/assessment") Page = Assessment;
   else if (url === "/personal-training-birmingham") Page = () => h(MarketingLayout, null, h(PersonalTrainingBirmingham));
   else if (url === "/online-coaching") Page = () => h(MarketingLayout, null, h(OnlineCoaching));
   else if (url === "/group-training") Page = () => h(MarketingLayout, null, h(GroupTraining));

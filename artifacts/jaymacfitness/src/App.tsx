@@ -24,6 +24,7 @@ import PersonalTrainerEdgbaston from "./pages/personal-trainer-edgbaston";
 import PersonalTrainerHarborne from "./pages/personal-trainer-harborne";
 import PersonalTrainerSellyOak from "./pages/personal-trainer-selly-oak";
 import BlogPost from "./pages/blog-post";
+import Assessment from "./pages/assessment";
 import NotFound from "./pages/not-found";
 import { MarketingLayout } from "./components/MarketingLayout";
 
@@ -99,6 +100,9 @@ function App() {
               <Route path="/personal-trainer-edgbaston" element={<MarketingLayout><PersonalTrainerEdgbaston /></MarketingLayout>} />
               <Route path="/personal-trainer-harborne" element={<MarketingLayout><PersonalTrainerHarborne /></MarketingLayout>} />
               <Route path="/personal-trainer-selly-oak" element={<MarketingLayout><PersonalTrainerSellyOak /></MarketingLayout>} />
+
+              {/* Client assessment — a focused page Jay can send to prospects */}
+              <Route path="/assessment" element={<Assessment />} />
 
               {/* Public auth routes — full-bleed branded pages, no marketing chrome */}
               <Route path="/login" element={<Login />} />

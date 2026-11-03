@@ -785,12 +785,22 @@ function buildHtml(route, rendered, schema = false) {
     `<link rel="canonical" href="${BASE_URL}${route === "/" ? "/" : route}" />`
   );
 
+  // Link previews (WhatsApp, iMessage, socials) read og:/twitter: tags, not
+  // <title>, so give every page its own — otherwise a shared link shows the homepage.
+  const attr = (s) => s.replace(/"/g, "&quot;");
+  const shared = route === "/" ? described : described
+    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${BASE_URL}${route}" />`)
+    .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${attr(rendered.helmet.title)}" />`)
+    .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${attr(rendered.helmet.description)}" />`)
+    .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${attr(rendered.helmet.title)}" />`)
+    .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${attr(rendered.helmet.description)}" />`);
+
   // Inject JSON-LD schema before </head>
-  let withSchema = described;
+  let withSchema = shared;
   if (schema === true) {
-    withSchema = described.replace("</head>", `${jsonLdSchema()}\n</head>`);
+    withSchema = shared.replace("</head>", `${jsonLdSchema()}\n</head>`);
   } else if (typeof schema === "string" && schema.length > 0) {
-    withSchema = described.replace("</head>", `${schema}\n</head>`);
+    withSchema = shared.replace("</head>", `${schema}\n</head>`);
   }
 
   const noscript = `
@@ -910,6 +920,12 @@ const routes = [
     route: "/contact",
     title: "Contact — High Performance Fit",
     description: "Get in touch with High Performance Fit. Call, text or email Jay. Free consultation available. Foundry Gym, Kings Heath, Birmingham.",
+    schema: false,
+  },
+  {
+    route: "/assessment",
+    title: "Free Training Assessment — High Performance Fit",
+    description: "Four minutes, four short sections. See your readiness score and the coaching package that fits, and your answers go straight to Jay.",
     schema: false,
   },
   {

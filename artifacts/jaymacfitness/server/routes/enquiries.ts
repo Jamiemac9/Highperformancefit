@@ -47,8 +47,10 @@ async function sendWelcomeEmail(email: string, tempPassword: string, firstName: 
 
 async function sendEnquiryNotification(enquiry: {
   name: string;
+  email: string | null;
   phone: string | null;
   message: string;
+  source: string | null;
 }) {
   const transport = process.env.GMAIL_APP_PASSWORD
     ? nodemailer.createTransport({
@@ -62,8 +64,10 @@ async function sendEnquiryNotification(enquiry: {
   const info = await transport.sendMail({
     from: '"High Performance Fit" <hello@highperformancefit.co.uk>',
     to: "hello@highperformancefit.co.uk",
-    subject: `New website enquiry from ${enquiry.name}`,
-    text: `Name: ${enquiry.name}\nWhatsApp: ${enquiry.phone || "Not supplied"}\n\n${enquiry.message || "No message supplied"}`,
+    subject: enquiry.source?.startsWith("assessment")
+      ? `New assessment from ${enquiry.name}`
+      : `New website enquiry from ${enquiry.name}`,
+    text: `Name: ${enquiry.name}\nWhatsApp: ${enquiry.phone || "Not supplied"}\nEmail: ${enquiry.email || "Not supplied"}\n\n${enquiry.message || "No message supplied"}`,
   });
   console.log(`[email] enquiry notification queued for ${enquiry.name}`, info.messageId);
 }
