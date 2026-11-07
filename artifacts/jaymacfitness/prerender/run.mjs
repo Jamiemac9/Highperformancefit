@@ -11,6 +11,7 @@
 import { JSDOM } from "jsdom";
 import fs from "fs";
 import path from "path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "url";
 import areas from "../src/data/areas.json" with { type: "json" };
 
@@ -806,7 +807,7 @@ function buildHtml(route, rendered, schema = false) {
   const noscript = `
 <noscript>
   <div style="background:#0F0D0B;color:#F3EEE5;padding:48px 24px;text-align:center;font-family:Georgia,serif;">
-    <h1 style="font-size:32px;margin:0 0 16px;">High Performance Fit</h1>
+    <div style="font-size:32px;margin:0 0 16px;font-weight:bold;">High Performance Fit</div>
     <p style="font-size:18px;margin:0 0 24px;max-width:600px;margin-left:auto;margin-right:auto;">
       Personal training in Birmingham and worldwide. 13 years, 200+ transformations.
       JavaScript is required to use the booking system, but you can still contact us directly.
@@ -834,38 +835,38 @@ function buildHtml(route, rendered, schema = false) {
 const routes = [
   {
     route: "/",
-    title: "High Performance Fit — Personal Training Birmingham & Online",
-    description: "Real coaching in Kings Heath for people who've tried everything else. 1-2-1, small group, outdoor and online personal training across South Birmingham. 200+ clients, 5-star Google rated. Book a free chat.",
+    title: "Personal Training Birmingham | High Performance Fit",
+    description: "Personal training in Kings Heath and South Birmingham with Jay. Choose 1-to-1, small group, outdoor or online coaching and book a free consultation.",
     schema: true,
   },
   {
     route: "/personal-training-birmingham",
-    title: "Personal Training Birmingham — 1-to-1 Coaching That Works | High Performance Fit",
-    description: "1-to-1 personal training in Birmingham at Foundry Gym, Kings Heath, with a Level 4 coach. Custom programmes and nutrition guidance. Free 30-minute chat. From £35 a session.",
+    title: "1-to-1 Personal Training Birmingham | High Performance Fit",
+    description: "One-to-one personal training in Birmingham at Foundry Gym, Kings Heath. Work with Jay on a tailored plan and arrange a free consultation to discuss your goals.",
     schema: ptSchema(),
   },
   {
     route: "/online-coaching",
-    title: "Online Personal Training UK & Worldwide — Custom Plans, Real Results | High Performance Fit",
-    description: "Online personal coaching with a bespoke programme, weekly video check-ins and WhatsApp access to Jay. Clients coached in five countries. £120 a month.",
+    title: "Online Personal Training UK | High Performance Fit",
+    description: "Personalised online coaching with a training plan, weekly check-ins and direct WhatsApp support from Jay. Train from anywhere with guidance to stay consistent.",
     schema: onlineSchema(),
   },
   {
     route: "/group-training",
-    title: "Small Group Personal Training Birmingham — Accountability & Energy | High Performance Fit",
-    description: "Small group training in Kings Heath, Birmingham, max four people. PT-level programming, mixed abilities. £200 for eight sessions.",
+    title: "Small Group Training Birmingham | High Performance Fit",
+    description: "Small group personal training in Kings Heath, Birmingham, with structured programming and a welcoming mix of abilities. Book a free consultation.",
     schema: groupSchema(),
   },
   {
     route: "/outdoor-training",
-    title: "Outdoor Personal Training Birmingham — Fresh Air, No Machines | High Performance Fit",
-    description: "Outdoor personal training in Kings Heath Park, Cannon Hill Park or your local green space. Book a free 30-minute chat.",
+    title: "Outdoor Personal Training Birmingham | High Performance Fit",
+    description: "Outdoor personal training in Kings Heath Park, Cannon Hill Park or a local green space. Train with Jay in the fresh air and book a free consultation.",
     schema: outdoorSchema(),
   },
   {
     route: "/blog",
-    title: "Fitness Blog — High Performance Fit",
-    description: "Training tips, insights and advice from Birmingham personal trainer Jay. No clickbait — just what actually works.",
+    title: "Training Tips & Fitness Advice | High Performance Fit",
+    description: "Practical training advice from Jay, a Birmingham personal trainer. Read clear guides on coaching, strength training, fitness habits and choosing the right plan.",
     schema: false,
   },
   ...BLOG_POSTS.map((post) => ({
@@ -876,56 +877,56 @@ const routes = [
   })),
   {
     route: "/personal-trainer-kings-heath",
-    title: areas["kings-heath"].title,
-    description: areas["kings-heath"].metaDescription,
+    title: "Personal Trainer Kings Heath | High Performance Fit",
+    description: "Find personal training in Kings Heath at Foundry Gym. Jay offers 1-to-1, small group and outdoor coaching, with a free consultation to discuss your goals.",
     schema: areaSchema(areas["kings-heath"]),
   },
   {
     route: "/personal-trainer-moseley",
-    title: areas["moseley"].title,
-    description: areas["moseley"].metaDescription,
+    title: "Personal Trainer Moseley Birmingham | High Performance Fit",
+    description: "Looking for a personal trainer near Moseley? Train with Jay at Foundry Gym in nearby Kings Heath, with 1-to-1, small group and outdoor coaching options.",
     schema: areaSchema(areas["moseley"]),
   },
   {
     route: "/personal-trainer-edgbaston",
-    title: areas["edgbaston"].title,
-    description: areas["edgbaston"].metaDescription,
+    title: "Personal Trainer Edgbaston Birmingham | High Performance Fit",
+    description: "Personal training for Edgbaston residents at Foundry Gym in Kings Heath. Work with Jay on 1-to-1 coaching, a plan for your goals and a free consultation.",
     schema: areaSchema(areas["edgbaston"]),
   },
   {
     route: "/personal-trainer-harborne",
-    title: areas["harborne"].title,
-    description: areas["harborne"].metaDescription,
+    title: "Personal Trainer Harborne Birmingham | High Performance Fit",
+    description: "Personal training for Harborne residents at Foundry Gym in Kings Heath. Choose 1-to-1 or small group coaching with Jay and arrange a free consultation.",
     schema: areaSchema(areas["harborne"]),
   },
   {
     route: "/personal-trainer-selly-oak",
-    title: areas["selly-oak"].title,
-    description: areas["selly-oak"].metaDescription,
+    title: "Personal Trainer Selly Oak Birmingham | High Performance Fit",
+    description: "Personal training for Selly Oak residents at Foundry Gym in Kings Heath. Jay offers beginner-friendly 1-to-1 and small group coaching. Book a free consultation.",
     schema: areaSchema(areas["selly-oak"]),
   },
   {
     route: "/about-jay",
-    title: "About Jay — High Performance Fit",
-    description: "Meet Jay: Level 4 qualified personal trainer and strength & conditioning coach in Kings Heath, Birmingham. 13 years coaching. Book a free chat.",
+    title: "Meet Jay, Personal Trainer Birmingham | High Performance Fit",
+    description: "Meet Jay, a Level 4 qualified personal trainer based at Foundry Gym in Kings Heath. Learn about his coaching approach and book a free consultation.",
     schema: false,
   },
   {
     route: "/faq",
-    title: "FAQ — High Performance Fit",
-    description: "Frequently asked questions about personal training, online coaching, group sessions and pricing at High Performance Fit Birmingham.",
+    title: "Personal Training FAQs Birmingham | High Performance Fit",
+    description: "Answers to common questions about personal training in Birmingham, online coaching, small group sessions and outdoor training with High Performance Fit.",
     schema: faqSchema(),
   },
   {
     route: "/contact",
-    title: "Contact — High Performance Fit",
-    description: "Get in touch with High Performance Fit. Call, text or email Jay. Free consultation available. Foundry Gym, Kings Heath, Birmingham.",
+    title: "Contact a Personal Trainer Birmingham | High Performance Fit",
+    description: "Contact Jay at High Performance Fit to ask about personal training, coaching options or availability. Based at Foundry Gym in Kings Heath, Birmingham.",
     schema: false,
   },
   {
     route: "/assessment",
-    title: "Free Training Assessment — High Performance Fit",
-    description: "Four minutes, four short sections. See your readiness score and the coaching package that fits, and your answers go straight to Jay.",
+    title: "Free Personal Training Assessment | High Performance Fit",
+    description: "Answer a few questions about your goals, training, health and weekly routine to receive a readiness score and coaching package suggestion from Jay.",
     schema: false,
   },
   {
@@ -941,6 +942,71 @@ const routes = [
     schema: false,
   },
 ];
+
+// Keep sitemap lastmod aligned with the latest source change for each route.
+// In a dirty workspace, use the edited file timestamp; published builds use
+// the source commit date. This avoids changing every URL's date on every build.
+const sitemapSources = {
+  "/": ["artifacts/jaymacfitness/src/pages/landing.tsx"],
+  "/personal-training-birmingham": ["artifacts/jaymacfitness/src/pages/personal-training-birmingham.tsx"],
+  "/online-coaching": ["artifacts/jaymacfitness/src/pages/online-coaching.tsx"],
+  "/group-training": ["artifacts/jaymacfitness/src/pages/group-training.tsx"],
+  "/outdoor-training": ["artifacts/jaymacfitness/src/pages/outdoor-training.tsx"],
+  "/blog": ["artifacts/jaymacfitness/src/pages/blog.tsx", "artifacts/jaymacfitness/src/data/blog-posts.ts"],
+  "/personal-trainer-kings-heath": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
+  "/personal-trainer-moseley": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
+  "/personal-trainer-edgbaston": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
+  "/personal-trainer-harborne": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
+  "/personal-trainer-selly-oak": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
+  "/about-jay": ["artifacts/jaymacfitness/src/pages/about-jay.tsx"],
+  "/faq": ["artifacts/jaymacfitness/src/pages/faq.tsx"],
+  "/contact": ["artifacts/jaymacfitness/src/pages/contact.tsx"],
+  "/assessment": ["artifacts/jaymacfitness/src/pages/assessment.tsx"],
+};
+const workspaceRoot = path.resolve(__dirname, "../../..");
+function sourceLastmod(files) {
+  const dates = files.map((file) => {
+    const absolute = path.join(workspaceRoot, file);
+    try {
+      const dirty = execFileSync("git", ["status", "--porcelain", "--", file], { cwd: workspaceRoot, encoding: "utf8" }).trim();
+      if (dirty) return fs.statSync(absolute).mtime.toISOString().slice(0, 10);
+      const committed = execFileSync("git", ["log", "-1", "--format=%cs", "--", file], { cwd: workspaceRoot, encoding: "utf8" }).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(committed)) return committed;
+    } catch {
+      // Fall back to the file date when Git history is not available in a build.
+    }
+    return fs.statSync(absolute).mtime.toISOString().slice(0, 10);
+  });
+  return dates.sort().at(-1);
+}
+
+const sitemapPages = routes.filter((route) => sitemapSources[route.route]);
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapPages.map((route) => {
+  const priorities = {
+    "/": "1.0",
+    "/personal-training-birmingham": "0.9",
+    "/online-coaching": "0.9",
+    "/group-training": "0.8",
+    "/outdoor-training": "0.8",
+    "/blog": "0.7",
+    "/personal-trainer-kings-heath": "0.8",
+    "/personal-trainer-moseley": "0.8",
+    "/personal-trainer-edgbaston": "0.8",
+    "/personal-trainer-harborne": "0.8",
+    "/personal-trainer-selly-oak": "0.8",
+    "/about-jay": "0.6",
+    "/faq": "0.6",
+    "/contact": "0.5",
+    "/assessment": "0.6",
+  };
+  const priority = priorities[route.route];
+  const changefreq = ["/", "/personal-training-birmingham", "/online-coaching", "/group-training", "/outdoor-training", "/blog"].includes(route.route)
+    ? "weekly"
+    : "monthly";
+  return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : route.route}</loc>\n    <lastmod>${sourceLastmod([...sitemapSources[route.route], "artifacts/jaymacfitness/prerender/run.mjs"])}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+}).join("\n")}\n</urlset>\n`;
+fs.writeFileSync(path.join(OUT_DIR, "sitemap.xml"), sitemapXml, "utf-8");
+fs.writeFileSync(path.resolve(__dirname, "../public/sitemap.xml"), sitemapXml, "utf-8");
 
 for (const r of routes) {
   const rendered = await prerenderRoute(r);

@@ -63,7 +63,7 @@ export default function AboutJay() {
                   height={995}
                   fetchPriority="high"
                   decoding="async"
-                  alt="Jay in the gym"
+                  alt="Jay reviewing a client’s training plan on his laptop and phone"
                 />
               </div>
             </figure>
@@ -77,14 +77,14 @@ export default function AboutJay() {
             <figure className="hpf-figure">
               <div className="hpf-figure__frame" style={{ aspectRatio: "3 / 2" }}>
                 <img
-                  src="/images/site/consultation-phone-800.webp"
-                  srcSet={srcSet("consultation-phone", [800, 1242])}
+                  src="/images/site/consultation-chat-800.webp"
+                  srcSet={srcSet("consultation-chat", [800, 1242])}
                   sizes="(min-width: 60rem) 45vw, 100vw"
                   width={1242}
-                  height={837}
+                  height={828}
                   loading="lazy"
                   decoding="async"
-                  alt="Jay going through a plan with a client on his phone"
+                  alt="Jay discussing a training plan with a client"
                 />
               </div>
             </figure>

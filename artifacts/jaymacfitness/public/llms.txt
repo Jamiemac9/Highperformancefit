@@ -1,0 +1,25 @@
+# High Performance Fit
+
+> Personal training and online coaching based at Foundry Gym in Kings Heath, Birmingham.
+
+## Main pages
+- [Home](https://highperformancefit.co.uk/)
+- [Personal training in Birmingham](https://highperformancefit.co.uk/personal-training-birmingham)
+- [Online coaching](https://highperformancefit.co.uk/online-coaching)
+- [Small group training](https://highperformancefit.co.uk/group-training)
+- [Outdoor training](https://highperformancefit.co.uk/outdoor-training)
+- [Training tips and fitness advice](https://highperformancefit.co.uk/blog)
+- [About Jay](https://highperformancefit.co.uk/about-jay)
+- [Frequently asked questions](https://highperformancefit.co.uk/faq)
+- [Contact](https://highperformancefit.co.uk/contact)
+- [Free training assessment](https://highperformancefit.co.uk/assessment)
+
+## South Birmingham area pages
+- [Personal trainer in Kings Heath](https://highperformancefit.co.uk/personal-trainer-kings-heath)
+- [Personal trainer in Moseley](https://highperformancefit.co.uk/personal-trainer-moseley)
+- [Personal trainer in Edgbaston](https://highperformancefit.co.uk/personal-trainer-edgbaston)
+- [Personal trainer in Harborne](https://highperformancefit.co.uk/personal-trainer-harborne)
+- [Personal trainer in Selly Oak](https://highperformancefit.co.uk/personal-trainer-selly-oak)
+
+## Other resources
+- [Sitemap](https://highperformancefit.co.uk/sitemap.xml)

@@ -212,7 +212,7 @@ export default function Landing() {
                 loading="lazy"
                 decoding="async"
                 data-parallax-img
-                alt="Jay holding pads for a client during a boxing drill"
+                alt="Jay coaching a client through a boxing pad-work drill"
               />
             </div>
             <figcaption>Pad work during a 1-2-1 session.</figcaption>
@@ -286,7 +286,7 @@ function Hero() {
           height={900}
           fetchPriority="high"
           decoding="async"
-          alt="Jay correcting a client’s grip during a dumbbell exercise"
+          alt="Jay guiding a client through a dumbbell exercise"
         />
       </figure>
     </section>
@@ -390,7 +390,7 @@ function Coach() {
           <div>
             <h2 id="jay-title" className="hpf-h2">Who’s actually coaching you?</h2>
             <p className="hpf-lede">
-              Fair question. I’m Jay. I’ve trained for 17 years and coached for 13, in Kings Heath, across South Birmingham
+              I’m Jay. I’ve trained for 17 years and coached for 13, in Kings Heath, across South Birmingham
               and online with people who’ve never met me in person.
             </p>
             <p className="hpf-body">
@@ -469,7 +469,7 @@ function Coaching() {
                 height={1600}
                 loading="lazy"
                 decoding="async"
-                alt="Jay writing a client’s programme on his laptop"
+                alt="Jay reviewing a client’s training plan on his laptop and phone"
                 style={{ objectPosition: "50% 35%" }}
               />
             </div>
