@@ -35,7 +35,7 @@ slotsRouter.get("/", async (req: AuthedRequest, res, next) => {
 const createSchema = z.object({
   date: z.string().datetime(),
   duration: z.number().int().positive().max(240).optional(),
-  type: z.enum(["GYM", "ONLINE", "OUTDOOR"]).optional(),
+  type: z.enum(["GYM", "ONLINE"]).optional(),
 });
 
 // Trainer creates an availability slot

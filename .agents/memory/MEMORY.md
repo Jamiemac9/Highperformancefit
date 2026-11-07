@@ -1,1 +1,2 @@
 - [Prerender SEO pages](jaymacfitness-prerender-seo.md) — jaymacfitness static pages need edits in 5 synced places or SEO silently breaks; FAQPage schema must match on-page FAQ text.
+- [Retired outdoor coaching](jaymacfitness-retired-outdoor-coaching.md) — outdoor training is no longer a public offer; keep legacy booking records readable without allowing new outdoor bookings.

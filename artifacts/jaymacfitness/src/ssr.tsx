@@ -19,7 +19,6 @@ import Register from "./pages/register";
 import PersonalTrainingBirmingham from "./pages/personal-training-birmingham";
 import OnlineCoaching from "./pages/online-coaching";
 import GroupTraining from "./pages/group-training";
-import OutdoorTraining from "./pages/outdoor-training";
 import AboutJay from "./pages/about-jay";
 import Faq from "./pages/faq";
 import Contact from "./pages/contact";
@@ -55,7 +54,6 @@ export function render(url: string): string {
   else if (url === "/personal-training-birmingham") Page = () => h(MarketingLayout, null, h(PersonalTrainingBirmingham));
   else if (url === "/online-coaching") Page = () => h(MarketingLayout, null, h(OnlineCoaching));
   else if (url === "/group-training") Page = () => h(MarketingLayout, null, h(GroupTraining));
-  else if (url === "/outdoor-training") Page = () => h(MarketingLayout, null, h(OutdoorTraining));
   else if (url === "/about-jay") Page = () => h(MarketingLayout, null, h(AboutJay));
   else if (url === "/faq") Page = () => h(MarketingLayout, null, h(Faq));
   else if (url === "/contact") Page = () => h(MarketingLayout, null, h(Contact));

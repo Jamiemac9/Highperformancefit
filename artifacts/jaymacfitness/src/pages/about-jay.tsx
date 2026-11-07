@@ -40,8 +40,8 @@ export default function AboutJay() {
                 I’m Jay. I’ll be the one coaching you.
               </h1>
               <p className="hpf-lede">
-                I’ve trained myself for 17 years and coached for 13. I work from Foundry Gym in Kings Heath, outdoors in the
-                local parks, and online with clients in five countries.
+                I’ve trained myself for 17 years and coached for 13. I work from Foundry Gym in Kings Heath and online with
+                clients in five countries.
               </p>
               <div className="hpf-hero__cta">
                 <a className="hpf-btn hpf-btn--fill" data-magnetic href={book} onClick={() => trackBookingClick("Book a free chat", "about-hero")}>
@@ -163,12 +163,6 @@ export default function AboutJay() {
                     <MapPin aria-hidden="true" strokeWidth={2} />
                     Foundry Gym, Kings Heath, Birmingham B14 7JZ
                   </a>
-                </li>
-                <li>
-                  <span>
-                    <MapPin aria-hidden="true" strokeWidth={2} />
-                    Outdoors: Kings Heath Park, Cannon Hill Park or a green space near you
-                  </span>
                 </li>
                 <li>
                   <a href={SITE_CONFIG.WHATSAPP_URL} target="_blank" rel="noopener noreferrer">

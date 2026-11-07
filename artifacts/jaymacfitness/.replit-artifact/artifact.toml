@@ -34,9 +34,6 @@ to = "/online-coaching/index.html"
 from = "/group-training"
 to = "/group-training/index.html"
 
-[[services.production.rewrites]]
-from = "/outdoor-training"
-to = "/outdoor-training/index.html"
 
 [[services.production.rewrites]]
 from = "/blog"
@@ -74,9 +71,6 @@ to = "/blog/online-personal-training-cost-uk/index.html"
 from = "/blog/benefits-of-small-group-training"
 to = "/blog/benefits-of-small-group-training/index.html"
 
-[[services.production.rewrites]]
-from = "/blog/outdoor-personal-training-birmingham-guide"
-to = "/blog/outdoor-personal-training-birmingham-guide/index.html"
 
 [[services.production.rewrites]]
 from = "/blog/personal-training-vs-online-coaching"

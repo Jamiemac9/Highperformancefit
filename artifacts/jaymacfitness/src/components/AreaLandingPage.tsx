@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronDown, Phone, Mail, MapPin, Landmark, Trees, Bus, Clock, CheckCircle2, Home } from "lucide-react";
+import { ArrowRight, ChevronDown, Phone, Mail, MapPin, Landmark, Bus, Clock, CheckCircle2, Home } from "lucide-react";
 import amyTransformation from "@assets/amy_trasnformation_1777814405343.jpg";
 import dannyJenTransformation from "@assets/dannyandjen_progress_pic_1777814405345.jpg";
 import elaineTransformation from "@assets/elaine_transformation_1777814405346.jpg";
@@ -35,7 +35,6 @@ export type AreaData = {
   distance: string;
   localIntro: string;
   landmarks: string[];
-  parks: string[];
   transport: string[];
   serviceAreas: string;
   serviceAreaList: string[];
@@ -104,21 +103,12 @@ export default function AreaLandingPage({ area }: { area: AreaData }) {
             <h2 className="headline text-3xl md:text-5xl leading-none mb-6">YOUR LOCAL PERSONAL TRAINER IN {area.name.toUpperCase()}</h2>
             <p className="text-[#E6DFD2]/75 text-lg leading-relaxed">{area.localIntro}</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl">
             <article className="bg-[#17140F] border border-[#2C261C] rounded p-6">
               <Landmark className="h-8 w-8 text-[#C9A45C] mb-4" />
               <h3 className="font-bold text-lg mb-3" style={{ fontFamily: "'Barlow', sans-serif" }}>Local landmarks</h3>
               <ul className="space-y-2">
                 {area.landmarks.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-[#E6DFD2]/70 text-sm"><CheckCircle2 className="h-4 w-4 text-[#C9A45C] flex-shrink-0 mt-0.5" />{item}</li>
-                ))}
-              </ul>
-            </article>
-            <article className="bg-[#17140F] border border-[#2C261C] rounded p-6">
-              <Trees className="h-8 w-8 text-[#C9A45C] mb-4" />
-              <h3 className="font-bold text-lg mb-3" style={{ fontFamily: "'Barlow', sans-serif" }}>Parks &amp; outdoor spaces</h3>
-              <ul className="space-y-2">
-                {area.parks.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-[#E6DFD2]/70 text-sm"><CheckCircle2 className="h-4 w-4 text-[#C9A45C] flex-shrink-0 mt-0.5" />{item}</li>
                 ))}
               </ul>

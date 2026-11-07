@@ -68,7 +68,6 @@ const Q: Record<ChoiceId, Question> = {
     opts: [
       { value: "gym", label: "A full gym", hint: "Barbells, cables, cardio machines" },
       { value: "home", label: "A home set-up", hint: "Dumbbells, a bench, maybe a pull-up bar" },
-      { value: "outdoor", label: "Outdoors", hint: "Parks, running routes" },
       { value: "bands", label: "Bands and a mat", hint: "Minimal kit at home" },
       { value: "none", label: "Nothing", hint: "Bodyweight only" },
     ],
@@ -197,8 +196,6 @@ function focusPoints(c: Choices, d: Details, stress: number) {
   }
   if (c.equipment === "none" || c.equipment === "bands") {
     out.push({ title: "Training without a gym", body: "Your solo workouts will use bodyweight and bands, with tempo and pauses to keep them hard enough to work." });
-  } else if (c.equipment === "outdoor") {
-    out.push({ title: "Making the outdoors work", body: "Your solo sessions will mix runs with bodyweight circuits you can do in any park." });
   } else if (c.equipment) {
     out.push({ title: "Using the kit you’ve got", body: "Your solo sessions will be written for your gym or set-up, so you know exactly what to do when I’m not there." });
   }

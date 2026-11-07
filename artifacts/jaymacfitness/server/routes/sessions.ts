@@ -23,7 +23,7 @@ const createSchema = z.object({
   clientId: z.string(),
   date: z.string(),
   duration: z.number().int().positive(),
-  type: z.enum(["GYM", "ONLINE", "OUTDOOR"]),
+  type: z.enum(["GYM", "ONLINE"]),
   notes: z.string().optional(),
 });
 
@@ -43,7 +43,7 @@ sessionsRouter.post("/", requireTrainer, async (req: AuthedRequest, res) => {
 const updateSchema = z.object({
   date: z.string().optional(),
   duration: z.number().int().positive().optional(),
-  type: z.enum(["GYM", "ONLINE", "OUTDOOR"]).optional(),
+  type: z.enum(["GYM", "ONLINE"]).optional(),
   notes: z.string().optional(),
   completed: z.boolean().optional(),
 });

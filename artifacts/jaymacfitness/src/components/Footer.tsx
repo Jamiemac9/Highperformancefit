@@ -4,7 +4,6 @@ import "../styles/hpf.css";
 const PAGES: [string, string][] = [
   ["/personal-training-birmingham", "1-2-1 training"],
   ["/group-training", "Small group"],
-  ["/outdoor-training", "Outdoor"],
   ["/online-coaching", "Online coaching"],
   ["/about-jay", "About Jay"],
   ["/faq", "FAQ"],

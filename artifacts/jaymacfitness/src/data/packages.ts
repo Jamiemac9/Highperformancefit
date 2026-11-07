@@ -15,6 +15,14 @@ export type PricePackage = {
 
 export const PRICES: PricePackage[] = [
   {
+    id: "online",
+    name: "Online Coaching",
+    note: "Flexible coaching, wherever you train",
+    detail: "A personal training plan built around your goals, equipment and week. Includes weekly video check-ins, exercise form reviews and direct WhatsApp support from Jay. Rolling monthly, no long contract.",
+    price: "£120",
+    per: "a month",
+  },
+  {
     id: "fresh-start",
     name: "Fresh Start",
     note: "Best for testing the water",
@@ -38,14 +46,6 @@ export const PRICES: PricePackage[] = [
     detail: "8 sessions, maximum four people. Mixed abilities, programmed every week.",
     price: "£200",
     per: "one-off · £25 a session",
-  },
-  {
-    id: "online",
-    name: "Online Coaching",
-    note: "Rolling monthly",
-    detail: "Programme delivered through the app, weekly video check-ins and a WhatsApp line straight to me. Train anywhere.",
-    price: "£120",
-    per: "a month",
   },
   {
     id: "marvel",

@@ -27,7 +27,7 @@ const sessionSchema = z.object({
   date: z.string().min(1, "Date is required"),
   time: z.string().min(1, "Time is required"),
   duration: z.coerce.number().min(15).max(180),
-  type: z.enum(["GYM", "ONLINE", "OUTDOOR"]),
+  type: z.enum(["GYM", "ONLINE"]),
   notes: z.string().optional(),
 });
 
@@ -152,7 +152,6 @@ export default function Sessions() {
                     <SelectContent>
                       <SelectItem value="GYM">Gym</SelectItem>
                       <SelectItem value="ONLINE">Online</SelectItem>
-                      <SelectItem value="OUTDOOR">Outdoor</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

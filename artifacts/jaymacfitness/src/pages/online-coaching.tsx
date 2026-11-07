@@ -3,7 +3,7 @@ import { Phone, Mail, ArrowRight, Globe, Video, MessageSquare, Smartphone, Calen
 
 const FAQS_ONLINE = [
   { q: "How does online personal training actually work?", a: "You get a fully bespoke programme delivered through the app, weekly video check-ins to review progress and adjust the plan, and a WhatsApp line straight to me between check-ins." },
-  { q: "What equipment do I need for online coaching?", a: "A phone and some space is enough to start. I build the programme around what you actually have: a gym, a home setup, a hotel room or a park." },
+  { q: "What equipment do I need for online coaching?", a: "A phone and some space is enough to start. I build the programme around what you actually have: a gym, a home setup or minimal equipment when travelling." },
   { q: "How much does online coaching cost?", a: "£120 a month, rolling monthly. No contract." },
   { q: "Do you coach people outside the UK?", a: "Yes. I'm based in Birmingham (UK time) and have coached online clients in five countries. We'll schedule check-ins at a time that works for both of us." },
   { q: "How do video form reviews work?", a: "Record your key lifts on your phone and send them over WhatsApp or the app. I'll come back with corrections and cues." },
@@ -41,13 +41,13 @@ export default function OnlineCoaching() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <p className="text-[#C9A45C] font-bold uppercase tracking-[0.2em] text-sm mb-4">Online Personal Training</p>
-            <h1 className="headline text-4xl md:text-6xl lg:text-7xl leading-none mb-6">Online Personal Training UK &amp; Worldwide — <span className="text-[#C9A45C]">Custom Plans, Real Results</span></h1>
+            <h1 className="headline text-4xl md:text-6xl lg:text-7xl leading-none mb-6">Your coach in your corner — <span className="text-[#C9A45C]">wherever you train.</span></h1>
             <p className="text-[#E6DFD2]/80 text-lg md:text-xl leading-relaxed max-w-2xl mb-6">
-              High Performance Fit offers online personal coaching and has coached clients in five countries. Custom training programmes, video form reviews, weekly check-ins, and direct WhatsApp access to Jay. Train from anywhere with an internet connection.
+              Get a training plan built around your goals, your equipment and your week. Jay reviews your form, checks in with you every week and stays in your corner on WhatsApp — for £120 a month, with no long contract. Already coached in five countries; ready to coach wherever you are.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:+447753226214" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"><Phone className="h-4 w-4" /> Call Jay — 07753 226 214</a>
-              <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><Mail className="h-4 w-4" /> Book Free Consultation</a>
+              <a href="/contact" className="bg-[#C9A45C] text-[#1A1610] font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#E3C88F] transition-all inline-flex items-center gap-2"><ArrowRight className="h-4 w-4" /> Book a free online coaching chat</a>
+              <a href="/#prices" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> See the packages</a>
             </div>
           </div>
         </div>
@@ -62,10 +62,10 @@ export default function OnlineCoaching() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { icon: Globe, title: "1. Sign Up", desc: "Choose your package and complete a detailed intake about goals, history and available equipment." },
-              { icon: Calendar, title: "2. Get Your Plan", desc: "Receive a fully customised programme via our app, built around your schedule and the kit you have." },
-              { icon: Video, title: "3. Check-Ins", desc: "Weekly 15-minute video calls to review progress, adjust the plan and answer questions." },
-              { icon: MessageSquare, title: "4. Daily Support", desc: "Direct WhatsApp line to Jay for quick questions, motivation and accountability." },
+              { icon: Globe, title: "1. Start with a real conversation", desc: "Tell Jay what you want to change, what has got in the way and what equipment you can use." },
+              { icon: Calendar, title: "2. Get a plan that fits", desc: "Your programme is built around your goals, available kit and the time you actually have." },
+              { icon: Video, title: "3. Get coached every week", desc: "Weekly video check-ins keep the plan moving. Send exercise clips for personal form feedback." },
+              { icon: MessageSquare, title: "4. Stay accountable", desc: "Message Jay on WhatsApp between check-ins for support, answers and adjustments when life changes." },
             ].map((item) => (
               <article key={item.title} className="bg-[#17140F] border border-[#2C261C] rounded p-6">
                 <item.icon className="h-8 w-8 text-[#C9A45C] mb-4" />
@@ -77,8 +77,8 @@ export default function OnlineCoaching() {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-8">
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Clock className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
-              <p className="font-bold">4–5 sessions/week</p>
-              <p className="text-[#E6DFD2]/50 text-sm">Self-directed with structure</p>
+              <p className="font-bold">Your schedule</p>
+              <p className="text-[#E6DFD2]/50 text-sm">A plan built around your real week</p>
             </div>
             <div className="bg-white/[0.02] border border-white/10 rounded p-5 text-center">
               <Smartphone className="h-6 w-6 text-[#C9A45C] mx-auto mb-2" />
@@ -182,9 +182,8 @@ export default function OnlineCoaching() {
             <a href="/contact" className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/5 transition-all inline-flex items-center gap-2"><ArrowRight className="h-4 w-4" /> Book Free Consultation</a>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-[#E6DFD2]/50">
-            <span>Also available: <a href="/personal-training-birmingham" className="text-[#C9A45C] hover:underline">1-to-1 Birmingham</a></span>
-            <span><a href="/group-training" className="text-[#C9A45C] hover:underline">Group Training</a></span>
-            <span><a href="/outdoor-training" className="text-[#C9A45C] hover:underline">Outdoor Training</a></span>
+            <span>Want in-person coaching? <a href="/personal-training-birmingham" className="text-[#C9A45C] hover:underline">Train 1-to-1 in Birmingham</a></span>
+            <span><a href="/group-training" className="text-[#C9A45C] hover:underline">Small group training</a></span>
           </div>
         </div>
       </section>

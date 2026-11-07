@@ -29,15 +29,14 @@ export function SiteNav({ onHome = false, stickyBar = false }: NavProps) {
     { href: `${home}#results`, label: "Results" },
     { href: `${home}#coaching`, label: "How I coach" },
     { href: `${home}#prices`, label: "Prices" },
+    { href: "/online-coaching", label: "Online coaching" },
     { href: `${home}#reviews`, label: "Reviews" },
     { href: "/about-jay", label: "About" },
   ];
   const sheet = [
-    ...primary.slice(0, 4),
+    ...primary.slice(0, 5),
     { href: "/personal-training-birmingham", label: "1-2-1 training" },
     { href: "/group-training", label: "Small group" },
-    { href: "/outdoor-training", label: "Outdoor" },
-    { href: "/online-coaching", label: "Online coaching" },
     { href: "/about-jay", label: "About Jay" },
     { href: "/blog", label: "Blog" },
     { href: `${home}#faq`, label: "FAQ" },

@@ -173,7 +173,6 @@ export default function GroupTraining() {
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-[#E6DFD2]/50">
             <span>Also available: <a href="/personal-training-birmingham" className="text-[#C9A45C] hover:underline">1-to-1 Birmingham</a></span>
             <span><a href="/online-coaching" className="text-[#C9A45C] hover:underline">Online Coaching</a></span>
-            <span><a href="/outdoor-training" className="text-[#C9A45C] hover:underline">Outdoor Training</a></span>
           </div>
         </div>
       </section>

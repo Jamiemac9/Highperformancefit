@@ -10,13 +10,13 @@ type FAQItem = {
 const PRICING: FAQItem[] = [
   {
     q: "How much does a personal trainer cost in Birmingham?",
-    direct: "Sessions start from \u00a345 per hour when bought in a block. Single sessions are \u00a355. Monthly packages with payment plans are also available.",
-    detail: "Pricing in Birmingham varies widely depending on experience, location and whether you're training in a commercial gym or independently. At High Performance Fit, you're paying for 13 years of experience and a programme that's built specifically for you\u2014not a generic template. Fresh Start is \u00a3250 for five 1-2-1 sessions, 1-2-1 Monthly is \u00a3280 a month for eight sessions, and online coaching is \u00a3120 a month.",
+    direct: "Fresh Start is \u00a3250 for five 1-to-1 sessions. 1-to-1 Monthly is \u00a3280 for eight sessions, Small Group Block is \u00a3200 for eight, and Online Coaching is \u00a3120 a month.",
+    detail: "Pricing in Birmingham varies by experience, location and the type of coaching you choose. At High Performance Fit, you get 13 years of coaching experience and a programme built specifically for you—not a generic template. Choose coached 1-to-1 or small-group sessions in Kings Heath, or online coaching wherever you are.",
   },
   {
     q: "Is online coaching cheaper than in-person training?",
-    direct: "Yes. Online coaching starts from \u00a349 per week compared to \u00a345\u2013\u00a355 per in-person session, but the value comes from daily access and flexibility rather than just the price tag.",
-    detail: "With online coaching you get a fully custom programme, video form reviews, weekly 15-minute check-in calls and daily WhatsApp access. Many clients actually progress faster online because they're training more frequently and getting feedback between sessions. It's not \u2018cheaper and worse\u2019\u2014it's a different model that suits busy people, travellers and those who already know their way around a gym.",
+    direct: "Online Coaching is \u00a3120 a month, rolling monthly with no long contract. 1-to-1 sessions start at \u00a335 each in the monthly package.",
+    detail: "Online coaching includes a personal training plan built around your goals, equipment and week, weekly video check-ins, exercise form reviews and direct WhatsApp support from Jay. Choose it if you want expert coaching and accountability while training on your own schedule.",
   },
   {
     q: "Do you offer payment plans?",
@@ -77,7 +77,7 @@ const LOGISTICS: FAQItem[] = [
   {
     q: "Where do you train clients in Birmingham?",
     direct: "I'm based at Foundry Gym in Kings Heath and primarily coach clients across South and Central Birmingham. Online coaching is available worldwide.",
-    detail: "Foundry Gym is in Kings Heath, with good equipment and a non-intimidating atmosphere. For outdoor sessions we use Kings Heath Park and Cannon Hill Park. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, Kings Heath is close by. I also have specific area pages for each neighbourhood with local travel details.",
+    detail: "Foundry Gym is in Kings Heath, with good equipment and a non-intimidating atmosphere. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, Kings Heath is close by. I also have specific area pages for each neighbourhood with local travel details.",
   },
   {
     q: "Do I need a gym membership?",
@@ -102,7 +102,7 @@ const LOGISTICS: FAQItem[] = [
   {
     q: "How do I book sessions?",
     direct: "Once you've had your consultation and chosen a package, you book sessions through the client portal or directly with me via WhatsApp.",
-    detail: "The portal shows my real-time availability and lets you book recurring slots\u2014same day and time each week, which is what most clients prefer. You can also book ad-hoc if your schedule is unpredictable. I send reminder texts the day before and confirm any location changes if we're training outdoors.",
+    detail: "The portal shows my real-time availability and lets you book recurring slots\u2014same day and time each week, which is what most clients prefer. You can also book ad-hoc if your schedule is unpredictable. Online clients train on their own schedule and use weekly check-ins to keep progressing.",
   },
 ];
 

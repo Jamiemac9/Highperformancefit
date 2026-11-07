@@ -99,15 +99,14 @@ const STEPS: [string, string][] = [
 ];
 
 const WAYS = [
+  { href: "/online-coaching", name: "Online coaching", line: "Personal programming, weekly video check-ins and direct access to Jay — wherever you train.", price: "£120 a month" },
   { href: "/personal-training-birmingham", name: "1-2-1 personal training", line: "The fastest route. Every session is built around you.", price: "from £35 a session" },
   { href: "/group-training", name: "Small group, max 4", line: "Coached properly, with people who notice when you don’t turn up.", price: "£25 a session" },
-  { href: "/outdoor-training", name: "Outdoor training", line: "Kings Heath Park, Cannon Hill Park or your local green space.", price: "on the free chat" },
-  { href: "/online-coaching", name: "Online coaching", line: "Same coach, same standards. A phone and 45 minutes is enough.", price: "£120 a month" },
 ];
 
 const FAQS: [string, string][] = [
   ["I’m really unfit. Will I embarrass myself?", "The first session is the hardest part, and after that it’s just progress. Starting from where you are is the job."],
-  ["Where do you train people?", "I’m based at Foundry Gym in Kings Heath and coach clients across South and Central Birmingham. Outdoor sessions use Kings Heath Park, Cannon Hill Park or a green space near you. Online coaching works anywhere."],
+  ["Where do you train people?", "I’m based at Foundry Gym in Kings Heath and coach clients across South and Central Birmingham. Online coaching is available wherever you are."],
   ["I’ve got an old injury.", "Rehab-aware programming is a big part of what I do, and I’m happy to work alongside your physio. We’ll go through it properly on the free chat."],
   ["How does online coaching work?", "You get a fully bespoke programme, weekly video check-ins and WhatsApp access to me between sessions."],
   ["Is nutrition included?", "Monthly 1-2-1 coaching includes bespoke nutrition guidance. Every other option gets practical guidance that fits your normal day."],
@@ -253,7 +252,7 @@ function Hero() {
         </h1>
         <p className="hpf-lede hpf-fade hpf-fade--1">
           Diets, apps, a gym membership that quietly stopped getting used. Most people who come to me have been through all
-          three. I’m Jay, and I build the plan around the week you actually have.
+          three. I’m Jay, and I build the plan around the week you actually have — at Foundry Gym or online from anywhere.
         </p>
         <div className="hpf-hero__cta hpf-fade hpf-fade--2">
           <BookButton where="hero" />
@@ -262,7 +261,10 @@ function Hero() {
             WhatsApp me
           </a>
         </div>
-        <p className="hpf-small hpf-hero__micro hpf-fade hpf-fade--2">30 minutes at Foundry Gym or on the phone. No contract, no hard sell.</p>
+        <p className="hpf-small hpf-hero__micro hpf-fade hpf-fade--2">
+          30-minute no-pressure chat at Foundry Gym or by phone.{" "}
+          <a className="hpf-link" href="/online-coaching">Online coaching is £120/month.</a>
+        </p>
         <ul className="hpf-proof hpf-fade hpf-fade--3">
           <li>
             <a href="#reviews">
@@ -539,14 +541,14 @@ function Prices() {
     <section id="prices" className="hpf-section" aria-labelledby="prices-title">
       <div className="hpf-wrap">
         <div className="hpf-head">
-          <h2 id="prices-title" className="hpf-h2">What it costs.</h2>
+          <h2 id="prices-title" className="hpf-h2">Choose your coaching package.</h2>
           <p className="hpf-lede">
-            Most people start with Fresh Start, then move to monthly once we’ve found our feet. No membership until you know
-            it’s for you.
+            Start with the support that fits your life: coached sessions in Birmingham or flexible online coaching with Jay.
+            Clear prices, personal plans and no long-term contract.
           </p>
         </div>
         <table className="hpf-prices">
-          <caption className="hpf-sr">Personal training prices</caption>
+          <caption className="hpf-sr">Coaching packages and prices</caption>
           <thead>
             <tr>
               <th scope="col">Option</th>

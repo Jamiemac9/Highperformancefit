@@ -274,7 +274,6 @@ export default function PersonalTrainingBirmingham() {
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-[#E6DFD2]/50">
             <span>Also available: <a href="/online-coaching" className="text-[#C9A45C] hover:underline">Online Coaching</a></span>
             <span><a href="/group-training" className="text-[#C9A45C] hover:underline">Group Training</a></span>
-            <span><a href="/outdoor-training" className="text-[#C9A45C] hover:underline">Outdoor Training</a></span>
           </div>
         </div>
       </section>

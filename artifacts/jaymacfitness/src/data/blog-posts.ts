@@ -215,69 +215,6 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   {
-    slug: "outdoor-personal-training-birmingham-guide",
-    title: "Outdoor Personal Training in Birmingham: A Complete Guide",
-    excerpt:
-      "You don't need a gym to get seriously fit. Birmingham's parks are some of the best free training spaces in the country — here's how to use them.",
-    date: "2026-05-14",
-    dateModified: "2026-05-14",
-    readTime: "8 min read",
-    tags: ["Outdoor Training", "Birmingham"],
-    metaTitle:
-      "Outdoor Personal Training in Birmingham: Complete Guide | High Performance Fit",
-    metaDescription:
-      "A complete guide to outdoor personal training in Birmingham — the best parks, what to expect, what to wear and why training in fresh air gets results.",
-    relatedService: {
-      href: "/outdoor-training",
-      label: "Outdoor Training in Birmingham",
-      blurb:
-        "Kettlebells, natural terrain and fresh air across Birmingham's best parks. Book a free outdoor taster session.",
-    },
-    intro:
-      "Birmingham is greener than most people realise — it has more parks than any other European city. That makes it a brilliant place for outdoor personal training. Whether you hate the gym, love fresh air, or just want something different, here's everything you need to know about training outdoors in Birmingham.",
-    sections: [
-      {
-        heading: "Why outdoor training works",
-        paragraphs: [
-          "Natural terrain challenges your body in ways gym machines can't. Hills build power, uneven ground engages stabilising muscles, and open space lets you move naturally — sprinting, carrying, jumping and crawling. It builds functional strength and mental resilience at the same time.",
-          "There's also a well-documented mental health benefit. Training outdoors lowers stress and lifts mood more than the equivalent indoor session.",
-        ],
-      },
-      {
-        heading: "The best parks for training in Birmingham",
-        list: [
-          "Kings Heath Park — central, quiet mornings, good open grass and paths",
-          "Cannon Hill Park — flat routes, ideal for conditioning and running",
-          "Moseley Park — hills and steps for serious leg and cardio work",
-          "Highbury Park — space and terrain variety for full sessions",
-        ],
-      },
-      {
-        heading: "What a session actually looks like",
-        paragraphs: [
-          [
-            "A typical ",
-            { text: "outdoor training session", href: "/outdoor-training" },
-            " uses portable kit — kettlebells, resistance bands, battle ropes and agility ladders — combined with the environment itself. Benches become step-ups, hills become sprints, and open grass becomes a circuit.",
-          ],
-          "Your coach brings all the equipment. You just bring yourself and the right kit.",
-        ],
-      },
-      {
-        heading: "What to wear and bring",
-        paragraphs: [
-          "Layer up in winter: a base layer, mid-layer and waterproof jacket, plus a hat and gloves. In summer, breathable clothing, sunscreen and a cap. Trainers with good grip matter year-round, and always bring water.",
-        ],
-      },
-      {
-        heading: "What about the weather?",
-        paragraphs: [
-          "Light rain? We train — it's rarely as bad as it looks from the window. Heavy rain or storms? Sessions move to a covered area or indoors as backup. British weather is no excuse; it's part of the challenge.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "personal-training-vs-online-coaching",
     title: "Personal Training vs Online Coaching: Which Is Right for You?",
     excerpt:

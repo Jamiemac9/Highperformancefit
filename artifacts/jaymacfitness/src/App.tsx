@@ -13,7 +13,6 @@ import Register from "./pages/register";
 import PersonalTrainingBirmingham from "./pages/personal-training-birmingham";
 import OnlineCoaching from "./pages/online-coaching";
 import GroupTraining from "./pages/group-training";
-import OutdoorTraining from "./pages/outdoor-training";
 import AboutJay from "./pages/about-jay";
 import Faq from "./pages/faq";
 import Contact from "./pages/contact";
@@ -87,7 +86,7 @@ function App() {
               <Route path="/personal-training-birmingham" element={<MarketingLayout><PersonalTrainingBirmingham /></MarketingLayout>} />
               <Route path="/online-coaching" element={<MarketingLayout><OnlineCoaching /></MarketingLayout>} />
               <Route path="/group-training" element={<MarketingLayout><GroupTraining /></MarketingLayout>} />
-              <Route path="/outdoor-training" element={<MarketingLayout><OutdoorTraining /></MarketingLayout>} />
+              <Route path="/outdoor-training" element={<Navigate to="/online-coaching" replace />} />
               <Route path="/about-jay" element={<MarketingLayout><AboutJay /></MarketingLayout>} />
               <Route path="/faq" element={<MarketingLayout><Faq /></MarketingLayout>} />
               <Route path="/contact" element={<MarketingLayout><Contact /></MarketingLayout>} />

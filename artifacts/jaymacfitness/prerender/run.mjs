@@ -62,7 +62,7 @@ function jsonLdSchema() {
         url: BASE_URL + "/",
         name: "High Performance Fit",
         description:
-          "Real coaching in Kings Heath for people who've tried everything else. 1-2-1, small group, outdoor and online personal training across South Birmingham.",
+          "Personal training in Kings Heath and South Birmingham, with online coaching available wherever you are.",
         publisher: { "@id": `${BASE_URL}/#organization` },
       },
       {
@@ -493,48 +493,11 @@ function groupSchema() {
   });
 }
 
-function outdoorSchema() {
-  return wrapSchema({
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": `${BASE_URL}/outdoor-training/#service`,
-        "name": "Outdoor Personal Training Birmingham",
-        "description": "Outdoor training sessions in Birmingham parks and open spaces. Bodyweight and environment-based workouts using hills, stairs, trees and natural terrain.",
-        "provider": { "@type": "LocalBusiness", "@id": `${BASE_URL}/#localbusiness` },
-        "areaServed": { "@type": "City", "name": "Birmingham" },
-        "serviceType": "Outdoor Training",
-        "offers": {
-          "@type": "Offer",
-          "price": "25.00",
-          "priceCurrency": "GBP",
-          "priceValidUntil": "2027-12-31",
-          "availability": "https://schema.org/InStock",
-          "url": `${BASE_URL}/outdoor-training`,
-        },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${BASE_URL}/outdoor-training/#faqpage`,
-        "mainEntity": [
-          { "@type": "Question", "name": "What happens if it rains during an outdoor session?", "acceptedAnswer": { "@type": "Answer", "text": "Light rain, we train. For anything worse we agree a backup plan, and you will always know in advance if the location changes." } },
-          { "@type": "Question", "name": "What equipment do I need to bring?", "acceptedAnswer": { "@type": "Answer", "text": "Comfortable kit, trainers with grip and a water bottle. Jay brings the equipment." } },
-          { "@type": "Question", "name": "Where exactly do outdoor sessions take place?", "acceptedAnswer": { "@type": "Answer", "text": "Kings Heath Park, Cannon Hill Park or a green space near you. The meeting point is confirmed before each session." } },
-          { "@type": "Question", "name": "How much does outdoor training cost?", "acceptedAnswer": { "@type": "Answer", "text": "Outdoor sessions are priced on the free chat, depending on whether you train 1-2-1 or in a small group." } },
-          { "@type": "Question", "name": "Is outdoor training as effective as gym training?", "acceptedAnswer": { "@type": "Answer", "text": "For most goals, yes. Hills, steps and open space make a proper workout without machines." } },
-          { "@type": "Question", "name": "What should I wear for outdoor training?", "acceptedAnswer": { "@type": "Answer", "text": "Layer up. Winter: base layer, mid-layer, waterproof jacket, hat and gloves. Summer: breathable top, shorts, sunscreen and cap." } },
-        ],
-      },
-    ],
-  });
-}
-
 function faqSchema() {
   const flatFaqs = [
     // Pricing
-    { q: "How much does a personal trainer cost in Birmingham?", a: "Sessions start from \u00a345 per hour when bought in a block. Single sessions are \u00a355. Monthly packages with payment plans are also available. Pricing in Birmingham varies widely depending on experience, location and whether you're training in a commercial gym or independently. At High Performance Fit, you're paying for 13 years of experience and a programme that's built specifically for you\u2014not a generic template. Online coaching starts from \u00a349 per week, which includes your full training programme, weekly check-ins and unlimited WhatsApp support." },
-    { q: "Is online coaching cheaper than in-person training?", a: "Yes. Online coaching starts from \u00a349 per week compared to \u00a345\u2013\u00a355 per in-person session, but the value comes from daily access and flexibility rather than just the price tag. With online coaching you get a fully custom programme, video form reviews, weekly 15-minute check-in calls and daily WhatsApp access. Many clients actually progress faster online because they're training more frequently and getting feedback between sessions. It's not \u2018cheaper and worse\u2019\u2014it's a different model that suits busy people, travellers and those who already know their way around a gym." },
+    { q: "How much does a personal trainer cost in Birmingham?", a: "Fresh Start is \u00a3250 for five 1-to-1 sessions. 1-to-1 Monthly is \u00a3280 for eight sessions, Small Group Block is \u00a3200 for eight, and Online Coaching is \u00a3120 a month. Pricing in Birmingham varies by experience, location and the type of coaching you choose. At High Performance Fit, you get 13 years of coaching experience and a programme built specifically for you—not a generic template. Choose coached 1-to-1 or small-group sessions in Kings Heath, or online coaching wherever you are." },
+    { q: "Is online coaching cheaper than in-person training?", a: "Online Coaching is \u00a3120 a month, rolling monthly with no long contract. 1-to-1 sessions start at \u00a335 each in the monthly package. Online coaching includes a personal training plan built around your goals, equipment and week, weekly video check-ins, exercise form reviews and direct WhatsApp support from Jay. Choose it if you want expert coaching and accountability while training on your own schedule." },
     { q: "Do you offer payment plans?", a: "Yes. Monthly direct debit options are available for all block-booking packages. You can also pay upfront by bank transfer if you prefer. The most popular option is splitting a 10-session block into two monthly payments, or a 24-session transformation package across three months. There's no credit check, no interest and no contract\u2014just a simple standing order that you can cancel with 30 days notice. We set this up during your free consultation so it's one less thing to think about." },
     { q: "What's included in the price?", a: "Every session includes a fully personalised workout, real-time coaching on form and technique, programme adjustments based on your progress, and nutrition guidance. You're not just renting an hour of someone's time. I track your body composition, adjust your programme every 2\u20134 weeks, review your nutrition via WhatsApp, and provide homework exercises for the days we don't train together. Online clients get all of this plus video form reviews and a training app that updates your programme automatically." },
     { q: "Are there any hidden fees or contracts?", a: "No hidden fees and no contracts. You pay for the sessions you book and you can stop at any time. The price you see is the price you pay. There's no joining fee, no admin charge and no cancellation penalty (beyond the 24-hour notice policy for individual sessions). I don't believe in locking people in\u2014if the coaching is working, you'll want to continue. If it's not, you shouldn't be stuck." },
@@ -547,12 +510,12 @@ function faqSchema() {
     { q: "Can I train with a partner or friend?", a: "Yes. Group training is available for 3\u20136 people. Partner training (2 people) is also popular and costs less per person than 1-to-1. Training with a partner or friend is one of the most effective ways to stay consistent. I programme sessions that work for both of you, adjusting exercises and weights individually while keeping you moving together. Small groups of 3\u20134 friends or colleagues are also common. The energy is higher, the accountability is stronger, and the cost per person drops significantly." },
     { q: "Do you help with nutrition and diet?", a: "Yes. Nutrition guidance is included in every package. I don't just tell you what to eat\u2014I teach you how to eat for your goals. Most people know roughly what they should be eating; the gap is in execution. I help you build meals around protein targets, manage portions without weighing everything, and navigate social situations and travel. For clients who want more structure, full meal plans with recipes and shopping lists are available as an add-on. The approach is always sustainable, not restrictive." },
     // Logistics
-    { q: "Where do you train clients in Birmingham?", a: "I'm based at Foundry Gym in Kings Heath and primarily coach clients across South and Central Birmingham. Online coaching is available worldwide. Foundry Gym is just off the Kings Heath High Street with free parking, good equipment and a non-intimidating atmosphere. For outdoor sessions we use Kings Heath Park and Cannon Hill Park. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, you're within 10\u201320 minutes by car or bus. I also have specific area pages for each neighbourhood with local travel details." },
+    { q: "Where do you train clients in Birmingham?", a: "I'm based at Foundry Gym in Kings Heath and primarily coach clients across South and Central Birmingham. Online coaching is available worldwide. Foundry Gym is in Kings Heath, with good equipment and a non-intimidating atmosphere. If you're based in Edgbaston, Moseley, Harborne or Selly Oak, Kings Heath is close by. I also have specific area pages for each neighbourhood with local travel details." },
     { q: "Do I need a gym membership?", a: "No. Your training package includes access to Foundry Gym during your sessions. You don't need a separate membership. This is one of the biggest advantages of training with an independent PT in a private facility. You show up for your session, train, and leave. No monthly gym fees, no crowded commercial gym floor, no waiting for equipment. For online clients, you can train wherever you have access to equipment\u2014home gym, commercial gym or even a hotel gym while travelling." },
     { q: "What should I bring to my first session?", a: "Comfortable training kit, indoor trainers, a water bottle and a towel. That's it\u2014everything else is provided at the gym. I'll also ask you to complete a short health questionnaire before your first session and bring any relevant medical information if you have injuries or conditions. Don't worry about being \u2018gym ready\u2019\u2014I've trained people in their work clothes when they came straight from the office. Just show up willing to work." },
     { q: "How do online sessions work?", a: "You complete an intake form, receive a custom programme via our app, and train on your own schedule. I review your form via video, check in weekly by video call, and answer questions on WhatsApp daily. The programme updates automatically as you progress\u2014no more guessing what to do at the gym. You film key exercises and send them to me for form feedback, usually within a few hours. The weekly check-in is 15 minutes where we review your week, adjust the plan and troubleshoot any issues. Many online clients say the daily WhatsApp access is the most valuable part\u2014they've never had that level of support before." },
     { q: "What if I need to cancel or reschedule?", a: "Give 24 hours notice and we'll reschedule at no charge. Cancellations within 24 hours may be charged at the coach's discretion. I understand that life happens\u2014work meetings run over, kids get ill, trains get cancelled. The 24-hour policy is fair and protects both of us. For regular clients with genuine emergencies, I'm flexible. I also offer a \u2018session bank\u2019 option where you can roll unused sessions into the following month if you're going on holiday or have a busy period at work." },
-    { q: "How do I book sessions?", a: "Once you've had your consultation and chosen a package, you book sessions through the client portal or directly with me via WhatsApp. The portal shows my real-time availability and lets you book recurring slots\u2014same day and time each week, which is what most clients prefer. You can also book ad-hoc if your schedule is unpredictable. I send reminder texts the day before and confirm any location changes if we're training outdoors." },
+    { q: "How do I book sessions?", a: "Once you've had your consultation and chosen a package, you book sessions through the client portal or directly with me via WhatsApp. The portal shows my real-time availability and lets you book recurring slots\u2014same day and time each week, which is what most clients prefer. Online clients train on their own schedule and use weekly check-ins to keep progressing." },
     // Results
     { q: "How quickly will I see results?", a: "Most clients notice changes in energy and strength within 2\u20133 weeks. Visible body composition changes typically show within 6\u20138 weeks with consistent training and nutrition. The timeline depends on your starting point, consistency and how closely you follow the nutrition guidance. Someone training 3x per week and eating well will see faster results than someone training once and winging their diet. I track progress photos and body composition every 4 weeks so you can see changes that the mirror might miss day-to-day. The first result is usually sleeping better and feeling less sluggish\u2014that's your body adapting." },
     { q: "What if I've never trained before?", a: "Absolutely no problem. Most of my clients started as complete beginners. The only requirement is a willingness to show up and work. I teach every exercise from scratch\u2014proper form, breathing, tempo and why we're doing it. Beginners often progress fastest because everything is new stimulus. I start with fundamental movement patterns (squat, hinge, push, pull, carry) and build from there. There's no expectation that you already know how to use gym equipment. In fact, I'd rather teach you correctly from the start than unteach bad habits." },
@@ -669,15 +632,6 @@ const BLOG_POSTS = [
     datePublished: "2026-05-28",
     dateModified: "2026-05-28",
     keywords: ["small group personal training Birmingham", "group fitness training", "is group training worth it"],
-  },
-  {
-    slug: "outdoor-personal-training-birmingham-guide",
-    title: "Outdoor Personal Training in Birmingham: A Complete Guide",
-    metaTitle: "Outdoor Personal Training in Birmingham: Complete Guide | High Performance Fit",
-    description: "A complete guide to outdoor personal training in Birmingham — the best parks, what to expect, what to wear and why training in fresh air gets results.",
-    datePublished: "2026-05-14",
-    dateModified: "2026-05-14",
-    keywords: ["outdoor personal training Birmingham", "outdoor training Birmingham parks", "park workouts Birmingham"],
   },
   {
     slug: "personal-training-vs-online-coaching",
@@ -836,7 +790,7 @@ const routes = [
   {
     route: "/",
     title: "Personal Training Birmingham | High Performance Fit",
-    description: "Personal training in Kings Heath and South Birmingham with Jay. Choose 1-to-1, small group, outdoor or online coaching and book a free consultation.",
+    description: "Personal training in Kings Heath and South Birmingham, plus online coaching with Jay wherever you are. Compare packages and book a free consultation.",
     schema: true,
   },
   {
@@ -847,8 +801,8 @@ const routes = [
   },
   {
     route: "/online-coaching",
-    title: "Online Personal Training UK | High Performance Fit",
-    description: "Personalised online coaching with a training plan, weekly check-ins and direct WhatsApp support from Jay. Train from anywhere with guidance to stay consistent.",
+    title: "Online Coaching UK & Worldwide | High Performance Fit",
+    description: "Get a personal training plan, weekly video check-ins, exercise form reviews and direct support from Jay for £120 a month. Train wherever you are.",
     schema: onlineSchema(),
   },
   {
@@ -856,12 +810,6 @@ const routes = [
     title: "Small Group Training Birmingham | High Performance Fit",
     description: "Small group personal training in Kings Heath, Birmingham, with structured programming and a welcoming mix of abilities. Book a free consultation.",
     schema: groupSchema(),
-  },
-  {
-    route: "/outdoor-training",
-    title: "Outdoor Personal Training Birmingham | High Performance Fit",
-    description: "Outdoor personal training in Kings Heath Park, Cannon Hill Park or a local green space. Train with Jay in the fresh air and book a free consultation.",
-    schema: outdoorSchema(),
   },
   {
     route: "/blog",
@@ -878,13 +826,13 @@ const routes = [
   {
     route: "/personal-trainer-kings-heath",
     title: "Personal Trainer Kings Heath | High Performance Fit",
-    description: "Find personal training in Kings Heath at Foundry Gym. Jay offers 1-to-1, small group and outdoor coaching, with a free consultation to discuss your goals.",
+    description: "Find personal training in Kings Heath at Foundry Gym. Jay offers 1-to-1 and small group coaching, plus online coaching worldwide.",
     schema: areaSchema(areas["kings-heath"]),
   },
   {
     route: "/personal-trainer-moseley",
     title: "Personal Trainer Moseley Birmingham | High Performance Fit",
-    description: "Looking for a personal trainer near Moseley? Train with Jay at Foundry Gym in nearby Kings Heath, with 1-to-1, small group and outdoor coaching options.",
+    description: "Looking for a personal trainer near Moseley? Train with Jay at Foundry Gym in nearby Kings Heath or choose online coaching from anywhere.",
     schema: areaSchema(areas["moseley"]),
   },
   {
@@ -914,7 +862,7 @@ const routes = [
   {
     route: "/faq",
     title: "Personal Training FAQs Birmingham | High Performance Fit",
-    description: "Answers to common questions about personal training in Birmingham, online coaching, small group sessions and outdoor training with High Performance Fit.",
+    description: "Compare personal training packages, small group sessions and online coaching with High Performance Fit.",
     schema: faqSchema(),
   },
   {
@@ -951,7 +899,6 @@ const sitemapSources = {
   "/personal-training-birmingham": ["artifacts/jaymacfitness/src/pages/personal-training-birmingham.tsx"],
   "/online-coaching": ["artifacts/jaymacfitness/src/pages/online-coaching.tsx"],
   "/group-training": ["artifacts/jaymacfitness/src/pages/group-training.tsx"],
-  "/outdoor-training": ["artifacts/jaymacfitness/src/pages/outdoor-training.tsx"],
   "/blog": ["artifacts/jaymacfitness/src/pages/blog.tsx", "artifacts/jaymacfitness/src/data/blog-posts.ts"],
   "/personal-trainer-kings-heath": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
   "/personal-trainer-moseley": ["artifacts/jaymacfitness/src/data/areas.json", "artifacts/jaymacfitness/src/components/AreaLandingPage.tsx"],
@@ -987,7 +934,6 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http:
     "/personal-training-birmingham": "0.9",
     "/online-coaching": "0.9",
     "/group-training": "0.8",
-    "/outdoor-training": "0.8",
     "/blog": "0.7",
     "/personal-trainer-kings-heath": "0.8",
     "/personal-trainer-moseley": "0.8",
@@ -1000,7 +946,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http:
     "/assessment": "0.6",
   };
   const priority = priorities[route.route];
-  const changefreq = ["/", "/personal-training-birmingham", "/online-coaching", "/group-training", "/outdoor-training", "/blog"].includes(route.route)
+  const changefreq = ["/", "/personal-training-birmingham", "/online-coaching", "/group-training", "/blog"].includes(route.route)
     ? "weekly"
     : "monthly";
   return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : route.route}</loc>\n    <lastmod>${sourceLastmod([...sitemapSources[route.route], "artifacts/jaymacfitness/prerender/run.mjs"])}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
