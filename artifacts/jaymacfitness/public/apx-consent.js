@@ -4,6 +4,7 @@
    Install: put this file in the site's public folder and add ONE tag to the page head:
      <script src="/apx-consent.js" defer
              data-ga="G-XXXXXXXXXX"        (GA4 measurement ID, or leave empty)
+             data-gtm=""                   (Google Tag Manager container ID GTM-XXXX, or leave empty)
              data-clarity=""               (Clarity project ID, or leave empty)
              data-privacy="/privacy"       (privacy page; leave empty if the site has none)
              data-accent="#111111"></script>
@@ -12,7 +13,8 @@
    - Nothing third-party loads until the visitor accepts analytics.
    - Clarity gets the Consent API v2 signal, so UK visitors get proper sessions.
    - Reject or withdraw clears _ga*, _clck and _clsk.
-   - If both IDs are empty the script does nothing at all: no banner, no requests.
+   - Tag Manager loads only after consent too, with Consent Mode v2 defaults set to denied first.
+   - If every ID is empty the script does nothing at all: no banner, no requests.
    - Any element with data-cookie-settings reopens the banner.
    - window.apxTrack(name, params) sends a GA4 event only after consent. */
 (function () {
@@ -21,6 +23,7 @@
   function attr(n, d) { var v = me && me.getAttribute(n); return v == null ? d : v.trim(); }
   var GA_ID = attr('data-ga', '');
   var CLARITY_ID = attr('data-clarity', '');
+  var GTM_ID = attr('data-gtm', '');
   var PRIVACY = attr('data-privacy', '');
   var ACCENT = attr('data-accent', '#111111');
   /* The storage key includes which tools are switched on, so adding Clarity later asks everyone again:
@@ -29,7 +32,7 @@
   var MAX_AGE = 1000 * 60 * 60 * 24 * 365;
 
   window.apxTrack = function () {};
-  if (!GA_ID && !CLARITY_ID) return;
+  if (!GA_ID && !CLARITY_ID && !GTM_ID) return;
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
@@ -57,6 +60,14 @@
     document.head.appendChild(s);
     gtag('js', new Date());
     gtag('config', GA_ID);
+  }
+  var gtmLoaded = false;
+  function loadGTM() {
+    if (!GTM_ID || gtmLoaded) return; gtmLoaded = true;
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    document.head.appendChild(s);
   }
   function loadClarity() {
     if (!CLARITY_ID || clarityLoaded) return; clarityLoaded = true;
@@ -93,7 +104,7 @@
       ad_user_data: c.marketing ? 'granted' : 'denied',
       ad_personalization: c.marketing ? 'granted' : 'denied'
     });
-    if (c.analytics) { loadGA(); loadClarity(); } else { clearAnalyticsCookies(); }
+    if (c.analytics) { loadGA(); loadGTM(); loadClarity(); } else { clearAnalyticsCookies(); }
     clarityConsent(c);
   }
   function save(analytics, marketing) {
@@ -103,11 +114,11 @@
   if (current) apply(current);
 
   window.apxTrack = function (name, params) {
-    if (current && current.analytics && GA_ID) gtag('event', name, params || {});
+    if (current && current.analytics && (GA_ID || GTM_ID)) gtag('event', name, params || {});
   };
 
   /* ---------- banner ---------- */
-  var tools = [GA_ID ? 'Google Analytics' : '', CLARITY_ID ? 'Microsoft Clarity, which records clicks and scrolling (anything typed into a form is hidden)' : '']
+  var tools = [(GA_ID || GTM_ID) ? 'Google Analytics' : '', CLARITY_ID ? 'Microsoft Clarity, which records clicks and scrolling (anything typed into a form is hidden)' : '']
     .filter(Boolean).join(', and ');
   var css =
     '.apxcc{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483000;max-width:640px;margin-inline:auto;background:#fff;color:#1a1a1a;border:1px solid #d9d9d9;border-radius:10px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:20px 22px;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:left}' +
