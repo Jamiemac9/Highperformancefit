@@ -782,14 +782,14 @@ function buildHtml(route, rendered, schema = false) {
     `<meta name="description" content="${rendered.helmet.description}" />`
   ).replace(
     /<link rel="canonical" href="[^"]*" \/>/,
-    `<link rel="canonical" href="${BASE_URL}${route === "/" ? "/" : route}" />`
+    `<link rel="canonical" href="${BASE_URL}${route === "/" ? "/" : route + "/"}" />`
   );
 
   // Link previews (WhatsApp, iMessage, socials) read og:/twitter: tags, not
   // <title>, so give every page its own — otherwise a shared link shows the homepage.
   const attr = (s) => s.replace(/"/g, "&quot;");
   const shared = route === "/" ? described : described
-    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${BASE_URL}${route}" />`)
+    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${BASE_URL}${route}/" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${attr(rendered.helmet.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${attr(rendered.helmet.description)}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${attr(rendered.helmet.title)}" />`)
