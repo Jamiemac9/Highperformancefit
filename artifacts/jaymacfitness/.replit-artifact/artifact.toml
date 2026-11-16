@@ -104,6 +104,88 @@ to = "/register/index.html"
 from = "/assessment"
 to = "/assessment/index.html"
 
+# Trailing-slash forms. Replit 301s /page to /page/ because the prerendered folder exists,
+# so /page/ must also map to its own file or it falls through to the homepage shell.
+[[services.production.rewrites]]
+from = "/personal-training-birmingham/"
+to = "/personal-training-birmingham/index.html"
+
+[[services.production.rewrites]]
+from = "/online-coaching/"
+to = "/online-coaching/index.html"
+
+[[services.production.rewrites]]
+from = "/group-training/"
+to = "/group-training/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/"
+to = "/blog/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-kings-heath/"
+to = "/personal-trainer-kings-heath/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-moseley/"
+to = "/personal-trainer-moseley/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-edgbaston/"
+to = "/personal-trainer-edgbaston/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-harborne/"
+to = "/personal-trainer-harborne/index.html"
+
+[[services.production.rewrites]]
+from = "/personal-trainer-selly-oak/"
+to = "/personal-trainer-selly-oak/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/best-personal-trainer-birmingham/"
+to = "/blog/best-personal-trainer-birmingham/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/online-personal-training-cost-uk/"
+to = "/blog/online-personal-training-cost-uk/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/benefits-of-small-group-training/"
+to = "/blog/benefits-of-small-group-training/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/personal-training-vs-online-coaching/"
+to = "/blog/personal-training-vs-online-coaching/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/how-many-personal-training-sessions-per-week/"
+to = "/blog/how-many-personal-training-sessions-per-week/index.html"
+
+[[services.production.rewrites]]
+from = "/about-jay/"
+to = "/about-jay/index.html"
+
+[[services.production.rewrites]]
+from = "/faq/"
+to = "/faq/index.html"
+
+[[services.production.rewrites]]
+from = "/contact/"
+to = "/contact/index.html"
+
+[[services.production.rewrites]]
+from = "/login/"
+to = "/login/index.html"
+
+[[services.production.rewrites]]
+from = "/register/"
+to = "/register/index.html"
+
+[[services.production.rewrites]]
+from = "/assessment/"
+to = "/assessment/index.html"
+
 [[services.production.rewrites]]
 from = "/*"
 to = "/index.html"
