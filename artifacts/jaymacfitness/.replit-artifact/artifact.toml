@@ -81,6 +81,10 @@ from = "/blog/how-many-personal-training-sessions-per-week"
 to = "/blog/how-many-personal-training-sessions-per-week/index.html"
 
 [[services.production.rewrites]]
+from = "/blog/strength-training-after-40"
+to = "/blog/strength-training-after-40/index.html"
+
+[[services.production.rewrites]]
 from = "/about-jay"
 to = "/about-jay/index.html"
 
@@ -161,6 +165,10 @@ to = "/blog/personal-training-vs-online-coaching/index.html"
 [[services.production.rewrites]]
 from = "/blog/how-many-personal-training-sessions-per-week/"
 to = "/blog/how-many-personal-training-sessions-per-week/index.html"
+
+[[services.production.rewrites]]
+from = "/blog/strength-training-after-40/"
+to = "/blog/strength-training-after-40/index.html"
 
 [[services.production.rewrites]]
 from = "/about-jay/"
