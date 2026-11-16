@@ -653,37 +653,91 @@ const BLOG_POSTS = [
   },
 ];
 
+const generatedCmsPosts = JSON.parse(fs.readFileSync(
+  path.resolve(__dirname, "../src/data/blog-posts-cms.generated.json"),
+  "utf-8",
+));
+const hardcodedSlugs = new Set(BLOG_POSTS.map((post) => post.slug));
+for (const post of generatedCmsPosts) {
+  if (!post || typeof post.slug !== "string" || hardcodedSlugs.has(post.slug)) continue;
+  const dateOnly = (value, fallback = "") => {
+    if (typeof value !== "string" || !value) return fallback;
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? value.slice(0, 10) : parsed.toISOString().slice(0, 10);
+  };
+  const datePublished = dateOnly(post.published_at);
+  if (!datePublished || typeof post.title !== "string") continue;
+  BLOG_POSTS.push({
+    slug: post.slug,
+    title: post.title,
+    metaTitle: typeof post.meta_title === "string" ? post.meta_title : post.title,
+    description: typeof post.meta_description === "string" ? post.meta_description : post.excerpt || "",
+    excerpt: typeof post.excerpt === "string" ? post.excerpt : "",
+    datePublished,
+    dateModified: typeof post.updated_at === "string" && post.updated_at
+      ? post.updated_at
+      : datePublished,
+    keywords: Array.isArray(post.tags) ? post.tags : [],
+    faq: Array.isArray(post.faq) ? post.faq.map((item) => ({
+      question: typeof item?.question === "string" ? item.question : item?.q,
+      answer: typeof item?.answer === "string" ? item.answer : item?.a,
+    })).filter((item) => typeof item.question === "string" && typeof item.answer === "string") : [],
+  });
+}
+BLOG_POSTS.sort((a, b) => b.datePublished.localeCompare(a.datePublished));
+
 function blogPostSchema(post) {
   const url = `${BASE_URL}/blog/${post.slug}`;
   return wrapSchema({
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `${url}/#blogposting`,
-    "mainEntityOfPage": { "@type": "WebPage", "@id": url },
-    "headline": post.title,
-    "description": post.description,
-    "url": url,
-    "datePublished": post.datePublished,
-    "dateModified": post.dateModified || post.datePublished,
-    "keywords": post.keywords.join(", "),
-    "image": `${BASE_URL}/og-coaching.jpg`,
-    "inLanguage": "en-GB",
-    "author": {
-      "@type": "Person",
-      "name": "Jay",
-      "url": `${BASE_URL}/about-jay`,
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "High Performance Fit",
-      "@id": `${BASE_URL}/#organization`,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${BASE_URL}/images/site/hpf-logo-192.png`,
-        "width": 189,
-        "height": 192,
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}/#blogposting`,
+        "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+        "headline": post.title,
+        "description": post.description,
+        "url": url,
+        "datePublished": post.datePublished,
+        "dateModified": post.dateModified || post.datePublished,
+        "keywords": post.keywords.join(", "),
+        "image": `${BASE_URL}/og-coaching.jpg`,
+        "inLanguage": "en-GB",
+        "author": {
+          "@type": "Person",
+          "name": "Jay Mac",
+          "jobTitle": "Level 4 Personal Trainer",
+          "url": `${BASE_URL}/about-jay`,
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "High Performance Fit",
+          "@id": `${BASE_URL}/#organization`,
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${BASE_URL}/images/site/hpf-logo-192.png`,
+            "width": 189,
+            "height": 192,
+          },
+        },
       },
-    },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${BASE_URL}/blog` },
+          { "@type": "ListItem", "position": 3, "name": post.title, "item": url },
+        ],
+      },
+      ...(post.faq?.length ? [{
+        "@type": "FAQPage",
+        "mainEntity": post.faq.map((item) => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+        })),
+      }] : []),
+    ],
   });
 }
 
@@ -822,6 +876,7 @@ const routes = [
     title: post.metaTitle,
     description: post.description,
     schema: blogPostSchema(post),
+    lastmod: post.dateModified || post.datePublished,
   })),
   {
     route: "/personal-trainer-kings-heath",
@@ -927,7 +982,7 @@ function sourceLastmod(files) {
   return dates.sort().at(-1);
 }
 
-const sitemapPages = routes.filter((route) => sitemapSources[route.route]);
+const sitemapPages = routes.filter((route) => sitemapSources[route.route] || route.route.startsWith("/blog/"));
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapPages.map((route) => {
   const priorities = {
     "/": "1.0",
@@ -945,14 +1000,31 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http:
     "/contact": "0.5",
     "/assessment": "0.6",
   };
-  const priority = priorities[route.route];
+  const priority = priorities[route.route] || (route.route.startsWith("/blog/") ? "0.6" : "0.5");
   const changefreq = ["/", "/personal-training-birmingham", "/online-coaching", "/group-training", "/blog"].includes(route.route)
     ? "weekly"
     : "monthly";
-  return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : route.route}</loc>\n    <lastmod>${sourceLastmod([...sitemapSources[route.route], "artifacts/jaymacfitness/prerender/run.mjs"])}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  const lastmod = route.lastmod || sourceLastmod([...sitemapSources[route.route], "artifacts/jaymacfitness/prerender/run.mjs"]);
+  return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : route.route}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 }).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(OUT_DIR, "sitemap.xml"), sitemapXml, "utf-8");
 fs.writeFileSync(path.resolve(__dirname, "../public/sitemap.xml"), sitemapXml, "utf-8");
+
+const llmsTxt = `# High Performance Fit
+
+> High Performance Fit is Jay Mac's coaching service. Jay is a Level 4 personal trainer with 13 years' experience, based around Solihull and Foundry Gym in Kings Heath, Birmingham. He offers online and in-person coaching, including rehab-aware training adapted around a client's needs.
+
+## Key service pages
+- [Personal training in Birmingham](https://highperformancefit.co.uk/personal-training-birmingham)
+- [Online coaching](https://highperformancefit.co.uk/online-coaching)
+- [Small group training](https://highperformancefit.co.uk/group-training)
+- [About Jay](https://highperformancefit.co.uk/about-jay)
+
+## Blog articles
+${BLOG_POSTS.map((post) => `- [${post.title}](https://highperformancefit.co.uk/blog/${post.slug}) — ${(post.excerpt || post.description || "").replace(/\s+/g, " ").trim()}`).join("\n")}
+`;
+fs.writeFileSync(path.join(OUT_DIR, "llms.txt"), llmsTxt, "utf-8");
+fs.writeFileSync(path.resolve(__dirname, "../public/llms.txt"), llmsTxt, "utf-8");
 
 for (const r of routes) {
   const rendered = await prerenderRoute(r);

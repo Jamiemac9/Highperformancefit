@@ -7,4 +7,40 @@ Disallow: /dashboard
 Disallow: /portal
 Disallow: /api
 
+User-agent: GPTBot
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /portal
+Disallow: /api
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /portal
+Disallow: /api
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /portal
+Disallow: /api
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /portal
+Disallow: /api
+
 Sitemap: https://highperformancefit.co.uk/sitemap.xml

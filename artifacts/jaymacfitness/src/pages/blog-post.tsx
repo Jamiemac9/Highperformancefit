@@ -10,6 +10,7 @@ import {
 
 function Segment({ segment }: { segment: BlogSegment }) {
   if (typeof segment === "string") return <>{segment}</>;
+  if (!segment.href) return <>{segment.text}</>;
   return (
     <Link to={segment.href} className="text-[#C9A45C] font-semibold hover:underline">
       {segment.text}
@@ -28,6 +29,11 @@ function Paragraph({ paragraph }: { paragraph: BlogParagraph }) {
       ))}
     </p>
   );
+}
+
+function displayDate(value: string): string {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toISOString().slice(0, 10);
 }
 
 export default function BlogPost() {
@@ -61,12 +67,14 @@ export default function BlogPost() {
               ))}
             </div>
             <h1 className="headline text-4xl md:text-6xl leading-[1.05] mb-6">{post.title}</h1>
-            <div className="flex items-center gap-4 text-sm text-[#E6DFD2]/50">
-              <span>{post.date}</span>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#E6DFD2]/50">
+              <time dateTime={post.date}>Published {post.date}</time>
+              <span>Last updated {displayDate(post.dateModified || post.date)}</span>
               <span className="flex items-center gap-1">
                 <Clock className="h-3.5 w-3.5" /> {post.readTime}
               </span>
             </div>
+            <p className="mt-3 text-sm text-[#E6DFD2]/60">By Jay Mac, Level 4 PT</p>
           </div>
         </div>
       </section>
@@ -98,6 +106,20 @@ export default function BlogPost() {
               )}
             </section>
           ))}
+
+          {post.faq?.length ? (
+            <section className="mt-12" aria-labelledby="blog-faq-heading">
+              <h2 id="blog-faq-heading" className="headline text-2xl md:text-3xl mb-5 text-white">FAQs</h2>
+              <div className="space-y-3">
+                {post.faq.map((item, index) => (
+                  <details key={`${item.question}-${index}`} className="group border border-[#2C261C] rounded-lg p-5">
+                    <summary className="cursor-pointer font-semibold text-[#E6DFD2]">{item.question}</summary>
+                    <p className="text-[#E6DFD2]/75 leading-relaxed mt-3">{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           {/* Related service callout */}
           <aside className="mt-14 bg-[#17140F] border border-[#C9A45C]/30 rounded-xl p-6 md:p-8">

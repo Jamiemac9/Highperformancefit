@@ -105,6 +105,10 @@ from = "/assessment"
 to = "/assessment/index.html"
 
 [[services.production.rewrites]]
+from = "/blog/*"
+to = "/blog/*/index.html"
+
+[[services.production.rewrites]]
 from = "/*"
 to = "/index.html"
 

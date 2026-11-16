@@ -1,24 +1,16 @@
 # High Performance Fit
 
-> Personal training and online coaching based at Foundry Gym in Kings Heath, Birmingham.
+> High Performance Fit is Jay Mac's coaching service. Jay is a Level 4 personal trainer with 13 years' experience, based around Solihull and Foundry Gym in Kings Heath, Birmingham. He offers online and in-person coaching, including rehab-aware training adapted around a client's needs.
 
-## Main pages
-- [Home](https://highperformancefit.co.uk/)
+## Key service pages
 - [Personal training in Birmingham](https://highperformancefit.co.uk/personal-training-birmingham)
 - [Online coaching](https://highperformancefit.co.uk/online-coaching)
 - [Small group training](https://highperformancefit.co.uk/group-training)
-- [Training tips and fitness advice](https://highperformancefit.co.uk/blog)
 - [About Jay](https://highperformancefit.co.uk/about-jay)
-- [Frequently asked questions](https://highperformancefit.co.uk/faq)
-- [Contact](https://highperformancefit.co.uk/contact)
-- [Free training assessment](https://highperformancefit.co.uk/assessment)
 
-## South Birmingham area pages
-- [Personal trainer in Kings Heath](https://highperformancefit.co.uk/personal-trainer-kings-heath)
-- [Personal trainer in Moseley](https://highperformancefit.co.uk/personal-trainer-moseley)
-- [Personal trainer in Edgbaston](https://highperformancefit.co.uk/personal-trainer-edgbaston)
-- [Personal trainer in Harborne](https://highperformancefit.co.uk/personal-trainer-harborne)
-- [Personal trainer in Selly Oak](https://highperformancefit.co.uk/personal-trainer-selly-oak)
-
-## Other resources
-- [Sitemap](https://highperformancefit.co.uk/sitemap.xml)
+## Blog articles
+- [How to Find the Best Personal Trainer in Birmingham](https://highperformancefit.co.uk/blog/best-personal-trainer-birmingham) — Looking for the best personal trainer in Birmingham? Learn what qualifications, experience and questions actually matter before you book — from a coach with 13 years in the industry.
+- [How Much Does Online Personal Training Cost in the UK?](https://highperformancefit.co.uk/blog/online-personal-training-cost-uk) — A clear breakdown of online personal training cost in the UK in 2026 — typical monthly prices, what's included, and how to tell if a coach is worth it.
+- [Is Group Fitness Training Worth It? The Case for Small Group PT](https://highperformancefit.co.uk/blog/benefits-of-small-group-training) — Small group personal training in Birmingham blends affordability, accountability and expert coaching. Learn how it works, what it costs and who it suits best.
+- [Personal Training vs Online Coaching: Which Is Right for You?](https://highperformancefit.co.uk/blog/personal-training-vs-online-coaching) — Personal training vs online coaching compared honestly — cost, accountability, flexibility and results — so you can choose the right option for your goals.
+- [How Many Personal Training Sessions Do You Really Need Per Week?](https://highperformancefit.co.uk/blog/how-many-personal-training-sessions-per-week) — How many personal training sessions per week do you actually need? A practical guide to training frequency for beginners, weight loss and strength goals.

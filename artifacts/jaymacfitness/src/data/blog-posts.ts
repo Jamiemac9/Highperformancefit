@@ -1,14 +1,20 @@
 // Blog content lives here so both the list page and the individual post pages
 // share a single source of truth. Schema for prerendering is defined
 // separately in prerender/run.mjs (which cannot import TypeScript).
+import cmsPosts from "./blog-posts-cms.generated.json";
 
-export type BlogSegment = string | { text: string; href: string };
+export type BlogSegment = string | { text: string; href?: string };
 export type BlogParagraph = string | BlogSegment[];
 
 export interface BlogSection {
   heading?: string;
   paragraphs?: BlogParagraph[];
   list?: string[];
+}
+
+export interface BlogFAQ {
+  question: string;
+  answer: string;
 }
 
 export interface BlogPost {
@@ -24,9 +30,10 @@ export interface BlogPost {
   relatedService: { href: string; label: string; blurb: string };
   intro: string;
   sections: BlogSection[];
+  faq?: BlogFAQ[];
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+const HARDCODED_POSTS: BlogPost[] = [
   {
     slug: "best-personal-trainer-birmingham",
     title: "How to Find the Best Personal Trainer in Birmingham",
@@ -336,6 +343,83 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
 ];
+
+const ONLINE_SERVICE = {
+  href: "/online-coaching",
+  label: "Online Coaching Worldwide",
+  blurb: "Get a custom programme, weekly check-ins and direct support from Jay wherever you train.",
+};
+
+function dateOnly(value: unknown, fallback = ""): string {
+  if (typeof value !== "string" || !value) return fallback;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value.slice(0, 10) : date.toISOString().slice(0, 10);
+}
+
+function asFaq(value: unknown): BlogFAQ[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const items = value.map((item) => {
+    if (!item || typeof item !== "object") return undefined;
+    const entry = item as Record<string, unknown>;
+    const question = typeof entry.question === "string" ? entry.question : entry.q;
+    const answer = typeof entry.answer === "string" ? entry.answer : entry.a;
+    return typeof question === "string" && typeof answer === "string"
+      ? { question, answer }
+      : undefined;
+  }).filter((item): item is BlogFAQ => item !== undefined);
+  return items.length ? items : undefined;
+}
+
+function asCmsPost(value: unknown): BlogPost | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const post = value as Record<string, unknown>;
+  if (typeof post.slug !== "string" || typeof post.title !== "string") return undefined;
+  const published = dateOnly(post.published_at);
+  if (!published || typeof post.excerpt !== "string") return undefined;
+  const related = post.related_service;
+  const relatedService = related && typeof related === "object" &&
+    typeof (related as BlogPost["relatedService"]).href === "string" &&
+    typeof (related as BlogPost["relatedService"]).label === "string" &&
+    typeof (related as BlogPost["relatedService"]).blurb === "string"
+      ? related as BlogPost["relatedService"]
+      : typeof related === "string" && related.trim()
+        ? {
+            href: related.startsWith("/") ? related : `/${related}`,
+            label: related.replace(/^\/|\/$/g, "").split(/[-/]/).map((word) => word[0]?.toUpperCase() + word.slice(1)).join(" "),
+            blurb: typeof post.excerpt === "string" ? post.excerpt : ONLINE_SERVICE.blurb,
+          }
+        : ONLINE_SERVICE;
+  const sections = Array.isArray(post.sections) ? post.sections as BlogSection[] : [];
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    date: published,
+    dateModified: typeof post.updated_at === "string" && post.updated_at
+      ? post.updated_at
+      : published,
+    readTime: typeof post.read_time === "string"
+      ? post.read_time
+      : typeof post.read_time === "number"
+        ? `${post.read_time} min read`
+        : "5 min read",
+    tags: Array.isArray(post.tags) ? post.tags.filter((tag): tag is string => typeof tag === "string") : [],
+    metaTitle: typeof post.meta_title === "string" ? post.meta_title : post.title,
+    metaDescription: typeof post.meta_description === "string" ? post.meta_description : post.excerpt,
+    relatedService,
+    intro: typeof post.intro === "string" ? post.intro : post.excerpt,
+    sections,
+    faq: asFaq(post.faq),
+  };
+}
+
+const hardcodedSlugs = new Set(HARDCODED_POSTS.map((post) => post.slug));
+const CMS_POSTS = (cmsPosts as unknown[])
+  .map(asCmsPost)
+  .filter((post): post is BlogPost => post !== undefined && !hardcodedSlugs.has(post.slug));
+
+export const BLOG_POSTS: BlogPost[] = [...HARDCODED_POSTS, ...CMS_POSTS]
+  .sort((a, b) => b.date.localeCompare(a.date));
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
