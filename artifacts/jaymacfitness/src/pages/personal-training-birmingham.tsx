@@ -153,6 +153,12 @@ export default function PersonalTrainingBirmingham() {
               <p className="text-[#E6DFD2]/50 text-sm">On 1-2-1 Monthly</p>
             </div>
           </div>
+          <p className="max-w-3xl mx-auto mt-8 text-center text-[#E6DFD2]/70">
+            Starting strength training after 40? Read our{" "}
+            <a href="/blog/strength-training-after-40" className="text-[#C9A45C] hover:underline">
+              sensible first 12-week guide
+            </a>.
+          </p>
         </div>
       </section>
 

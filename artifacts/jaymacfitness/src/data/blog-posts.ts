@@ -317,6 +317,14 @@ const HARDCODED_POSTS: BlogPost[] = [
             },
             ", two coached sessions a week is enough for the vast majority of people to make steady, visible progress — especially beginners.",
           ],
+          [
+            "If you're over 40 and new to strength work, read our ",
+            {
+              text: "sensible first 12-week strength training plan",
+              href: "/blog/strength-training-after-40",
+            },
+            ".",
+          ],
         ],
       },
       {
@@ -338,6 +346,99 @@ const HARDCODED_POSTS: BlogPost[] = [
         heading: "Quality over quantity",
         paragraphs: [
           "Two focused, well-coached sessions a week will always beat five aimless ones. A good coach makes each session count so you're not wasting time or money chasing volume for its own sake.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "strength-training-after-40",
+    title: "Strength training after 40: a sensible first 12 weeks",
+    excerpt:
+      "If you're over 40 and new to strength training, aim for two sessions a week that work every major muscle group. That's the NHS guideline for adults, and it's a realistic place to start: two sessions, the same handful of movements, and slow, steady progress over 12 weeks.",
+    date: "2026-11-16",
+    dateModified: "2026-11-16",
+    readTime: "5 min read",
+    tags: ["Strength", "Beginners", "Over 40"],
+    metaTitle:
+      "Strength training after 40: a sensible first 12 weeks | High Performance Fit",
+    metaDescription:
+      "The NHS says adults should do strength work on at least 2 days a week. Here is a simple, safe way to build that habit after 40, from a Birmingham personal trainer.",
+    relatedService: {
+      href: "/personal-training-birmingham",
+      label: "1-to-1 Personal Training in Birmingham",
+      blurb:
+        "Work with Jay at Foundry Gym in Kings Heath on a training plan built around your experience, goals and schedule.",
+    },
+    intro:
+      "If you're over 40 and new to strength training, aim for two sessions a week that work every major muscle group. That's the NHS guideline for adults, and it's a realistic place to start: two sessions, the same handful of movements, and slow, steady progress over 12 weeks.",
+    sections: [
+      {
+        heading: "What the guidelines say",
+        paragraphs: [
+          "The NHS physical activity guidelines for adults aged 19 to 64 say you should do strengthening activities that work all the major muscle groups (legs, hips, back, abdomen, chest, shoulders and arms) on at least 2 days a week. Alongside that, they recommend at least 150 minutes of moderate activity or 75 minutes of vigorous activity a week, and cutting down on long periods of sitting.",
+          "For adults aged 65 and over, the NHS says to do activities that improve strength, balance and flexibility on at least 2 days a week.",
+          "Strength work doesn't have to mean a gym. The NHS lists carrying heavy shopping, yoga, pilates, lifting weights, resistance bands and bodyweight exercises such as push-ups as examples.",
+        ],
+      },
+      {
+        heading: "Weeks 1 to 4: learn the movements",
+        paragraphs: [
+          "Two sessions a week, about 30 to 40 minutes each, with at least a day between them.",
+        ],
+        list: [
+          "1. A squat to a chair or bench",
+          "2. A push, such as a push-up against a wall or bench",
+          "3. A hinge, such as a light deadlift or hip bridge",
+          "4. A pull, such as a band row or dumbbell row",
+          "5. A carry, such as walking with a dumbbell in each hand",
+        ],
+      },
+      {
+        paragraphs: [
+          "Do 2 sets of 8 to 12 easy reps of each. Stop every set with a few good reps left in the tank. The goal this month is good form, not effort.",
+        ],
+      },
+      {
+        heading: "Weeks 5 to 8: add a little load",
+        paragraphs: [
+          "Keep the same five movements. When you can do 12 clean reps on every set, add a small amount of weight or a harder version, and drop back to 8 reps. Move to 3 sets on the movements that feel solid.",
+          "You may start to notice everyday things getting easier: stairs, lifting the shopping, getting up off the floor.",
+        ],
+      },
+      {
+        heading: "Weeks 9 to 12: build the habit",
+        paragraphs: [
+          "Stay at two sessions, or add a third if you're recovering well. Keep a simple log of weights and reps, so you can see progress on paper. By now the session should feel like part of your week rather than something you have to talk yourself into.",
+        ],
+      },
+      {
+        heading: "Three rules that keep it safe",
+        list: [
+          "1. Pain is a stop sign. Muscle tiredness is normal; sharp or joint pain is not.",
+          "2. Progress one thing at a time: weight, reps or sets, never all three at once.",
+          "3. If you have a health condition or haven't exercised in a long time, check with your GP before you start.",
+        ],
+      },
+      {
+        heading: "Want a hand?",
+        paragraphs: [
+          [
+            "If you're in Solihull or Birmingham and want someone to set this up with you and check your form, see ",
+            {
+              text: "personal training in Birmingham",
+              href: "/personal-training-birmingham",
+            },
+            " or ",
+            { text: "get in touch", href: "/contact" },
+            ".",
+          ],
+        ],
+      },
+      {
+        heading: "Sources",
+        list: [
+          "NHS, \"Physical activity guidelines for adults aged 19 to 64\", last reviewed 22 May 2024. https://www.nhs.uk/live-well/exercise/physical-activity-guidelines-for-adults-aged-19-to-64/ (checked 16 November 2026)",
+          "NHS, \"Physical activity guidelines for older adults\", last reviewed 15 August 2024. https://www.nhs.uk/live-well/exercise/physical-activity-guidelines-older-adults/ (checked 16 November 2026)",
         ],
       },
     ],

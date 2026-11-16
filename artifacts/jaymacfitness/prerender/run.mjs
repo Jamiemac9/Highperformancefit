@@ -651,6 +651,15 @@ const BLOG_POSTS = [
     dateModified: "2026-04-16",
     keywords: ["how many personal training sessions per week", "personal training frequency", "how often should I train"],
   },
+  {
+    slug: "strength-training-after-40",
+    title: "Strength training after 40: a sensible first 12 weeks",
+    metaTitle: "Strength training after 40: a sensible first 12 weeks | High Performance Fit",
+    description: "The NHS says adults should do strength work on at least 2 days a week. Here is a simple, safe way to build that habit after 40, from a Birmingham personal trainer.",
+    datePublished: "2026-11-16",
+    dateModified: "2026-11-16",
+    keywords: ["Strength", "Beginners", "Over 40"],
+  },
 ];
 
 const generatedCmsPosts = JSON.parse(fs.readFileSync(
@@ -687,7 +696,7 @@ for (const post of generatedCmsPosts) {
 BLOG_POSTS.sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 
 function blogPostSchema(post) {
-  const url = `${BASE_URL}/blog/${post.slug}`;
+  const url = `${BASE_URL}/blog/${post.slug}/`;
   return wrapSchema({
     "@context": "https://schema.org",
     "@graph": [
@@ -1005,7 +1014,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http:
     ? "weekly"
     : "monthly";
   const lastmod = route.lastmod || sourceLastmod([...sitemapSources[route.route], "artifacts/jaymacfitness/prerender/run.mjs"]);
-  return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : route.route}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  return `  <url>\n    <loc>${BASE_URL}${route.route === "/" ? "/" : `${route.route}/`}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 }).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(OUT_DIR, "sitemap.xml"), sitemapXml, "utf-8");
 fs.writeFileSync(path.resolve(__dirname, "../public/sitemap.xml"), sitemapXml, "utf-8");
